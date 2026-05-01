@@ -1,0 +1,205 @@
+import Image from "next/image";
+
+import { ButtonLink } from "@/components/ButtonLink";
+import { ProductCard } from "@/components/ProductCard";
+import { SectionHeading } from "@/components/SectionHeading";
+import { benefitStrip, products, useCases, whyFrontier } from "@/content/site";
+
+export default function Home() {
+  return (
+    <main id="main">
+      <section className="relative isolate min-h-[82svh] overflow-hidden border-b border-white/10">
+        <Image
+          alt="Industrial worker using assisted reality technology in the field"
+          className="absolute inset-0 z-[-3] h-full w-full object-cover opacity-45 saturate-[0.75]"
+          fill
+          priority
+          sizes="100vw"
+          src="/assets/field-worker.jpg"
+        />
+        <div className="absolute inset-0 z-[-2] bg-[linear-gradient(90deg,rgba(5,7,12,0.98)_0%,rgba(5,7,12,0.86)_46%,rgba(14,27,77,0.38)_100%)]" />
+        <div className="absolute inset-0 z-[-1] bg-[linear-gradient(180deg,rgba(5,7,12,0.25)_0%,rgba(5,7,12,0.90)_100%)]" />
+
+        <div className="mx-auto flex min-h-[82svh] max-w-7xl flex-col justify-end px-4 pb-14 pt-32 sm:px-6 md:pb-20 lg:px-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber">
+            ANZ RealWear Gold Partner
+          </p>
+          <h1 className="mt-6 max-w-5xl text-balance font-display text-5xl leading-[0.94] text-white md:text-7xl lg:text-8xl">
+            Hands-Free Technology for the Frontline
+          </h1>
+          <p className="mt-7 max-w-3xl text-lg leading-8 text-frost/88 md:text-xl">
+            RealWear assisted reality devices for field teams, industrial sites,
+            and connected worker programs across Australia and New Zealand.
+          </p>
+          <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+            <ButtonLink href="/request-quote">Request a Quote</ButtonLink>
+            <ButtonLink href="#products" variant="secondary">
+              View Products
+            </ButtonLink>
+          </div>
+
+          <div className="mt-14 grid max-w-5xl gap-4 border-t border-white/15 pt-6 sm:grid-cols-3">
+            {["Assisted reality", "Connected worker", "Training and support"].map(
+              (item) => (
+                <div key={item}>
+                  <p className="text-xs uppercase tracking-[0.24em] text-smoke">
+                    Frontier capability
+                  </p>
+                  <p className="mt-2 text-lg text-white">{item}</p>
+                </div>
+              )
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8 lg:py-28">
+        <SectionHeading
+          eyebrow="Field reality"
+          title="Frontline workers need information without stopping work"
+        >
+          <p>
+            Handheld screens slow people down when they are wearing PPE, moving
+            through a site, holding tools, or responding to equipment issues.
+            Assisted reality keeps the real world first while bringing experts,
+            work instructions, documents, and visual workflows into view.
+          </p>
+        </SectionHeading>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {[
+            "Keep both hands available for the task",
+            "Bring remote experts into the worker's point of view",
+            "Access documents, checklists, and workflows by voice",
+            "Capture repeatable knowledge from the field"
+          ].map((outcome) => (
+            <div
+              className="rounded-lg border border-white/10 bg-white/[0.045] p-6 text-lg leading-7 text-white"
+              key={outcome}
+            >
+              {outcome}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section
+        className="border-y border-white/10 bg-white/[0.035] px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
+        id="products"
+      >
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            align="center"
+            eyebrow="Product showcase"
+            title="RealWear devices for industrial connected worker programs"
+          >
+            <p>
+              Two focused product paths. One practical goal: equip frontline
+              teams with rugged hands-free technology and the support to deploy
+              it well.
+            </p>
+          </SectionHeading>
+          <div className="mt-12 grid gap-6 lg:grid-cols-2">
+            {products.map((product) => (
+              <ProductCard key={product.slug} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
+        id="use-cases"
+      >
+        <SectionHeading
+          eyebrow="Use cases"
+          title="Built for work that cannot wait for a laptop"
+        >
+          <p>
+            Frontier Wear supports the workflows that make assisted reality
+            useful on real industrial sites, from expert escalation to long-term
+            knowledge transfer.
+          </p>
+        </SectionHeading>
+        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {useCases.map((useCase) => (
+            <article
+              className="rounded-lg border border-white/10 bg-[#080d16] p-6 transition hover:border-blue/45"
+              key={useCase.title}
+            >
+              <h3 className="font-display text-2xl leading-tight text-white">
+                {useCase.title}
+              </h3>
+              <p className="mt-4 text-sm leading-7 text-smoke">{useCase.copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="border-y border-white/10 bg-navy/55">
+        <div className="mx-auto grid max-w-7xl gap-px px-4 py-6 sm:px-6 md:grid-cols-5 lg:px-8">
+          {benefitStrip.map((benefit) => (
+            <div
+              className="border-white/10 px-4 py-7 text-center md:border-l md:first:border-l-0"
+              key={benefit}
+            >
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white">
+                {benefit}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1fr_1.05fr] lg:px-8 lg:py-28">
+        <div>
+          <SectionHeading
+            eyebrow="Why Frontier Wear"
+            title="Specialists for the rollout, not just the device"
+          >
+            <p>
+              Connected worker programs succeed when the hardware, workflow,
+              training, and support model are designed together. Frontier Wear
+              helps teams move from pilot to practical deployment.
+            </p>
+          </SectionHeading>
+          <ButtonLink className="mt-8" href="/request-quote">
+            Talk to a Specialist
+          </ButtonLink>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {whyFrontier.map((reason) => (
+            <div
+              className="rounded-lg border border-white/10 bg-white/[0.045] p-6"
+              key={reason}
+            >
+              <p className="text-xs uppercase tracking-[0.28em] text-amber">
+                Frontier Wear
+              </p>
+              <h3 className="mt-4 font-display text-2xl leading-tight text-white">
+                {reason}
+              </h3>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="px-4 pb-24 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-lg border border-blue/30 bg-[linear-gradient(120deg,rgba(71,112,219,0.20),rgba(255,108,47,0.10),rgba(255,255,255,0.04))] p-8 md:p-14">
+          <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber">
+            Deployment next steps
+          </p>
+          <h2 className="mt-5 max-w-4xl font-display text-4xl leading-tight text-white md:text-6xl">
+            Ready to equip your frontline team?
+          </h2>
+          <p className="mt-5 max-w-2xl text-base leading-8 text-frost/80">
+            Share your team size, sites, and workflow goals. Frontier Wear will
+            help scope the right RealWear device path and deployment support.
+          </p>
+          <ButtonLink className="mt-8" href="/request-quote">
+            Request a Quote
+          </ButtonLink>
+        </div>
+      </section>
+    </main>
+  );
+}

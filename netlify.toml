@@ -1,0 +1,41 @@
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[build.environment]
+  NEXT_TELEMETRY_DISABLED = "1"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[redirects]]
+  from = "/collections/navigator-520"
+  to = "/navigator-520"
+  status = 301
+
+[[redirects]]
+  from = "/collections/navigator-z1"
+  to = "/navigator-z1"
+  status = 301
+
+[[redirects]]
+  from = "/products/realwear-navigator-520"
+  to = "/navigator-520"
+  status = 301
+
+[[redirects]]
+  from = "/products/realwear-navigator-z1-essential-kit"
+  to = "/navigator-z1"
+  status = 301
+
+[[redirects]]
+  from = "/pages/contact"
+  to = "/request-quote"
+  status = 301

@@ -50,17 +50,6 @@ export function ProductDetail({ product }: ProductDetailProps) {
             src={product.image}
             width={heroImageSize.width}
           />
-          {isNavigatorZ1 ? (
-            <Image
-              alt=""
-              aria-hidden="true"
-              className="pointer-events-none absolute bottom-[-18%] right-[-25%] z-[-1] h-[56vh] w-[86vw] object-contain opacity-95 blur-[0.2px] md:right-[-8%] md:h-[68vh] md:w-[46vw]"
-              height={1280}
-              priority
-              src="/assets/navigator-z1-hardhat.png"
-              width={1280}
-            />
-          ) : null}
           <div className="absolute inset-0 z-[-2] bg-[linear-gradient(110deg,#05070c_0%,#08101f_46%,rgba(14,27,77,0.78)_100%)]" />
           <div
             className={
@@ -120,15 +109,16 @@ export function ProductDetail({ product }: ProductDetailProps) {
 
         {isNavigatorZ1 ? (
           <section className="border-y border-white/10 bg-[#f5f6f8]">
-            <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-              <Image
-                alt="Back view of the RealWear Navigator Z1 headset"
-                className="mx-auto h-auto w-full object-contain"
-                height={930}
-                sizes="(min-width: 1280px) 1200px, 100vw"
-                src="/assets/navigator-z1-back.png"
-                width={1503}
-              />
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="relative aspect-[1503/500] overflow-hidden">
+                <Image
+                  alt="Back view of the RealWear Navigator Z1 headset"
+                  className="object-cover object-[50%_55%]"
+                  fill
+                  sizes="(min-width: 1280px) 1200px, 100vw"
+                  src="/assets/navigator-z1-back.png"
+                />
+              </div>
             </div>
           </section>
         ) : null}
@@ -190,21 +180,37 @@ export function ProductDetail({ product }: ProductDetailProps) {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
-          <div className="rounded-lg border border-blue/30 bg-[linear-gradient(120deg,rgba(71,112,219,0.18),rgba(255,108,47,0.10),rgba(255,255,255,0.04))] p-8 md:p-12">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber">
-              Quote support
-            </p>
-            <h2 className="mt-5 max-w-3xl font-display text-3xl leading-tight text-white md:text-5xl">
-              Ready to assess {product.shortName} for your frontline team?
-            </h2>
-            <p className="mt-5 max-w-2xl text-sm leading-7 text-frost/80 md:text-base">
-              Tell us about your sites, team size, and required workflows. We
-              will help you scope devices, accessories, training, and rollout
-              support.
-            </p>
-            <ButtonLink className="mt-8" href="/request-quote">
-              Request a Quote
-            </ButtonLink>
+          <div className="relative overflow-hidden rounded-lg border border-blue/30 bg-[linear-gradient(120deg,rgba(71,112,219,0.18),rgba(255,108,47,0.10),rgba(255,255,255,0.04))] p-8 md:p-12">
+            <div
+              className={
+                isNavigatorZ1 ? "relative z-10 max-w-2xl md:max-w-[58%]" : ""
+              }
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber">
+                Quote support
+              </p>
+              <h2 className="mt-5 max-w-3xl font-display text-3xl leading-tight text-white md:text-5xl">
+                Ready to assess {product.shortName} for your frontline team?
+              </h2>
+              <p className="mt-5 max-w-2xl text-sm leading-7 text-frost/80 md:text-base">
+                Tell us about your sites, team size, and required workflows. We
+                will help you scope devices, accessories, training, and rollout
+                support.
+              </p>
+              <ButtonLink className="mt-8" href="/request-quote">
+                Request a Quote
+              </ButtonLink>
+            </div>
+            {isNavigatorZ1 ? (
+              <Image
+                alt=""
+                aria-hidden="true"
+                className="pointer-events-none relative z-0 mt-8 h-auto w-full object-contain opacity-95 sm:mx-auto sm:max-w-md md:absolute md:bottom-0 md:right-0 md:mt-0 md:h-full md:w-[42%] md:max-w-none md:object-right-bottom"
+                height={1280}
+                src="/assets/navigator-z1-hardhat.png"
+                width={1280}
+              />
+            ) : null}
           </div>
         </section>
       </main>

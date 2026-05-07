@@ -11,6 +11,11 @@ type ProductDetailProps = {
 };
 
 export function ProductDetail({ product }: ProductDetailProps) {
+  const isNavigatorZ1 = product.slug === "navigator-z1";
+  const heroImageSize = isNavigatorZ1
+    ? { height: 2000, width: 2000 }
+    : { height: 894, width: 1445 };
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -35,14 +40,35 @@ export function ProductDetail({ product }: ProductDetailProps) {
           <Image
             alt=""
             aria-hidden="true"
-            className="pointer-events-none absolute bottom-0 right-[-18%] z-[-1] h-[56vh] w-[86vw] object-contain opacity-80 blur-[0.2px] md:right-[-8%] md:h-[72vh] md:w-[55vw]"
-            height={894}
+            className={
+              isNavigatorZ1
+                ? "pointer-events-none absolute bottom-[-8%] right-[3%] z-[-1] h-[50vh] w-[82vw] object-contain opacity-95 blur-[0.2px] md:right-[18%] md:h-[66vh] md:w-[42vw]"
+                : "pointer-events-none absolute bottom-0 right-[-18%] z-[-1] h-[56vh] w-[86vw] object-contain opacity-80 blur-[0.2px] md:right-[-8%] md:h-[72vh] md:w-[55vw]"
+            }
+            height={heroImageSize.height}
             priority
             src={product.image}
-            width={1445}
+            width={heroImageSize.width}
           />
+          {isNavigatorZ1 ? (
+            <Image
+              alt=""
+              aria-hidden="true"
+              className="pointer-events-none absolute bottom-[-18%] right-[-25%] z-[-1] h-[56vh] w-[86vw] object-contain opacity-95 blur-[0.2px] md:right-[-8%] md:h-[68vh] md:w-[46vw]"
+              height={1280}
+              priority
+              src="/assets/navigator-z1-hardhat.png"
+              width={1280}
+            />
+          ) : null}
           <div className="absolute inset-0 z-[-2] bg-[linear-gradient(110deg,#05070c_0%,#08101f_46%,rgba(14,27,77,0.78)_100%)]" />
-          <div className="absolute inset-0 z-[-1] bg-[linear-gradient(90deg,rgba(5,7,12,0.96)_0%,rgba(5,7,12,0.78)_48%,rgba(5,7,12,0.30)_100%)]" />
+          <div
+            className={
+              isNavigatorZ1
+                ? "absolute inset-0 z-[-1] bg-[linear-gradient(90deg,rgba(5,7,12,0.94)_0%,rgba(5,7,12,0.62)_48%,rgba(5,7,12,0.10)_100%)]"
+                : "absolute inset-0 z-[-1] bg-[linear-gradient(90deg,rgba(5,7,12,0.96)_0%,rgba(5,7,12,0.78)_48%,rgba(5,7,12,0.30)_100%)]"
+            }
+          />
           <div className="mx-auto max-w-7xl px-4 pb-20 pt-14 sm:px-6 md:pb-28 lg:px-8">
             <Link
               className="text-sm text-smoke transition hover:text-white"
@@ -91,6 +117,21 @@ export function ProductDetail({ product }: ProductDetailProps) {
             </div>
           </div>
         </section>
+
+        {isNavigatorZ1 ? (
+          <section className="border-y border-white/10 bg-[#f5f6f8]">
+            <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+              <Image
+                alt="Back view of the RealWear Navigator Z1 headset"
+                className="mx-auto h-auto w-full object-contain"
+                height={930}
+                sizes="(min-width: 1280px) 1200px, 100vw"
+                src="/assets/navigator-z1-back.png"
+                width={1503}
+              />
+            </div>
+          </section>
+        ) : null}
 
         <section className="border-y border-white/10 bg-white/[0.035]">
           <div className="mx-auto grid max-w-7xl gap-8 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8">

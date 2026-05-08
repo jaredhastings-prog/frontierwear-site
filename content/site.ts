@@ -30,7 +30,7 @@ export const products = [
       "A practical assisted reality headset for field teams that need hands-free access to experts, documents, inspections, and visual workflows.",
     longSummary:
       "The RealWear Navigator 520 is built for mainstream connected worker programs, giving frontline teams a sharp HyperDisplay, voice control, rugged construction, and a modular 48MP camera in a PPE-friendly wearable.",
-    image: "/assets/navigator-520.png",
+    image: "/assets/navigator520-main.png",
     imageAlt: "RealWear Navigator 520 assisted reality headset",
     href: "/navigator-520",
     productPageTitle: "RealWear Navigator 520 for industrial connected worker programs",
@@ -72,7 +72,7 @@ export const products = [
       "The hazardous-area Navigator for restricted zones where teams still need hands-free communication, documentation, and visual assistance.",
     longSummary:
       "The RealWear Navigator Z1 brings the Navigator platform into restricted and hazardous environments, pairing intrinsically safe certification with a high-performance chipset, HyperDisplay, rugged casing, and included thermal camera capability.",
-    image: "/assets/navigator-z1.png",
+    image: "/assets/navigator-z1-main.png",
     imageAlt: "RealWear Navigator Z1 intrinsically safe assisted reality headset",
     href: "/navigator-z1",
     productPageTitle: "RealWear Navigator Z1 for hazardous industrial environments",

@@ -18,8 +18,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: product.image,
-        width: 1445,
-        height: 894,
+        width: 2000,
+        height: 2000,
         alt: product.imageAlt
       }
     ]

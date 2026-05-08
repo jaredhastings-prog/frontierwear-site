@@ -10,7 +10,16 @@ type ProductDetailProps = {
   product: Product;
 };
 
+const thermalSpecs = [
+  "FLIR thermal module included",
+  "Real-time hotspot detection",
+  "Hands-free inspection workflow",
+  "Built for hazardous/restricted environments"
+];
+
 export function ProductDetail({ product }: ProductDetailProps) {
+  const isNavigatorZ1 = product.slug === "navigator-z1";
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -147,6 +156,67 @@ export function ProductDetail({ product }: ProductDetailProps) {
             </ul>
           </div>
         </section>
+
+        {isNavigatorZ1 ? (
+          <section className="border-y border-white/10 bg-[#05070c] px-4 py-14 sm:px-6 lg:px-8">
+            <div className="relative isolate mx-auto grid max-w-7xl overflow-hidden rounded-lg border border-white/10 bg-[linear-gradient(135deg,rgba(255,84,38,0.14),rgba(8,13,22,0.98)_42%,rgba(71,112,219,0.10))] shadow-glow lg:grid-cols-[0.95fr_1.05fr]">
+              <div className="relative min-h-[17rem] overflow-hidden border-b border-white/10 bg-[#080d16] lg:min-h-[26rem] lg:border-b-0 lg:border-r">
+                <Image
+                  alt="Thermal inspection scenes shown alongside industrial equipment"
+                  className="object-contain p-3 saturate-125 sm:p-4"
+                  fill
+                  sizes="(min-width: 1024px) 46vw, 100vw"
+                  src="/assets/navigator-z1-flir-thermal-scenes.png"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,7,12,0.04),rgba(5,7,12,0.30)_68%,rgba(5,7,12,0.58))]" />
+                <div className="pointer-events-none absolute right-3 top-3 z-10 w-[13.5rem] sm:right-6 sm:top-5 sm:w-[18rem] lg:right-[-1.25rem] lg:top-7 lg:w-[23rem] xl:w-[26rem]">
+                  <div className="absolute inset-8 rounded-full bg-[radial-gradient(circle,rgba(255,84,38,0.42),rgba(255,84,38,0.06)_58%,transparent_74%)] blur-2xl" />
+                  <Image
+                    alt=""
+                    aria-hidden="true"
+                    className="relative h-auto w-full object-contain drop-shadow-[0_24px_54px_rgba(0,0,0,0.55)]"
+                    height={2000}
+                    src="/assets/navigator-z1-flir-camera.png"
+                    width={2000}
+                  />
+                </div>
+              </div>
+              <div className="relative z-20 p-6 sm:p-8 lg:p-10 xl:p-12">
+                <div className="relative mb-6 h-16 w-72 max-w-full overflow-hidden">
+                  <Image
+                    alt="Thermal by FLIR"
+                    className="object-cover"
+                    fill
+                    sizes="288px"
+                    src="/assets/navigator-z1-flir-logo.png"
+                  />
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber">
+                  THERMAL BY FLIR
+                </p>
+                <h2 className="mt-4 max-w-2xl font-display text-3xl leading-tight text-white md:text-5xl">
+                  Integrated thermal vision for hazardous environments
+                </h2>
+                <p className="mt-5 max-w-2xl text-sm leading-7 text-frost/82 md:text-base">
+                  Every Navigator Z1 includes an integrated FLIR thermal camera
+                  for hands-free remote inspection, hotspot detection,
+                  diagnostics, and safer field operations in hazardous and
+                  restricted environments.
+                </p>
+                <div className="mt-7 grid gap-3 sm:grid-cols-2">
+                  {thermalSpecs.map((item) => (
+                    <div
+                      className="rounded-lg border border-white/10 bg-white/[0.055] p-4 text-sm leading-6 text-frost/90"
+                      key={item}
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
           <div className="rounded-lg border border-blue/30 bg-[linear-gradient(120deg,rgba(71,112,219,0.18),rgba(255,108,47,0.10),rgba(255,255,255,0.04))] p-8 md:p-12">

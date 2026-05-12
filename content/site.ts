@@ -30,7 +30,7 @@ export const products = [
       "A practical assisted reality headset for field teams that need hands-free access to experts, documents, inspections, and visual workflows.",
     longSummary:
       "The RealWear Navigator 520 is built for mainstream connected worker programs, giving frontline teams a sharp HyperDisplay, voice control, rugged construction, and a modular 48MP camera in a PPE-friendly wearable.",
-    image: "/assets/navigator-520.png",
+    image: "/assets/navigator520-main.png",
     imageAlt: "RealWear Navigator 520 assisted reality headset",
     href: "/navigator-520",
     productPageTitle: "RealWear Navigator 520 for industrial connected worker programs",
@@ -72,7 +72,7 @@ export const products = [
       "The hazardous-area Navigator for restricted zones where teams still need hands-free communication, documentation, and visual assistance.",
     longSummary:
       "The RealWear Navigator Z1 brings the Navigator platform into restricted and hazardous environments, pairing intrinsically safe certification with a high-performance chipset, HyperDisplay, rugged casing, and included thermal camera capability.",
-    image: "/assets/navigator-z1.png",
+    image: "/assets/navigator-z1-main.png",
     imageAlt: "RealWear Navigator Z1 intrinsically safe assisted reality headset",
     href: "/navigator-z1",
     productPageTitle: "RealWear Navigator Z1 for hazardous industrial environments",
@@ -144,6 +144,81 @@ export const benefitStrip = [
   "Speed up expert support",
   "Capture field knowledge",
   "Support hands-free workflows"
+];
+
+export const customerLogos = [
+  {
+    name: "Islands Petroleum",
+    src: "/assets/customer-logos/islands-petroleum-logo.png"
+  },
+  {
+    name: "INPEX",
+    src: "/assets/customer-logos/inpex-logo.png"
+  },
+  {
+    name: "thyssenkrupp",
+    src: "/assets/customer-logos/thyssenkrupp-logo.png"
+  },
+  {
+    name: "TOMRA",
+    src: "/assets/customer-logos/tomra-logo.png"
+  },
+  {
+    name: "Continental",
+    src: "/assets/customer-logos/continental-logo.png"
+  },
+  {
+    name: "Hitachi",
+    src: "/assets/customer-logos/hitachi-logo.png"
+  },
+  {
+    name: "HIAB",
+    src: "/assets/customer-logos/hiab-logo.png"
+  },
+  {
+    name: "Fresh Country Farms",
+    src: "/assets/customer-logos/fresh-country-farms-logo.png"
+  },
+  {
+    name: "Cook Shire Council",
+    src: "/assets/customer-logos/cook-shire-council-logo.png"
+  },
+  {
+    name: "Australian Antarctic Program",
+    src: "/assets/customer-logos/australian-antarctic-program-logo.png"
+  },
+  {
+    name: "Canon",
+    src: "/assets/customer-logos/canon-logo.png"
+  },
+  {
+    name: "Enaex",
+    src: "/assets/customer-logos/enaex-logo.png"
+  },
+  {
+    name: "BGIS",
+    src: "/assets/customer-logos/bgis-logo.png"
+  },
+  {
+    name: "APA Group",
+    src: "/assets/customer-logos/apa-group-logo.png"
+  },
+  {
+    name: "Obadare Group",
+    src: "/assets/customer-logos/obadare-group-logo.png"
+  },
+  {
+    name: "Sandvik",
+    src: "/assets/customer-logos/sandvik-logo.png"
+  },
+  {
+    name: "DuluxGroup",
+    src: "/assets/customer-logos/duluxgroup-logo.png"
+  },
+  {
+    name: "Polaris Data Centre",
+    src: "/assets/customer-logos/polaris-data-centre-logo.png"
+  }
 ];
 
 export const whyFrontier = [

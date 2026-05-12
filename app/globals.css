@@ -76,6 +76,29 @@ summary::-webkit-details-marker {
   }
 }
 
+.logo-marquee {
+  --logo-marquee-duration: 58s;
+}
+
+.logo-marquee__track {
+  animation: logo-marquee var(--logo-marquee-duration) linear infinite;
+  will-change: transform;
+}
+
+.logo-marquee:hover .logo-marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes logo-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -84,5 +107,15 @@ summary::-webkit-details-marker {
     transition-duration: 0.001ms !important;
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  .logo-marquee__track {
+    flex-wrap: wrap;
+    justify-content: center;
+    transform: none !important;
+  }
+
+  .logo-marquee [data-marquee-duplicate="true"] {
+    display: none;
   }
 }

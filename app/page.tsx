@@ -1,9 +1,16 @@
 import Image from "next/image";
 
 import { ButtonLink } from "@/components/ButtonLink";
+import { LogoMarquee } from "@/components/LogoMarquee";
 import { ProductCard } from "@/components/ProductCard";
 import { SectionHeading } from "@/components/SectionHeading";
-import { benefitStrip, products, useCases, whyFrontier } from "@/content/site";
+import {
+  benefitStrip,
+  customerLogos,
+  products,
+  useCases,
+  whyFrontier
+} from "@/content/site";
 
 export default function Home() {
   return (
@@ -38,17 +45,17 @@ export default function Home() {
             </ButtonLink>
           </div>
 
-          <div className="mt-14 grid max-w-5xl gap-4 border-t border-white/15 pt-6 sm:grid-cols-3">
-            {["Assisted reality", "Connected worker", "Training and support"].map(
-              (item) => (
-                <div key={item}>
-                  <p className="text-xs uppercase tracking-[0.24em] text-smoke">
-                    Frontier capability
-                  </p>
-                  <p className="mt-2 text-lg text-white">{item}</p>
-                </div>
-              )
-            )}
+          <div className="mt-14 grid max-w-6xl gap-px overflow-hidden border-y border-white/15 bg-white/10 sm:grid-cols-2 lg:grid-cols-5">
+            {benefitStrip.map((benefit) => (
+              <div
+                className="bg-graphite/45 px-4 py-5 text-center"
+                key={benefit}
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white">
+                  {benefit}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -79,6 +86,25 @@ export default function Home() {
               {outcome}
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="border-y border-white/10 bg-[#05070c] px-4 py-14 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            align="center"
+            eyebrow="Trusted by"
+            title="Industrial teams deploying connected worker technology"
+          >
+            <p>
+              Frontier Wear supports practical deployments across field
+              operations, infrastructure, manufacturing, resources, logistics,
+              and government teams.
+            </p>
+          </SectionHeading>
+          <div className="mt-10">
+            <LogoMarquee logos={customerLogos} />
+          </div>
         </div>
       </section>
 
@@ -131,21 +157,6 @@ export default function Home() {
               </h3>
               <p className="mt-4 text-sm leading-7 text-smoke">{useCase.copy}</p>
             </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="border-y border-white/10 bg-navy/55">
-        <div className="mx-auto grid max-w-7xl gap-px px-4 py-6 sm:px-6 md:grid-cols-5 lg:px-8">
-          {benefitStrip.map((benefit) => (
-            <div
-              className="border-white/10 px-4 py-7 text-center md:border-l md:first:border-l-0"
-              key={benefit}
-            >
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white">
-                {benefit}
-              </p>
-            </div>
           ))}
         </div>
       </section>

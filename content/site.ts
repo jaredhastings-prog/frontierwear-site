@@ -146,6 +146,81 @@ export const benefitStrip = [
   "Support hands-free workflows"
 ];
 
+export const customerLogos = [
+  {
+    name: "Islands Petroleum",
+    src: "/assets/customer-logos/islands-petroleum-logo.png"
+  },
+  {
+    name: "INPEX",
+    src: "/assets/customer-logos/inpex-logo.png"
+  },
+  {
+    name: "thyssenkrupp",
+    src: "/assets/customer-logos/thyssenkrupp-logo.png"
+  },
+  {
+    name: "TOMRA",
+    src: "/assets/customer-logos/tomra-logo.png"
+  },
+  {
+    name: "Continental",
+    src: "/assets/customer-logos/continental-logo.png"
+  },
+  {
+    name: "Hitachi",
+    src: "/assets/customer-logos/hitachi-logo.png"
+  },
+  {
+    name: "HIAB",
+    src: "/assets/customer-logos/hiab-logo.png"
+  },
+  {
+    name: "Fresh Country Farms",
+    src: "/assets/customer-logos/fresh-country-farms-logo.png"
+  },
+  {
+    name: "Cook Shire Council",
+    src: "/assets/customer-logos/cook-shire-council-logo.png"
+  },
+  {
+    name: "Australian Antarctic Program",
+    src: "/assets/customer-logos/australian-antarctic-program-logo.png"
+  },
+  {
+    name: "Canon",
+    src: "/assets/customer-logos/canon-logo.png"
+  },
+  {
+    name: "Enaex",
+    src: "/assets/customer-logos/enaex-logo.png"
+  },
+  {
+    name: "BGIS",
+    src: "/assets/customer-logos/bgis-logo.png"
+  },
+  {
+    name: "APA Group",
+    src: "/assets/customer-logos/apa-group-logo.png"
+  },
+  {
+    name: "Obadare Group",
+    src: "/assets/customer-logos/obadare-group-logo.png"
+  },
+  {
+    name: "Sandvik",
+    src: "/assets/customer-logos/sandvik-logo.png"
+  },
+  {
+    name: "DuluxGroup",
+    src: "/assets/customer-logos/duluxgroup-logo.png"
+  },
+  {
+    name: "Polaris Data Centre",
+    src: "/assets/customer-logos/polaris-data-centre-logo.png"
+  }
+];
+
 export const whyFrontier = [
   "ANZ RealWear Gold Partner",
   "Connected worker specialists",

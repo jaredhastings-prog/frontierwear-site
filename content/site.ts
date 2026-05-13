@@ -113,26 +113,51 @@ export type Product = (typeof products)[number];
 export const useCases = [
   {
     title: "Remote expert support",
+    image: {
+      alt: "Remote expert support for an industrial field worker",
+      src: "/assets/remote-expert.jpeg",
+      fit: "cover"
+    },
     copy:
       "Connect technicians, engineers, and specialists to the worker's point of view without sending experts across sites."
   },
   {
     title: "Inspections and audits",
+    image: {
+      alt: "Industrial inspection and audit workflow in the field",
+      src: "/assets/inspection-audit.png",
+      fit: "contain"
+    },
     copy:
       "Capture visual evidence, follow workflows, and involve stakeholders while keeping both hands available."
   },
   {
     title: "Maintenance and repair",
+    image: {
+      alt: "Maintenance and repair work supported by hands-free technology",
+      src: "/assets/maintenance-repair.png",
+      fit: "cover"
+    },
     copy:
       "Give field teams live guidance, manuals, schematics, and work instructions in the flow of the task."
   },
   {
     title: "Training and knowledge capture",
+    image: {
+      alt: "Training and field knowledge capture for frontline workers",
+      src: "/assets/training-knowledge.png",
+      fit: "cover"
+    },
     copy:
       "Record expert methods, build repeatable content, and support new workers with practical field knowledge."
   },
   {
     title: "Connected worker programs",
+    image: {
+      alt: "Connected worker program technology on an industrial site",
+      src: "/assets/connected-worker.jpeg",
+      fit: "cover"
+    },
     copy:
       "Extend collaboration platforms to frontline teams with hardware, deployment planning, training, and support."
   }

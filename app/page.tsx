@@ -149,13 +149,31 @@ export default function Home() {
         <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {useCases.map((useCase) => (
             <article
-              className="rounded-lg border border-white/10 bg-[#080d16] p-6 transition hover:border-blue/45"
+              className="overflow-hidden rounded-lg border border-white/10 bg-[#080d16] transition hover:border-blue/45"
               key={useCase.title}
             >
-              <h3 className="font-display text-2xl leading-tight text-white">
-                {useCase.title}
-              </h3>
-              <p className="mt-4 text-sm leading-7 text-smoke">{useCase.copy}</p>
+              <div className="relative h-44 w-full overflow-hidden border-b border-white/10 bg-black/35 sm:h-48">
+                <Image
+                  alt={useCase.image.alt}
+                  className={
+                    useCase.image.fit === "contain"
+                      ? "object-contain p-2"
+                      : "object-cover"
+                  }
+                  fill
+                  loading="lazy"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  src={useCase.image.src}
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="font-display text-2xl leading-tight text-white">
+                  {useCase.title}
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-smoke">
+                  {useCase.copy}
+                </p>
+              </div>
             </article>
           ))}
         </div>

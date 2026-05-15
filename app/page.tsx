@@ -146,16 +146,30 @@ export default function Home() {
             knowledge transfer.
           </p>
         </SectionHeading>
-        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid auto-rows-fr gap-4 md:grid-cols-2 lg:grid-cols-3">
           {useCases.map((useCase) => (
             <article
-              className="rounded-lg border border-white/10 bg-[#080d16] p-6 transition hover:border-blue/45"
+              className="group flex h-full flex-col overflow-hidden rounded-lg border border-white/10 bg-[#080d16] transition duration-300 hover:-translate-y-1 hover:border-blue/45"
               key={useCase.title}
             >
-              <h3 className="font-display text-2xl leading-tight text-white">
-                {useCase.title}
-              </h3>
-              <p className="mt-4 text-sm leading-7 text-smoke">{useCase.copy}</p>
+              <div className="relative aspect-video overflow-hidden border-b border-white/10 bg-white/[0.035]">
+                <Image
+                  alt={useCase.image.alt}
+                  className="object-cover object-center transition duration-500 group-hover:scale-[1.03]"
+                  fill
+                  loading="lazy"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  src={useCase.image.src}
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-6">
+                <h3 className="font-display text-2xl leading-tight text-white">
+                  {useCase.title}
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-smoke">
+                  {useCase.copy}
+                </p>
+              </div>
             </article>
           ))}
         </div>

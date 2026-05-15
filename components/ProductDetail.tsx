@@ -188,27 +188,6 @@ export function ProductDetail({ product }: ProductDetailProps) {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-            <SectionHeading eyebrow="Deployment detail" title="Included kit">
-              <p>
-                Use the quote request form to confirm quantities, accessories,
-                support needs, and the best device path for your sites.
-              </p>
-            </SectionHeading>
-            <ul className="grid gap-3 sm:grid-cols-2">
-              {product.kit.map((item) => (
-                <li
-                  className="rounded-lg border border-white/10 bg-white/[0.045] p-4 text-sm text-frost/90"
-                  key={item}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
         {isNavigatorZ1 ? (
           <section className="border-y border-white/10 bg-[#05070c] px-4 py-14 sm:px-6 lg:px-8">
             <div className="relative isolate mx-auto grid max-w-7xl items-center overflow-hidden rounded-lg border border-white/10 bg-[linear-gradient(135deg,rgba(255,84,38,0.14),rgba(8,13,22,0.98)_42%,rgba(71,112,219,0.10))] shadow-glow lg:grid-cols-[0.95fr_1.05fr]">
@@ -222,7 +201,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
                   width={2006}
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,7,12,0.02),rgba(5,7,12,0.22)_70%,rgba(5,7,12,0.48))]" />
-                <div className="pointer-events-none absolute right-[7%] top-5 z-10 w-[9.5rem] sm:top-7 sm:w-[12rem] lg:top-9 lg:w-[15rem] xl:w-[16.5rem]">
+                <div className="pointer-events-none absolute left-1/2 top-4 z-10 w-32 -translate-x-[8%] sm:top-5 sm:w-40 lg:top-6 lg:w-52 xl:w-56">
                   <div className="absolute inset-5 rounded-full bg-[radial-gradient(circle,rgba(255,84,38,0.38),rgba(255,84,38,0.06)_58%,transparent_74%)] blur-2xl" />
                   <Image
                     alt=""
@@ -270,6 +249,34 @@ export function ProductDetail({ product }: ProductDetailProps) {
             </div>
           </section>
         ) : null}
+
+        <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+            <SectionHeading eyebrow="Deployment detail" title="Included kit">
+              <p>
+                Use the quote request form to confirm quantities, accessories,
+                support needs, and the best device path for your sites.
+              </p>
+            </SectionHeading>
+            <div>
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {product.kit.map((item) => (
+                  <li
+                    className="rounded-lg border border-white/10 bg-white/[0.045] p-4 text-sm text-frost/90"
+                    key={item}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              {isNavigator520 ? (
+                <p className="mt-4 rounded-lg border border-amber/25 bg-amber/10 p-4 text-sm leading-6 text-frost/90">
+                  FLIR thermal camera available as an optional add-on.
+                </p>
+              ) : null}
+            </div>
+          </div>
+        </section>
 
         <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-lg border border-blue/30 bg-[linear-gradient(120deg,rgba(71,112,219,0.18),rgba(255,108,47,0.10),rgba(255,255,255,0.04))] p-8 md:p-12">

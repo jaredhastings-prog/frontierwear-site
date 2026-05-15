@@ -109,6 +109,33 @@ export function ProductDetail({ product }: ProductDetailProps) {
                 View Use Cases
               </ButtonLink>
             </div>
+            {isNavigatorZ1 ? (
+              <div
+                aria-label="Navigator Z1 certifications"
+                className="mt-6 flex items-center gap-4 sm:gap-5"
+              >
+                {[
+                  {
+                    alt: "i.safe MOBILE certification",
+                    src: "/assets/i-safe.png"
+                  },
+                  { alt: "IECEx certification", src: "/assets/iecex.png" }
+                ].map((badge) => (
+                  <div
+                    className="relative h-12 w-12 opacity-85 transition duration-300 hover:opacity-100 sm:h-14 sm:w-14"
+                    key={badge.src}
+                  >
+                    <Image
+                      alt={badge.alt}
+                      className="object-contain"
+                      fill
+                      sizes="(min-width: 640px) 56px, 48px"
+                      src={badge.src}
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : null}
           </div>
         </section>
 

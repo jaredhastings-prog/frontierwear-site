@@ -17,6 +17,23 @@ const thermalSpecs = [
   "Built for hazardous/restricted environments"
 ];
 
+const z1CertificationLogos = [
+  {
+    alt: "i.safe MOBILE certification",
+    imageClassName:
+      "h-44 w-44 -translate-x-1/2 -translate-y-[53%] sm:h-52 sm:w-52",
+    src: "/assets/i-safe.png",
+    wrapperClassName: "h-10 w-36 sm:h-12 sm:w-44"
+  },
+  {
+    alt: "IECEx certification",
+    imageClassName:
+      "h-40 w-40 -translate-x-1/2 -translate-y-[47%] sm:h-44 sm:w-44",
+    src: "/assets/iecex.png",
+    wrapperClassName: "h-10 w-32 sm:h-12 sm:w-36"
+  }
+];
+
 export function ProductDetail({ product }: ProductDetailProps) {
   const isNavigator520 = product.slug === "navigator-520";
   const isNavigatorZ1 = product.slug === "navigator-z1";
@@ -103,11 +120,40 @@ export function ProductDetail({ product }: ProductDetailProps) {
             <p className="mt-7 max-w-2xl text-lg leading-8 text-frost/85 md:text-xl">
               {product.longSummary}
             </p>
-            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-              <ButtonLink href="/request-quote">Request a Quote</ButtonLink>
-              <ButtonLink href="/#use-cases" variant="secondary">
-                View Use Cases
-              </ButtonLink>
+            <div className="mt-9 inline-flex max-w-full flex-col items-center gap-5">
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <ButtonLink href="/request-quote">Request a Quote</ButtonLink>
+                <ButtonLink href="/#use-cases" variant="secondary">
+                  View Use Cases
+                </ButtonLink>
+              </div>
+              {isNavigatorZ1 ? (
+                <div
+                  aria-label="Navigator Z1 certifications"
+                  className="flex flex-col items-center gap-2 text-center"
+                >
+                  <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-frost/70">
+                    Certified for hazardous environments
+                  </p>
+                  <div className="flex items-center justify-center gap-5 sm:gap-7">
+                    {z1CertificationLogos.map((badge) => (
+                      <div
+                        className={`relative shrink-0 overflow-hidden ${badge.wrapperClassName}`}
+                        key={badge.src}
+                      >
+                        <Image
+                          alt={badge.alt}
+                          className={`absolute left-1/2 top-1/2 max-w-none object-contain brightness-125 contrast-125 drop-shadow-[0_0_10px_rgba(255,255,255,0.28)] ${badge.imageClassName}`}
+                          height={2000}
+                          sizes="(min-width: 640px) 176px, 144px"
+                          src={badge.src}
+                          width={2000}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
         </section>

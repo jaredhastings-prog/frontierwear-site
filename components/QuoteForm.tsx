@@ -9,11 +9,25 @@ export function QuoteForm() {
       data-netlify-honeypot="bot-field"
       method="POST"
       name="quote-request"
+      netlify-honeypot="bot-field"
     >
       <input name="form-name" type="hidden" value="quote-request" />
-      <p className="hidden">
+      <p
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          overflow: "hidden",
+          clip: "rect(0 0 0 0)",
+          height: "1px",
+          width: "1px",
+          margin: "-1px",
+          padding: 0,
+          border: 0
+        }}
+      >
         <label>
-          Do not fill this out: <input name="bot-field" />
+          Do not fill this out:{" "}
+          <input autoComplete="off" name="bot-field" tabIndex={-1} />
         </label>
       </p>
 

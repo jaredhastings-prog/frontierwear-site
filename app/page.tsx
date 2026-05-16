@@ -12,6 +12,13 @@ import {
   whyFrontier
 } from "@/content/site";
 
+const teamsTeaserFeatures = [
+  "Hands-free Teams calls",
+  "Live expert support",
+  "Real-time field video",
+  "Works with Microsoft environments"
+];
+
 export default function Home() {
   return (
     <main id="main">
@@ -104,6 +111,46 @@ export default function Home() {
           </SectionHeading>
           <div className="mt-10">
             <LogoMarquee logos={customerLogos} />
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden border-b border-white/10 bg-[linear-gradient(135deg,rgba(71,112,219,0.16),rgba(5,7,12,0.96)_42%,rgba(8,13,22,1)_100%)] px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[0.92fr_1.08fr]">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue">
+              Microsoft Teams integration
+            </p>
+            <h2 className="mt-5 max-w-3xl font-display text-4xl leading-tight text-white md:text-6xl">
+              Bring Microsoft Teams to the frontline.
+            </h2>
+            <p className="mt-6 max-w-2xl text-base leading-8 text-frost/82 md:text-lg">
+              Collaborate Teams 2 connects RealWear devices directly with
+              Microsoft Teams for hands-free communication, remote expert
+              support, and live field collaboration.
+            </p>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {teamsTeaserFeatures.map((feature) => (
+                <div
+                  className="rounded-lg border border-white/10 bg-white/[0.045] px-4 py-3 text-sm font-semibold leading-6 text-frost/90 shadow-[0_14px_34px_rgba(0,0,0,0.18)]"
+                  key={feature}
+                >
+                  {feature}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="relative overflow-hidden rounded-lg border border-blue/30 bg-[#080d16] shadow-[0_24px_70px_rgba(71,112,219,0.18)]">
+            <div className="relative aspect-video">
+              <Image
+                alt="RealWear headset being used for Microsoft Teams field collaboration"
+                className="object-cover object-center"
+                fill
+                loading="lazy"
+                sizes="(min-width: 1024px) 52vw, 100vw"
+                src="/assets/teams-home-teaser.jpeg"
+              />
+            </div>
           </div>
         </div>
       </section>

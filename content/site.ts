@@ -16,6 +16,7 @@ export const site = {
 export const navItems = [
   { label: "Products", href: "/#products" },
   { label: "Use Cases", href: "/#use-cases" },
+  { label: "Collaborate Teams 2", href: "/collaborate-teams-2" },
   { label: "Navigator 520", href: "/navigator-520" },
   { label: "Navigator Z1", href: "/navigator-z1" }
 ];

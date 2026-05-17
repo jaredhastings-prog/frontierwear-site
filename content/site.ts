@@ -124,7 +124,7 @@ export const useCases = [
   {
     title: "Inspections and audits",
     image: {
-      src: "/assets/inspection-audit.png",
+      src: "/assets/collaborate-insitu-2.png",
       alt: "Industrial inspection and audit workflow imagery"
     },
     copy:

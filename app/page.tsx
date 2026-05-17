@@ -199,7 +199,7 @@ export default function Home() {
               className="group flex h-full flex-col overflow-hidden rounded-lg border border-white/10 bg-[#080d16] transition duration-300 hover:-translate-y-1 hover:border-blue/45"
               key={useCase.title}
             >
-              <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-white/10 bg-[#080d16]">
+              <div className="relative -mx-px -mt-px aspect-[21/10] overflow-hidden rounded-t-lg border-b border-white/10">
                 <Image
                   alt={useCase.image.alt}
                   className="h-full w-full object-cover object-center transition duration-500 group-hover:scale-[1.03]"
@@ -207,6 +207,7 @@ export default function Home() {
                   loading="lazy"
                   sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   src={useCase.image.src}
+                  unoptimized
                 />
               </div>
               <div className="flex flex-1 flex-col p-6">

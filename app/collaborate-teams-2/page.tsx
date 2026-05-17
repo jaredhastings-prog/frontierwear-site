@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import Image from "next/image";
 
 import { SectionHeading } from "@/components/SectionHeading";
 import { site } from "@/content/site";
@@ -36,10 +38,6 @@ export const metadata: Metadata = {
   }
 };
 
-type IconProps = {
-  className?: string;
-};
-
 const heroHighlights = [
   "Hands-free Teams calls",
   "Remote expert support",
@@ -62,61 +60,49 @@ const valueRows = [
   }
 ];
 
-function VideoIcon({ className }: IconProps) {
+function MediaFrame({ children }: { children: ReactNode }) {
   return (
-    <svg
-      aria-hidden="true"
-      className={className}
-      fill="none"
-      viewBox="0 0 24 24"
-    >
-      <path
-        d="M4.5 7.5h10a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2Z"
-        stroke="currentColor"
-        strokeLinejoin="round"
-        strokeWidth="1.7"
-      />
-      <path
-        d="m16.5 11 4-2.5v7l-4-2.5"
-        stroke="currentColor"
-        strokeLinejoin="round"
-        strokeWidth="1.7"
-      />
-    </svg>
+    <div className="relative aspect-video overflow-hidden rounded-lg border border-blue/25 bg-[#080d16] shadow-[0_24px_70px_rgba(71,112,219,0.18)]">
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_28%_18%,rgba(71,112,219,0.22),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.06),transparent_42%)]" />
+      <div className="relative z-10 h-full w-full">{children}</div>
+    </div>
   );
 }
 
-function PlaceholderMedia({
-  label,
-  eyebrow = "Future media"
+function YouTubeMedia({
+  title,
+  videoId
 }: {
-  label: string;
-  eyebrow?: string;
+  title: string;
+  videoId: string;
 }) {
   return (
-    <div
-      aria-label={label}
-      className="relative aspect-video overflow-hidden rounded-lg border border-white/10 bg-[linear-gradient(135deg,rgba(71,112,219,0.18),rgba(8,13,22,0.92)_42%,rgba(255,255,255,0.045))] shadow-[0_24px_70px_rgba(0,0,0,0.24)]"
-      role="img"
-    >
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.055)_1px,transparent_1px),linear-gradient(180deg,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:3rem_3rem] opacity-45" />
-      <div className="absolute inset-5 rounded-lg border border-white/10" />
-      <div className="absolute left-6 top-6">
-        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-blue">
-          {eyebrow}
-        </p>
-      </div>
-      <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
-        <div>
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-blue/45 bg-blue/15 text-blue shadow-[0_0_28px_rgba(71,112,219,0.22)]">
-            <VideoIcon className="h-7 w-7" />
-          </div>
-          <p className="mt-5 text-sm font-semibold uppercase tracking-[0.24em] text-white">
-            {label}
-          </p>
-        </div>
-      </div>
-    </div>
+    <MediaFrame>
+      <iframe
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        className="h-full w-full"
+        loading="lazy"
+        referrerPolicy="strict-origin-when-cross-origin"
+        src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1`}
+        title={title}
+      />
+    </MediaFrame>
+  );
+}
+
+function ImageMedia() {
+  return (
+    <MediaFrame>
+      <Image
+        alt="Frontline worker using RealWear Collaborate Teams 2 in the field"
+        className="object-cover object-center"
+        fill
+        loading="lazy"
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        src="/assets/Collaborate-insitu.png"
+      />
+    </MediaFrame>
   );
 }
 
@@ -150,9 +136,9 @@ export default function CollaborateTeams2Page() {
               ))}
             </div>
           </div>
-          <PlaceholderMedia
-            eyebrow="Collaborate Teams 2"
-            label="Video/Image Placeholder"
+          <YouTubeMedia
+            title="Collaborate Teams 2 product video"
+            videoId="GU2rSKZXaBs"
           />
         </div>
       </section>
@@ -204,10 +190,14 @@ export default function CollaborateTeams2Page() {
                   {row.copy}
                 </p>
               </div>
-              <PlaceholderMedia
-                eyebrow="Future imagery"
-                label={`${row.eyebrow} Placeholder`}
-              />
+              {row.eyebrow === "Field connectivity" ? (
+                <ImageMedia />
+              ) : (
+                <YouTubeMedia
+                  title="Collaborate Teams 2 operational impact video"
+                  videoId="Pqf3BYO0ELg"
+                />
+              )}
             </article>
           ))}
         </div>

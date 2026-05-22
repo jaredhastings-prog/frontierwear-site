@@ -158,10 +158,7 @@ export default function InsightsPage() {
         aria-labelledby="featured-insight-heading"
         className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
       >
-        <SectionHeading
-          eyebrow="Knowledge hub"
-          title="Featured guidance for industrial teams"
-        >
+        <SectionHeading title="Featured guidance for industrial teams">
           <p>
             A future home for practical Frontier Wear articles, rollout
             guidance, and field-tested thinking for connected worker programs.

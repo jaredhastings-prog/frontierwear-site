@@ -36,14 +36,6 @@ export const metadata: Metadata = {
   }
 };
 
-const featuredInsight = {
-  label: "Featured insight",
-  title: "Connected worker roadmap placeholder",
-  excerpt:
-    "A future feature article for practical guidance on planning, piloting, and scaling connected worker technology across industrial teams.",
-  readingTime: "8 min read"
-};
-
 const insights = [
   {
     title: "Remote expert support placeholder",
@@ -154,58 +146,11 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      <section
-        aria-labelledby="featured-insight-heading"
-        className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
-      >
-        <SectionHeading title="Featured guidance for industrial teams">
-          <p>
-            A future home for practical Frontier Wear articles, rollout
-            guidance, and field-tested thinking for connected worker programs.
-          </p>
-        </SectionHeading>
-
-        <article className="mt-12 grid overflow-hidden rounded-lg border border-blue/25 bg-[#080d16] shadow-[0_28px_90px_rgba(0,0,0,0.28)] lg:grid-cols-[1.08fr_0.92fr]">
-          <div className="min-h-80 lg:min-h-[28rem]">
-            <InsightImagePlaceholder
-              label="Featured insight image"
-              roundedClassName="rounded-t-lg lg:rounded-none"
-            />
-          </div>
-          <div className="flex flex-col justify-center p-7 sm:p-10 lg:p-12">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-amber">
-              {featuredInsight.label}
-            </p>
-            <h2
-              className="mt-5 font-display text-4xl leading-tight text-white md:text-6xl"
-              id="featured-insight-heading"
-            >
-              {featuredInsight.title}
-            </h2>
-            <p className="mt-6 text-base leading-8 text-smoke md:text-lg">
-              {featuredInsight.excerpt}
-            </p>
-            <p className="mt-8 text-sm font-semibold uppercase tracking-[0.18em] text-blue">
-              {featuredInsight.readingTime}
-            </p>
-          </div>
-        </article>
-      </section>
-
-      <section className="border-t border-white/10 bg-white/[0.025] px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+      <section className="bg-white/[0.025] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <div className="mx-auto max-w-7xl">
-          <SectionHeading
-            eyebrow="Articles"
-            title="Latest insight placeholders"
-            className="max-w-4xl"
-          >
-            <p>
-              Upcoming articles will cover field adoption, remote support,
-              workflow design, safety, and practical digital transformation.
-            </p>
-          </SectionHeading>
+          <SectionHeading title="Latest Insights" className="max-w-4xl" />
 
-          <div className="mt-12 grid auto-rows-fr gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-10 grid auto-rows-fr gap-5 md:grid-cols-2 xl:grid-cols-3">
             {insights.map((insight) => (
               <InsightCard key={insight.title} {...insight} />
             ))}

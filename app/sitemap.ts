@@ -6,15 +6,17 @@ export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const updated = new Date("2026-05-01");
-  const staticRoutes = ["", "/collaborate-teams-2", "/request-quote"].map(
-    (route) => ({
-      url: `${site.url}${route}`,
-      lastModified: updated,
-      changeFrequency: "monthly" as const,
-      priority:
-        route === "" ? 1 : route === "/collaborate-teams-2" ? 0.9 : 0.8
-    })
-  );
+  const staticRoutes = [
+    "",
+    "/collaborate-teams-2",
+    "/insights",
+    "/request-quote"
+  ].map((route) => ({
+    url: `${site.url}${route}`,
+    lastModified: updated,
+    changeFrequency: "monthly" as const,
+    priority: route === "" ? 1 : route === "/request-quote" ? 0.8 : 0.9
+  }));
 
   const productRoutes = products.map((product) => ({
     url: `${site.url}${product.href}`,

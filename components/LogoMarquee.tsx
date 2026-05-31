@@ -17,8 +17,8 @@ export function LogoMarquee({ logos }: LogoMarqueeProps) {
       className="logo-marquee relative overflow-hidden"
       role="list"
     >
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#05070c] to-transparent md:w-28" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#05070c] to-transparent md:w-28" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-navy to-transparent md:w-28" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-navy to-transparent md:w-28" />
       <div className="logo-marquee__track flex w-max items-center gap-4 py-2 md:gap-5">
         {marqueeLogos.map((logo, index) => (
           <div

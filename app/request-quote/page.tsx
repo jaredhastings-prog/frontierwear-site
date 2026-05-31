@@ -29,15 +29,15 @@ export default function RequestQuotePage() {
             </p>
           </SectionHeading>
 
-          <div className="mt-10 rounded-lg border border-white/10 bg-white/[0.045] p-6">
-            <h2 className="text-sm font-semibold uppercase tracking-[0.24em] text-white">
+          <div className="mt-10 rounded-lg border border-slate-200 bg-white p-6 shadow-glow">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.24em] text-navy">
               Direct contact
             </h2>
             <div className="mt-5 grid gap-3 text-sm text-smoke">
-              <a className="transition hover:text-white" href={site.phoneHref}>
+              <a className="transition hover:text-navy" href={site.phoneHref}>
                 Ph: {site.phone}
               </a>
-              <a className="transition hover:text-white" href={site.emailHref}>
+              <a className="transition hover:text-navy" href={site.emailHref}>
                 Email: {site.email}
               </a>
               <p>Coverage: Australia and New Zealand</p>
@@ -45,7 +45,7 @@ export default function RequestQuotePage() {
           </div>
         </div>
 
-        <div className="rounded-lg border border-blue/25 bg-[#080d16] p-5 shadow-glow md:p-8">
+        <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-glow md:p-8">
           <QuoteForm />
         </div>
       </section>

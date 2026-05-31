@@ -62,8 +62,8 @@ const valueRows = [
 
 function MediaFrame({ children }: { children: ReactNode }) {
   return (
-    <div className="relative aspect-video overflow-hidden rounded-lg border border-blue/25 bg-[#080d16] shadow-[0_24px_70px_rgba(71,112,219,0.18)]">
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_28%_18%,rgba(71,112,219,0.22),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.06),transparent_42%)]" />
+    <div className="relative aspect-video overflow-hidden rounded-lg border border-blue/25 bg-steel shadow-[0_24px_70px_rgba(37,99,235,0.16)]">
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_28%_18%,rgba(37,99,235,0.22),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.06),transparent_42%)]" />
       <div className="relative z-10 h-full w-full">{children}</div>
     </div>
   );
@@ -109,18 +109,18 @@ function ImageMedia() {
 export default function CollaborateTeams2Page() {
   return (
     <main id="main">
-      <section className="relative isolate overflow-hidden border-b border-white/10 px-4 pb-24 pt-32 sm:px-6 md:pb-32 lg:px-8">
-        <div className="absolute inset-0 z-[-2] bg-[linear-gradient(115deg,#05070c_0%,#08101f_48%,rgba(71,112,219,0.32)_100%)]" />
-        <div className="absolute inset-0 z-[-1] bg-[linear-gradient(180deg,rgba(5,7,12,0.15),rgba(5,7,12,0.92)_100%)]" />
+      <section className="relative isolate overflow-hidden border-b border-slate-200 bg-white px-4 pb-24 pt-32 sm:px-6 md:pb-32 lg:px-8">
+        <div className="absolute inset-0 z-[-2] bg-[linear-gradient(115deg,#ffffff_0%,#f5f7fa_50%,rgba(37,99,235,0.12)_100%)]" />
+        <div className="absolute inset-0 z-[-1] bg-[linear-gradient(180deg,rgba(255,255,255,0.18),rgba(245,247,250,0.96)_100%)]" />
         <div className="mx-auto grid max-w-7xl items-center gap-12 lg:min-h-[76svh] lg:grid-cols-[0.95fr_1.05fr]">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue">
               Microsoft Teams integration
             </p>
-            <h1 className="mt-6 max-w-4xl font-display text-5xl leading-[0.94] text-white md:text-7xl lg:text-8xl">
+            <h1 className="mt-6 max-w-4xl font-display text-5xl leading-[0.94] text-navy md:text-7xl lg:text-8xl">
               Microsoft Teams. Built for the field.
             </h1>
-            <p className="mt-7 max-w-3xl text-lg leading-8 text-frost/88 md:text-xl">
+            <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-700 md:text-xl">
               Collaborate Teams 2 extends Microsoft Teams to frontline workers
               using RealWear devices for hands-free communication, remote expert
               support, and real-time collaboration in industrial environments.
@@ -128,7 +128,7 @@ export default function CollaborateTeams2Page() {
             <div className="mt-9 grid gap-3 sm:grid-cols-2">
               {heroHighlights.map((item) => (
                 <div
-                  className="rounded-lg border border-white/10 bg-white/[0.045] px-4 py-4 text-sm font-semibold leading-6 text-frost/90"
+                  className="rounded-lg border border-slate-200 bg-white px-4 py-4 text-sm font-semibold leading-6 text-slate-700 shadow-glow"
                   key={item}
                 >
                   {item}
@@ -164,7 +164,7 @@ export default function CollaborateTeams2Page() {
               "Hands-free productivity"
             ].map((item) => (
               <div
-                className="rounded-lg border border-white/10 bg-white/[0.045] p-6 text-sm font-semibold uppercase tracking-[0.16em] text-frost/90"
+                className="rounded-lg border border-slate-200 bg-white p-6 text-sm font-semibold uppercase tracking-[0.16em] text-slate-700 shadow-glow"
                 key={item}
               >
                 {item}
@@ -183,7 +183,7 @@ export default function CollaborateTeams2Page() {
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-blue">
                   {row.eyebrow}
                 </p>
-                <h3 className="mt-4 font-display text-3xl leading-tight text-white md:text-5xl">
+                <h3 className="mt-4 font-display text-3xl leading-tight text-navy md:text-5xl">
                   {row.title}
                 </h3>
                 <p className="mt-5 text-base leading-8 text-smoke md:text-lg">
@@ -203,8 +203,8 @@ export default function CollaborateTeams2Page() {
         </div>
       </section>
 
-      <section className="border-t border-white/10 px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-lg border border-blue/30 bg-[linear-gradient(120deg,rgba(71,112,219,0.24),rgba(255,108,47,0.08),rgba(255,255,255,0.045))] p-10 text-center shadow-[0_28px_90px_rgba(0,0,0,0.28)] md:p-16">
+      <section className="border-t border-white/10 bg-navy px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-lg border border-blue/30 bg-[linear-gradient(120deg,rgba(37,99,235,0.24),rgba(255,106,0,0.10),rgba(255,255,255,0.045))] p-10 text-center shadow-[0_28px_90px_rgba(0,0,0,0.28)] md:p-16">
           <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue">
             RealWear + Microsoft Teams
           </p>

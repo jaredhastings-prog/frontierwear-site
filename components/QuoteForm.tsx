@@ -32,21 +32,21 @@ export function QuoteForm() {
       </p>
 
       <div className="grid gap-5 md:grid-cols-2">
-        <label className="grid gap-2 text-sm text-frost">
+        <label className="grid gap-2 text-sm text-slate-700">
           Name
           <input
             autoComplete="name"
-            className="min-h-12 rounded-md border border-white/15 bg-white/[0.06] px-4 text-white outline-none transition placeholder:text-smoke/70 focus:border-blue"
+            className="min-h-12 rounded-md border border-slate-300 bg-white px-4 text-navy outline-none transition placeholder:text-smoke/70 focus:border-blue"
             name="name"
             required
             type="text"
           />
         </label>
-        <label className="grid gap-2 text-sm text-frost">
+        <label className="grid gap-2 text-sm text-slate-700">
           Work email
           <input
             autoComplete="email"
-            className="min-h-12 rounded-md border border-white/15 bg-white/[0.06] px-4 text-white outline-none transition placeholder:text-smoke/70 focus:border-blue"
+            className="min-h-12 rounded-md border border-slate-300 bg-white px-4 text-navy outline-none transition placeholder:text-smoke/70 focus:border-blue"
             name="email"
             required
             type="email"
@@ -55,20 +55,20 @@ export function QuoteForm() {
       </div>
 
       <div className="grid gap-5 md:grid-cols-2">
-        <label className="grid gap-2 text-sm text-frost">
+        <label className="grid gap-2 text-sm text-slate-700">
           Phone
           <input
             autoComplete="tel"
-            className="min-h-12 rounded-md border border-white/15 bg-white/[0.06] px-4 text-white outline-none transition placeholder:text-smoke/70 focus:border-blue"
+            className="min-h-12 rounded-md border border-slate-300 bg-white px-4 text-navy outline-none transition placeholder:text-smoke/70 focus:border-blue"
             name="phone"
             type="tel"
           />
         </label>
-        <label className="grid gap-2 text-sm text-frost">
+        <label className="grid gap-2 text-sm text-slate-700">
           Organisation
           <input
             autoComplete="organization"
-            className="min-h-12 rounded-md border border-white/15 bg-white/[0.06] px-4 text-white outline-none transition placeholder:text-smoke/70 focus:border-blue"
+            className="min-h-12 rounded-md border border-slate-300 bg-white px-4 text-navy outline-none transition placeholder:text-smoke/70 focus:border-blue"
             name="organisation"
             type="text"
           />
@@ -76,10 +76,10 @@ export function QuoteForm() {
       </div>
 
       <div className="grid gap-5 md:grid-cols-2">
-        <label className="grid gap-2 text-sm text-frost">
+        <label className="grid gap-2 text-sm text-slate-700">
           Product interest
           <select
-            className="min-h-12 rounded-md border border-white/15 bg-[#0b111d] px-4 text-white outline-none transition focus:border-blue"
+            className="min-h-12 rounded-md border border-slate-300 bg-white px-4 text-navy outline-none transition focus:border-blue"
             name="product"
             required
           >
@@ -92,10 +92,10 @@ export function QuoteForm() {
             <option value="Unsure">Not sure yet</option>
           </select>
         </label>
-        <label className="grid gap-2 text-sm text-frost">
+        <label className="grid gap-2 text-sm text-slate-700">
           Estimated quantity
           <select
-            className="min-h-12 rounded-md border border-white/15 bg-[#0b111d] px-4 text-white outline-none transition focus:border-blue"
+            className="min-h-12 rounded-md border border-slate-300 bg-white px-4 text-navy outline-none transition focus:border-blue"
             name="quantity"
           >
             <option value="1-5">1-5</option>
@@ -107,10 +107,10 @@ export function QuoteForm() {
         </label>
       </div>
 
-      <label className="grid gap-2 text-sm text-frost">
+      <label className="grid gap-2 text-sm text-slate-700">
         What are you trying to solve?
         <textarea
-          className="min-h-36 rounded-md border border-white/15 bg-white/[0.06] px-4 py-3 text-white outline-none transition placeholder:text-smoke/70 focus:border-blue"
+          className="min-h-36 rounded-md border border-slate-300 bg-white px-4 py-3 text-navy outline-none transition placeholder:text-smoke/70 focus:border-blue"
           name="message"
           placeholder="Tell us about your sites, workflows, hazardous-area requirements, remote support needs, or deployment timeline."
           required
@@ -118,7 +118,7 @@ export function QuoteForm() {
       </label>
 
       <button
-        className="min-h-12 rounded-md bg-blue px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white shadow-glow transition hover:bg-[#5d82ee] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue"
+        className="min-h-12 rounded-md bg-amber px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white shadow-amber transition hover:bg-[#e85f00] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber"
         type="submit"
       >
         Send Quote Request

@@ -19,7 +19,7 @@ export default function ThankYouPage() {
         <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber">
           Request received
         </p>
-        <h1 className="mt-6 font-display text-5xl leading-tight text-white md:text-7xl">
+        <h1 className="mt-6 font-display text-5xl leading-tight text-navy md:text-7xl">
           Thanks. Frontier Wear will be in touch.
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-smoke">

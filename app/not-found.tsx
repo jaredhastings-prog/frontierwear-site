@@ -9,7 +9,7 @@ export default function NotFound() {
         <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber">
           Page not found
         </p>
-        <h1 className="mt-6 font-display text-5xl leading-tight text-white md:text-7xl">
+        <h1 className="mt-6 font-display text-5xl leading-tight text-navy md:text-7xl">
           This page is no longer on the frontline.
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-smoke">
@@ -19,7 +19,7 @@ export default function NotFound() {
         <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
           <ButtonLink href="/">Go Home</ButtonLink>
           <Link
-            className="inline-flex min-h-12 items-center justify-center rounded-md border border-white/20 px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:border-blue"
+            className="inline-flex min-h-12 items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-navy transition hover:border-blue"
             href="/request-quote"
           >
             Request a Quote

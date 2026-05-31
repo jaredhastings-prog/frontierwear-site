@@ -5,7 +5,7 @@ import { navItems, site } from "@/content/site";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#070a10]">
+    <footer className="border-t border-white/10 bg-navy">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr] lg:px-8">
         <div>
           <Image
@@ -15,7 +15,7 @@ export function Footer() {
             src="/assets/frontier-wear-logo.png"
             width={300}
           />
-          <p className="mt-6 max-w-md text-sm leading-7 text-smoke">
+          <p className="mt-6 max-w-md text-sm leading-7 text-slate-300">
             Hands-free assisted reality devices, deployment support, and
             connected worker guidance for industrial teams across {site.coverage}.
           </p>
@@ -28,7 +28,7 @@ export function Footer() {
           <nav aria-label="Footer navigation" className="mt-5 grid gap-3">
             {navItems.map((item) => (
               <Link
-                className="text-sm text-smoke transition hover:text-white"
+                className="text-sm text-slate-300 transition hover:text-white"
                 href={item.href}
                 key={item.href}
               >
@@ -36,7 +36,7 @@ export function Footer() {
               </Link>
             ))}
             <Link
-              className="text-sm text-smoke transition hover:text-white"
+              className="text-sm text-slate-300 transition hover:text-white"
               href="/request-quote"
             >
               Request a Quote
@@ -48,7 +48,7 @@ export function Footer() {
           <h2 className="text-sm font-semibold uppercase tracking-[0.22em] text-white">
             Contact
           </h2>
-          <div className="mt-5 grid gap-3 text-sm text-smoke">
+          <div className="mt-5 grid gap-3 text-sm text-slate-300">
             <a className="transition hover:text-white" href={site.phoneHref}>
               Ph: {site.phone}
             </a>
@@ -57,7 +57,7 @@ export function Footer() {
             </a>
             <p>Coverage: Australia and New Zealand</p>
           </div>
-          <div className="mt-6 flex gap-4 text-sm text-smoke">
+          <div className="mt-6 flex gap-4 text-sm text-slate-300">
             <a className="transition hover:text-white" href={site.social.facebook}>
               Facebook
             </a>
@@ -70,7 +70,7 @@ export function Footer() {
           </div>
         </div>
       </div>
-      <div className="border-t border-white/10 px-4 py-6 text-center text-xs text-smoke">
+      <div className="border-t border-white/10 px-4 py-6 text-center text-xs text-slate-400">
         Copyright 2026 Frontier Wear. Connected worker specialists.
       </div>
     </footer>

@@ -8,6 +8,7 @@ type SectionHeadingProps = {
   children?: ReactNode;
   align?: "left" | "center";
   className?: string;
+  tone?: "light" | "dark";
 };
 
 export function SectionHeading({
@@ -15,7 +16,8 @@ export function SectionHeading({
   title,
   children,
   align = "left",
-  className
+  className,
+  tone = "light"
 }: SectionHeadingProps) {
   return (
     <div
@@ -30,11 +32,21 @@ export function SectionHeading({
           {eyebrow}
         </p>
       ) : null}
-      <h2 className="font-display text-3xl leading-tight text-white md:text-5xl">
+      <h2
+        className={cn(
+          "font-display text-3xl leading-tight md:text-5xl",
+          tone === "dark" ? "text-white" : "text-navy"
+        )}
+      >
         {title}
       </h2>
       {children ? (
-        <div className="mt-5 text-base leading-8 text-smoke md:text-lg">
+        <div
+          className={cn(
+            "mt-5 text-base leading-8 md:text-lg",
+            tone === "dark" ? "text-slate-300" : "text-smoke"
+          )}
+        >
           {children}
         </div>
       ) : null}

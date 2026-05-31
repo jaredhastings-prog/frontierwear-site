@@ -9,21 +9,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        navy: "#0e1b4d",
-        blue: "#4770db",
-        frost: "#eff0f5",
-        graphite: "#05070c",
-        steel: "#141a24",
-        smoke: "#a8b2c7",
-        amber: "#ff6c2f"
+        navy: "#0F172A",
+        blue: "#2563EB",
+        frost: "#FFFFFF",
+        graphite: "#0F172A",
+        steel: "#1E293B",
+        smoke: "#64748B",
+        amber: "#FF6A00"
       },
       fontFamily: {
         sans: ["Questrial", "Arial", "Helvetica", "sans-serif"],
         display: ["Archivo", "Arial", "Helvetica", "sans-serif"]
       },
       boxShadow: {
-        glow: "0 0 50px rgba(71, 112, 219, 0.22)",
-        amber: "0 0 36px rgba(255, 108, 47, 0.18)"
+        glow: "0 22px 70px rgba(15, 23, 42, 0.12)",
+        amber: "0 18px 48px rgba(255, 106, 0, 0.20)"
       }
     }
   },

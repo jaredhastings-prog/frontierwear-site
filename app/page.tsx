@@ -22,26 +22,26 @@ const teamsTeaserFeatures = [
 export default function Home() {
   return (
     <main id="main">
-      <section className="relative isolate min-h-[82svh] overflow-hidden border-b border-white/10">
+      <section className="relative isolate min-h-[82svh] overflow-hidden border-b border-slate-200 bg-white">
         <Image
           alt="Industrial worker using assisted reality technology in the field"
-          className="absolute inset-0 z-[-3] h-full w-full object-cover opacity-45 saturate-[0.75]"
+          className="absolute inset-0 z-[-3] h-full w-full object-cover opacity-25 saturate-[0.85]"
           fill
           priority
           sizes="100vw"
           src="/assets/field-worker.jpg"
         />
-        <div className="absolute inset-0 z-[-2] bg-[linear-gradient(90deg,rgba(5,7,12,0.98)_0%,rgba(5,7,12,0.86)_46%,rgba(14,27,77,0.38)_100%)]" />
-        <div className="absolute inset-0 z-[-1] bg-[linear-gradient(180deg,rgba(5,7,12,0.25)_0%,rgba(5,7,12,0.90)_100%)]" />
+        <div className="absolute inset-0 z-[-2] bg-[linear-gradient(90deg,rgba(255,255,255,0.98)_0%,rgba(255,255,255,0.92)_48%,rgba(245,247,250,0.70)_100%)]" />
+        <div className="absolute inset-0 z-[-1] bg-[linear-gradient(180deg,rgba(255,255,255,0.18)_0%,rgba(245,247,250,0.96)_100%)]" />
 
         <div className="mx-auto flex min-h-[82svh] max-w-7xl flex-col justify-end px-4 pb-14 pt-32 sm:px-6 md:pb-20 lg:px-8">
           <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber">
             ANZ RealWear Gold Partner
           </p>
-          <h1 className="mt-6 max-w-5xl text-balance font-display text-5xl leading-[0.94] text-white md:text-7xl lg:text-8xl">
+          <h1 className="mt-6 max-w-5xl text-balance font-display text-5xl leading-[0.94] text-navy md:text-7xl lg:text-8xl">
             Hands-Free Technology for the Frontline
           </h1>
-          <p className="mt-7 max-w-3xl text-lg leading-8 text-frost/88 md:text-xl">
+          <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-700 md:text-xl">
             RealWear assisted reality devices for field teams, industrial sites,
             and connected worker programs across Australia and New Zealand.
           </p>
@@ -52,13 +52,13 @@ export default function Home() {
             </ButtonLink>
           </div>
 
-          <div className="mt-14 grid max-w-6xl gap-px overflow-hidden border-y border-white/15 bg-white/10 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-14 grid max-w-6xl gap-px overflow-hidden border-y border-slate-200 bg-slate-200 sm:grid-cols-2 lg:grid-cols-5">
             {benefitStrip.map((benefit) => (
               <div
-                className="bg-graphite/45 px-4 py-5 text-center"
+                className="bg-white/90 px-4 py-5 text-center"
                 key={benefit}
               >
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-navy">
                   {benefit}
                 </p>
               </div>
@@ -87,7 +87,7 @@ export default function Home() {
             "Capture repeatable knowledge from the field"
           ].map((outcome) => (
             <div
-              className="rounded-lg border border-white/10 bg-white/[0.045] p-6 text-lg leading-7 text-white"
+              className="rounded-lg border border-slate-200 bg-white p-6 text-lg leading-7 text-navy shadow-glow"
               key={outcome}
             >
               {outcome}
@@ -96,11 +96,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-y border-white/10 bg-[#05070c] px-4 py-14 sm:px-6 lg:px-8">
+      <section className="border-y border-white/10 bg-navy px-4 py-14 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             align="center"
             eyebrow="Trusted by"
+            tone="dark"
             title="Industrial teams deploying connected worker technology"
           >
             <p>
@@ -115,16 +116,16 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden border-b border-white/10 bg-[linear-gradient(135deg,rgba(71,112,219,0.16),rgba(5,7,12,0.96)_42%,rgba(8,13,22,1)_100%)] px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+      <section className="relative overflow-hidden border-b border-slate-200 bg-[linear-gradient(135deg,rgba(37,99,235,0.10),rgba(255,255,255,0.96)_45%,rgba(245,247,250,1)_100%)] px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[0.92fr_1.08fr]">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue">
               Microsoft Teams integration
             </p>
-            <h2 className="mt-5 max-w-3xl font-display text-4xl leading-tight text-white md:text-6xl">
+            <h2 className="mt-5 max-w-3xl font-display text-4xl leading-tight text-navy md:text-6xl">
               Bring Microsoft Teams to the frontline.
             </h2>
-            <p className="mt-6 max-w-2xl text-base leading-8 text-frost/82 md:text-lg">
+            <p className="mt-6 max-w-2xl text-base leading-8 text-smoke md:text-lg">
               Collaborate Teams 2 connects RealWear devices directly with
               Microsoft Teams for hands-free communication, remote expert
               support, and live field collaboration.
@@ -132,7 +133,7 @@ export default function Home() {
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
               {teamsTeaserFeatures.map((feature) => (
                 <div
-                  className="rounded-lg border border-white/10 bg-white/[0.045] px-4 py-3 text-sm font-semibold leading-6 text-frost/90 shadow-[0_14px_34px_rgba(0,0,0,0.18)]"
+                  className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-semibold leading-6 text-slate-700 shadow-[0_14px_34px_rgba(15,23,42,0.08)]"
                   key={feature}
                 >
                   {feature}
@@ -140,7 +141,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div className="relative overflow-hidden rounded-lg border border-blue/30 bg-[#080d16] shadow-[0_24px_70px_rgba(71,112,219,0.18)]">
+          <div className="relative overflow-hidden rounded-lg border border-blue/20 bg-white shadow-[0_24px_70px_rgba(37,99,235,0.14)]">
             <div className="relative aspect-video">
               <Image
                 alt="RealWear headset being used for Microsoft Teams field collaboration"
@@ -156,7 +157,7 @@ export default function Home() {
       </section>
 
       <section
-        className="border-y border-white/10 bg-white/[0.035] px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
+        className="border-y border-slate-200 bg-white px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
         id="products"
       >
         <div className="mx-auto max-w-7xl">
@@ -196,10 +197,10 @@ export default function Home() {
         <div className="mt-12 grid auto-rows-fr gap-4 md:grid-cols-2 lg:grid-cols-3">
           {useCases.map((useCase) => (
             <article
-              className="group flex h-full flex-col overflow-hidden rounded-lg border border-white/10 bg-[#080d16] transition duration-300 hover:-translate-y-1 hover:border-blue/45"
+              className="group flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-glow transition duration-300 hover:-translate-y-1 hover:border-blue/45"
               key={useCase.title}
             >
-              <div className="relative -mx-px -mt-px aspect-[21/10] overflow-hidden rounded-t-lg border-b border-white/10">
+              <div className="relative -mx-px -mt-px aspect-[21/10] overflow-hidden rounded-t-lg border-b border-slate-200">
                 <Image
                   alt={useCase.image.alt}
                   className="h-full w-full object-cover object-center transition duration-500 group-hover:scale-[1.03]"
@@ -211,7 +212,7 @@ export default function Home() {
                 />
               </div>
               <div className="flex flex-1 flex-col p-6">
-                <h3 className="font-display text-2xl leading-tight text-white">
+                <h3 className="font-display text-2xl leading-tight text-navy">
                   {useCase.title}
                 </h3>
                 <p className="mt-4 text-sm leading-7 text-smoke">
@@ -242,13 +243,13 @@ export default function Home() {
         <div className="grid gap-4 sm:grid-cols-2">
           {whyFrontier.map((reason) => (
             <div
-              className="rounded-lg border border-white/10 bg-white/[0.045] p-6"
+              className="rounded-lg border border-slate-200 bg-white p-6 shadow-glow"
               key={reason}
             >
               <p className="text-xs uppercase tracking-[0.28em] text-amber">
                 Frontier Wear
               </p>
-              <h3 className="mt-4 font-display text-2xl leading-tight text-white">
+              <h3 className="mt-4 font-display text-2xl leading-tight text-navy">
                 {reason}
               </h3>
             </div>
@@ -257,14 +258,14 @@ export default function Home() {
       </section>
 
       <section className="px-4 pb-24 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-lg border border-blue/30 bg-[linear-gradient(120deg,rgba(71,112,219,0.20),rgba(255,108,47,0.10),rgba(255,255,255,0.04))] p-8 md:p-14">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-lg border border-blue/30 bg-[linear-gradient(120deg,rgba(37,99,235,0.24),rgba(255,106,0,0.12),rgba(15,23,42,0.96))] p-8 shadow-glow md:p-14">
           <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber">
             Deployment next steps
           </p>
           <h2 className="mt-5 max-w-4xl font-display text-4xl leading-tight text-white md:text-6xl">
             Ready to equip your frontline team?
           </h2>
-          <p className="mt-5 max-w-2xl text-base leading-8 text-frost/80">
+          <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300">
             Share your team size, sites, and workflow goals. Frontier Wear will
             help scope the right RealWear device path and deployment support.
           </p>

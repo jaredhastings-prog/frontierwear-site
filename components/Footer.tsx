@@ -5,7 +5,7 @@ import { navItems, site } from "@/content/site";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#070a10]">
+    <footer className="border-t border-white/10 bg-navy">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr] lg:px-8">
         <div>
           <Image

@@ -94,7 +94,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
             aria-hidden="true"
             className={
               usesEnhancedImageLayout
-                ? "pointer-events-none absolute right-0 top-1/2 z-0 h-[58vh] w-full -translate-y-1/2 object-contain object-center md:right-[2%] md:h-[72vh] md:w-[52vw]"
+                ? "pointer-events-none absolute right-0 top-1/2 z-0 h-[58vh] w-full -translate-y-1/2 object-contain object-center opacity-25 md:right-[2%] md:h-[72vh] md:w-[52vw] md:opacity-100"
                 : "pointer-events-none absolute bottom-0 right-[-18%] z-[-1] h-[56vh] w-[86vw] object-contain opacity-80 blur-[0.2px] md:right-[-8%] md:h-[72vh] md:w-[55vw]"
             }
             height={heroImageSize.height}
@@ -172,7 +172,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
             <div className="grid gap-4 sm:grid-cols-2">
               {product.bestFor.map((item) => (
                 <div
-                  className="rounded-lg border border-white/10 bg-white/[0.045] p-5 text-white"
+                  className="rounded-lg border border-white/15 bg-steel/60 p-5 text-white shadow-[0_18px_44px_rgba(0,0,0,0.16)]"
                   key={item}
                 >
                   {item}
@@ -199,7 +199,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
           </section>
         ) : null}
 
-        <section className="border-y border-white/10 bg-white/[0.035]">
+        <section className="border-y border-white/10 bg-navy/70">
           <div className="mx-auto grid max-w-7xl gap-8 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8">
             <div>
               <h2 className="font-display text-3xl text-white md:text-5xl">
@@ -208,7 +208,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
               <div className="mt-8 grid gap-4">
                 {product.benefits.map((benefit) => (
                   <div
-                    className="rounded-lg border border-white/10 bg-[#080d16] p-5 text-sm leading-7 text-frost/90"
+                    className="rounded-lg border border-white/15 bg-steel/70 p-5 text-sm leading-7 text-frost/90"
                     key={benefit}
                   >
                     {benefit}
@@ -223,7 +223,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
               <div className="mt-8 grid gap-4">
                 {product.specs.map((spec) => (
                   <div
-                    className="rounded-lg border border-white/10 bg-[#080d16] p-5 text-sm leading-7 text-frost/90"
+                    className="rounded-lg border border-white/15 bg-steel/70 p-5 text-sm leading-7 text-frost/90"
                     key={spec}
                   >
                     {spec}
@@ -236,8 +236,8 @@ export function ProductDetail({ product }: ProductDetailProps) {
 
         {isNavigatorZ1 ? (
           <section className="border-y border-white/10 bg-[#05070c] px-4 py-14 sm:px-6 lg:px-8">
-            <div className="relative isolate mx-auto grid max-w-7xl items-center overflow-hidden rounded-lg border border-white/10 bg-[linear-gradient(135deg,rgba(255,84,38,0.14),rgba(8,13,22,0.98)_42%,rgba(71,112,219,0.10))] shadow-glow lg:grid-cols-[0.95fr_1.05fr]">
-              <div className="relative flex min-h-[16rem] items-center justify-center overflow-hidden border-b border-white/10 bg-[#080d16] p-4 sm:min-h-[18rem] lg:min-h-[24rem] lg:border-b-0 lg:border-r lg:p-6">
+            <div className="relative isolate mx-auto grid max-w-7xl items-center overflow-hidden rounded-lg border border-white/15 bg-[linear-gradient(135deg,rgba(255,106,0,0.15),rgba(8,13,22,0.98)_42%,rgba(37,99,235,0.10))] shadow-glow lg:grid-cols-[0.95fr_1.05fr]">
+              <div className="relative flex min-h-[16rem] items-center justify-center overflow-hidden border-b border-white/10 bg-steel p-4 sm:min-h-[18rem] lg:min-h-[24rem] lg:border-b-0 lg:border-r lg:p-6">
                 <Image
                   alt="Thermal inspection scenes shown alongside industrial equipment"
                   className="relative z-0 h-auto w-full max-w-[34rem] object-contain saturate-125 xl:max-w-[36rem]"
@@ -284,7 +284,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
                 <div className="mt-7 grid gap-3 sm:grid-cols-2">
                   {thermalSpecs.map((item) => (
                     <div
-                      className="rounded-lg border border-white/10 bg-white/[0.055] p-4 text-sm leading-6 text-frost/90"
+                    className="rounded-lg border border-white/15 bg-white/[0.07] p-4 text-sm leading-6 text-frost/90"
                       key={item}
                     >
                       {item}
@@ -308,7 +308,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
               <ul className="grid gap-3 sm:grid-cols-2">
                 {product.kit.map((item) => (
                   <li
-                    className="rounded-lg border border-white/10 bg-white/[0.045] p-4 text-sm text-frost/90"
+                    className="rounded-lg border border-white/15 bg-steel/60 p-4 text-sm text-frost/90"
                     key={item}
                   >
                     {item}
@@ -325,7 +325,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-lg border border-blue/30 bg-[linear-gradient(120deg,rgba(71,112,219,0.18),rgba(255,108,47,0.10),rgba(255,255,255,0.04))] p-8 md:p-12">
+          <div className="relative overflow-hidden rounded-lg border border-blue/30 bg-[linear-gradient(120deg,rgba(37,99,235,0.20),rgba(255,106,0,0.12),rgba(255,255,255,0.04))] p-8 shadow-glow md:p-12">
             <div
               className={
                 quoteImage ? "relative z-10 max-w-2xl md:max-w-[58%]" : ""

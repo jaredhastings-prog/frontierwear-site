@@ -62,8 +62,8 @@ const valueRows = [
 
 function MediaFrame({ children }: { children: ReactNode }) {
   return (
-    <div className="relative aspect-video overflow-hidden rounded-lg border border-blue/25 bg-[#080d16] shadow-[0_24px_70px_rgba(71,112,219,0.18)]">
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_28%_18%,rgba(71,112,219,0.22),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.06),transparent_42%)]" />
+    <div className="relative aspect-video overflow-hidden rounded-lg border border-blue/25 bg-steel shadow-[0_24px_70px_rgba(37,99,235,0.16)]">
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_28%_18%,rgba(37,99,235,0.22),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.06),transparent_42%)]" />
       <div className="relative z-10 h-full w-full">{children}</div>
     </div>
   );
@@ -128,7 +128,7 @@ export default function CollaborateTeams2Page() {
             <div className="mt-9 grid gap-3 sm:grid-cols-2">
               {heroHighlights.map((item) => (
                 <div
-                  className="rounded-lg border border-white/10 bg-white/[0.045] px-4 py-4 text-sm font-semibold leading-6 text-frost/90"
+                className="rounded-lg border border-white/15 bg-steel/60 px-4 py-4 text-sm font-semibold leading-6 text-frost/90"
                   key={item}
                 >
                   {item}
@@ -164,7 +164,7 @@ export default function CollaborateTeams2Page() {
               "Hands-free productivity"
             ].map((item) => (
               <div
-                className="rounded-lg border border-white/10 bg-white/[0.045] p-6 text-sm font-semibold uppercase tracking-[0.16em] text-frost/90"
+                className="rounded-lg border border-white/15 bg-steel/60 p-6 text-sm font-semibold uppercase tracking-[0.16em] text-frost/90 shadow-[0_18px_44px_rgba(0,0,0,0.16)]"
                 key={item}
               >
                 {item}
@@ -204,7 +204,7 @@ export default function CollaborateTeams2Page() {
       </section>
 
       <section className="border-t border-white/10 px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-lg border border-blue/30 bg-[linear-gradient(120deg,rgba(71,112,219,0.24),rgba(255,108,47,0.08),rgba(255,255,255,0.045))] p-10 text-center shadow-[0_28px_90px_rgba(0,0,0,0.28)] md:p-16">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-lg border border-blue/30 bg-[linear-gradient(120deg,rgba(37,99,235,0.24),rgba(255,106,0,0.10),rgba(255,255,255,0.045))] p-10 text-center shadow-[0_28px_90px_rgba(0,0,0,0.28)] md:p-16">
           <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue">
             RealWear + Microsoft Teams
           </p>

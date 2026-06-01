@@ -29,7 +29,7 @@ export default function RequestQuotePage() {
             </p>
           </SectionHeading>
 
-          <div className="mt-10 rounded-lg border border-white/10 bg-white/[0.045] p-6">
+          <div className="mt-10 rounded-lg border border-white/15 bg-steel/60 p-6 shadow-[0_18px_44px_rgba(0,0,0,0.16)]">
             <h2 className="text-sm font-semibold uppercase tracking-[0.24em] text-white">
               Direct contact
             </h2>
@@ -45,7 +45,7 @@ export default function RequestQuotePage() {
           </div>
         </div>
 
-        <div className="rounded-lg border border-blue/25 bg-[#080d16] p-5 shadow-glow md:p-8">
+        <div className="rounded-lg border border-blue/25 bg-steel/70 p-5 shadow-glow md:p-8">
           <QuoteForm />
         </div>
       </section>

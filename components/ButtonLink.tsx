@@ -13,11 +13,11 @@ type ButtonLinkProps = {
 
 const variants = {
   primary:
-    "bg-blue text-white shadow-glow hover:bg-[#5d82ee] focus-visible:outline-blue",
+    "bg-amber text-white shadow-amber hover:bg-[#e85f00] focus-visible:outline-amber",
   secondary:
-    "border border-white/20 bg-white/[0.08] text-white hover:border-blue/70 hover:bg-blue/15 focus-visible:outline-blue",
+    "border border-white/20 bg-white/[0.08] text-white shadow-[0_12px_34px_rgba(0,0,0,0.18)] hover:border-blue/70 hover:bg-blue/15 focus-visible:outline-blue",
   ghost:
-    "border border-white/10 bg-transparent text-frost hover:border-amber/60 hover:text-white focus-visible:outline-amber"
+    "border border-white/15 bg-transparent text-frost hover:border-amber/70 hover:text-white focus-visible:outline-amber"
 };
 
 export function ButtonLink({

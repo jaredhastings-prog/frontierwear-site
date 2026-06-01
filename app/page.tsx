@@ -132,7 +132,7 @@ export default function Home() {
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
               {teamsTeaserFeatures.map((feature) => (
                 <div
-                  className="rounded-lg border border-white/10 bg-white/[0.045] px-4 py-3 text-sm font-semibold leading-6 text-frost/90 shadow-[0_14px_34px_rgba(0,0,0,0.18)]"
+                className="rounded-lg border border-white/15 bg-steel/60 px-4 py-3 text-sm font-semibold leading-6 text-frost/90 shadow-[0_14px_34px_rgba(0,0,0,0.20)]"
                   key={feature}
                 >
                   {feature}
@@ -196,7 +196,7 @@ export default function Home() {
         <div className="mt-12 grid auto-rows-fr gap-4 md:grid-cols-2 lg:grid-cols-3">
           {useCases.map((useCase) => (
             <article
-              className="group flex h-full flex-col overflow-hidden rounded-lg border border-white/10 bg-[#080d16] transition duration-300 hover:-translate-y-1 hover:border-blue/45"
+              className="group flex h-full flex-col overflow-hidden rounded-lg border border-white/15 bg-steel/60 shadow-[0_18px_44px_rgba(0,0,0,0.18)] transition duration-300 hover:-translate-y-1 hover:border-blue/45"
               key={useCase.title}
             >
               <div className="relative -mx-px -mt-px aspect-[21/10] overflow-hidden rounded-t-lg border-b border-white/10">
@@ -242,7 +242,7 @@ export default function Home() {
         <div className="grid gap-4 sm:grid-cols-2">
           {whyFrontier.map((reason) => (
             <div
-              className="rounded-lg border border-white/10 bg-white/[0.045] p-6"
+              className="rounded-lg border border-white/15 bg-steel/60 p-6 shadow-[0_18px_44px_rgba(0,0,0,0.16)]"
               key={reason}
             >
               <p className="text-xs uppercase tracking-[0.28em] text-amber">
@@ -257,7 +257,7 @@ export default function Home() {
       </section>
 
       <section className="px-4 pb-24 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-lg border border-blue/30 bg-[linear-gradient(120deg,rgba(71,112,219,0.20),rgba(255,108,47,0.10),rgba(255,255,255,0.04))] p-8 md:p-14">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-lg border border-blue/30 bg-[linear-gradient(120deg,rgba(37,99,235,0.20),rgba(255,106,0,0.12),rgba(255,255,255,0.04))] p-8 shadow-glow md:p-14">
           <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber">
             Deployment next steps
           </p>

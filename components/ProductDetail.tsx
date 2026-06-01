@@ -41,14 +41,18 @@ export function ProductDetail({ product }: ProductDetailProps) {
   const backImage = isNavigator520
     ? {
         alt: "Back view of the RealWear Navigator 520 headset",
-        className: "-mb-[8%] -mt-[22%] block h-auto w-full object-contain",
-        src: "/assets/navigator520-back.png"
+        className: "block h-auto w-full object-cover object-center",
+        height: 941,
+        src: "/assets/navigator-520-industrial-bg.png",
+        width: 1672
       }
     : isNavigatorZ1
       ? {
           alt: "Back view of the RealWear Navigator Z1 headset",
-          className: "-mb-[25%] -mt-[33%] block h-auto w-full object-contain",
-          src: "/assets/navigator-z1-back.png"
+          className: "block h-auto w-full object-cover object-center",
+          height: 941,
+          src: "/assets/navigator-z1-industrial-bg.png",
+          width: 1672
         }
       : null;
   const quoteImage = isNavigator520
@@ -189,10 +193,10 @@ export function ProductDetail({ product }: ProductDetailProps) {
                 <Image
                   alt={backImage.alt}
                   className={backImage.className}
-                  height={2000}
+                  height={backImage.height}
                   sizes="(min-width: 1280px) 1200px, 100vw"
                   src={backImage.src}
-                  width={2000}
+                  width={backImage.width}
                 />
               </div>
             </div>

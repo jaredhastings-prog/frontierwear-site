@@ -156,12 +156,13 @@ export default function Home() {
       </section>
 
       <section
-        className="border-y border-white/10 bg-white/[0.035] px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
+        className="border-y border-[#E2E8F0] bg-[#F5F7FA] px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
         id="products"
       >
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             align="center"
+            className="[&_div]:text-[#64748B] [&_h2]:text-[#0F172A]"
             eyebrow="Product showcase"
             title="RealWear devices for industrial connected worker programs"
           >

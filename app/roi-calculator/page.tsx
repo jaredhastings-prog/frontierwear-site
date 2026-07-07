@@ -52,8 +52,10 @@ export default function RoiCalculatorPage() {
         </div>
         <p className="mx-auto mt-4 max-w-4xl text-center text-[10px] leading-relaxed text-smoke/30">
           Estimates based on published RealWear case studies and industry benchmarks.
-          Actual savings vary by organisation, industry, and deployment scope. Frontier
-          Wear recommends a pilot program to establish your baseline.
+          Capacity upside figures reflect your own redeployment estimate rather than
+          published benchmarks. Actual savings vary by organisation, industry, and
+          deployment scope. Frontier Wear recommends a pilot program to establish your
+          baseline.
         </p>
       </section>
     </main>

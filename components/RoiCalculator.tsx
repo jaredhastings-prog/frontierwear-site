@@ -16,6 +16,16 @@ type PainId =
   | "safety"
   | "knowledge";
 
+type IndustryId =
+  | "mining"
+  | "manufacturing"
+  | "utilities"
+  | "construction"
+  | "field"
+  | "other";
+
+type RedeployId = "maintenance" | "billable" | "throughput" | "unsure";
+
 // Benchmarks as [conservative, moderate, optimistic]
 const BENCH = {
   dtResolution: [0.25, 0.4, 0.6], // % faster resolution on expert events — LASCAM/TotalEnergies
@@ -63,6 +73,131 @@ const DEFAULT_INPUTS = {
 
 type Inputs = typeof DEFAULT_INPUTS;
 
+const INDUSTRY_OPTIONS: Array<{
+  id: IndustryId;
+  label: string;
+  crewLabel: string;
+}> = [
+  { id: "mining", label: "⛏ Mining & resources", crewLabel: "mining" },
+  { id: "manufacturing", label: "🏭 Manufacturing", crewLabel: "manufacturing" },
+  { id: "utilities", label: "⚡ Utilities & energy", crewLabel: "utilities" },
+  { id: "construction", label: "🏗 Construction", crewLabel: "construction" },
+  { id: "field", label: "🔧 Field services & trades", crewLabel: "field services" },
+  { id: "other", label: "👀 Something else", crewLabel: "" }
+];
+
+// Typical starting points per industry — every value stays fully adjustable.
+const INDUSTRY_PRESETS: Record<IndustryId, Inputs> = {
+  mining: {
+    workers: 50,
+    rate: 75,
+    weeks: 48,
+    visits: 10,
+    visitCost: 5000,
+    visitPct: 55,
+    dtEvents: 8,
+    dtHours: 4,
+    dtCost: 25000,
+    dtPct: 50,
+    hires: 10,
+    onboard: 10,
+    infoHrs: 2.5
+  },
+  manufacturing: {
+    workers: 40,
+    rate: 50,
+    weeks: 48,
+    visits: 6,
+    visitCost: 2000,
+    visitPct: 55,
+    dtEvents: 10,
+    dtHours: 3,
+    dtCost: 5000,
+    dtPct: 50,
+    hires: 8,
+    onboard: 8,
+    infoHrs: 2
+  },
+  utilities: {
+    workers: 35,
+    rate: 65,
+    weeks: 48,
+    visits: 8,
+    visitCost: 3000,
+    visitPct: 60,
+    dtEvents: 6,
+    dtHours: 4,
+    dtCost: 10000,
+    dtPct: 55,
+    hires: 6,
+    onboard: 10,
+    infoHrs: 2.5
+  },
+  construction: {
+    workers: 45,
+    rate: 55,
+    weeks: 46,
+    visits: 5,
+    visitCost: 1500,
+    visitPct: 50,
+    dtEvents: 5,
+    dtHours: 3,
+    dtCost: 3000,
+    dtPct: 40,
+    hires: 15,
+    onboard: 6,
+    infoHrs: 2
+  },
+  field: {
+    workers: 30,
+    rate: 60,
+    weeks: 48,
+    visits: 12,
+    visitCost: 2500,
+    visitPct: 65,
+    dtEvents: 4,
+    dtHours: 3,
+    dtCost: 2000,
+    dtPct: 60,
+    hires: 8,
+    onboard: 8,
+    infoHrs: 3
+  },
+  other: DEFAULT_INPUTS
+};
+
+const REDEPLOY_OPTIONS: Array<{
+  id: RedeployId;
+  label: string;
+  note: string;
+  mult: number;
+}> = [
+  {
+    id: "maintenance",
+    label: "🔧 Catch up on maintenance we keep putting off",
+    note: "Prevented failures are worth more than the wages (~1.5×)",
+    mult: 1.5
+  },
+  {
+    id: "billable",
+    label: "💰 Take on more jobs / billable work",
+    note: "An hour sold is worth more than an hour paid (~2×)",
+    mult: 2
+  },
+  {
+    id: "throughput",
+    label: "🏭 Produce more with the same crew",
+    note: "Extra output without extra headcount (~2.5×)",
+    mult: 2.5
+  },
+  {
+    id: "unsure",
+    label: "🤷 Not sure yet",
+    note: "No worries — we'll just show you the hours",
+    mult: 1
+  }
+];
+
 function fmtFull(n: number) {
   return "$" + Math.round(n).toLocaleString("en-AU");
 }
@@ -73,7 +208,12 @@ function fmtShort(n: number) {
   return "$" + Math.round(n);
 }
 
-function calculate(inputs: Inputs, pains: Set<PainId>, confidence: Confidence) {
+function calculate(
+  inputs: Inputs,
+  pains: Set<PainId>,
+  confidence: Confidence,
+  redeployMult: number
+) {
   const bench = (key: keyof typeof BENCH) => BENCH[key][CONF_INDEX[confidence]];
 
   // 1. Downtime — scoped to expert-needing events only
@@ -91,19 +231,30 @@ function calculate(inputs: Inputs, pains: Set<PainId>, confidence: Confidence) {
   const tvAfter = tvBefore - travelSaving;
 
   // 3. Training — single factor, no double-application
-  const rampCostPerHire = inputs.onboard * 40 * inputs.rate * 0.35;
-  const trainSaving =
+  const rampHoursGained =
     pains.has("training") || pains.has("knowledge")
-      ? inputs.hires * rampCostPerHire * bench("rampReduction")
+      ? inputs.hires * inputs.onboard * 40 * 0.35 * bench("rampReduction")
       : 0;
+  const trainSaving = rampHoursGained * inputs.rate;
 
   // 4. Productivity — scoped to info-delay hours only
-  const prodSaving =
+  const infoHoursRecovered =
     inputs.infoHrs > 0
-      ? inputs.workers * inputs.infoHrs * inputs.weeks * inputs.rate * bench("infoRecovery")
+      ? inputs.workers * inputs.infoHrs * inputs.weeks * bench("infoRecovery")
       : 0;
+  const prodSaving = infoHoursRecovered * inputs.rate;
 
   const total = dtSaving + travelSaving + trainSaving + prodSaving;
+
+  // 5. Capacity upside — worker-hours genuinely freed for new activities.
+  // Downtime and travel stay out of the pool: idle labour is already priced
+  // into the downtime cost, and travel hours belong to the visiting expert.
+  // The freed hours are already counted once at wage rate above, so the
+  // upside adds only the increment beyond wages. At 1× it is exactly zero.
+  const freedHours = rampHoursGained + infoHoursRecovered;
+  const upside = freedHours * (redeployMult - 1) * inputs.rate;
+  const fteEquivalent = freedHours / (inputs.weeks * 40);
+
   const numDevices = Math.max(2, Math.ceil(inputs.workers / 10));
   const deviceCost = numDevices * 7000;
   const paybackMonths = total > 0 ? deviceCost / (total / 12) : 0;
@@ -118,6 +269,9 @@ function calculate(inputs: Inputs, pains: Set<PainId>, confidence: Confidence) {
     dtAfter,
     tvBefore,
     tvAfter,
+    freedHours,
+    upside,
+    fteEquivalent,
     paybackMonths,
     numDevices,
     deviceCost
@@ -171,6 +325,46 @@ function SliderRow({
       <div className="mt-1 flex justify-between font-mono text-[10px] text-smoke/50">
         <span>{minLabel}</span>
         <span>{maxLabel}</span>
+      </div>
+    </div>
+  );
+}
+
+type TierPickerProps = {
+  label: string;
+  display: string;
+  hint?: string;
+  tiers: Array<{ label: string; value: number }>;
+  value: number;
+  onChange: (value: number) => void;
+};
+
+function TierPicker({ label, display, hint, tiers, value, onChange }: TierPickerProps) {
+  return (
+    <div>
+      <div className="flex items-center justify-between gap-3">
+        <span className="text-sm leading-snug text-frost">{label}</span>
+        <span className="whitespace-nowrap rounded-md bg-white/[0.06] px-2.5 py-1 font-display text-lg text-amber">
+          {display}
+        </span>
+      </div>
+      {hint ? <p className="mt-1 text-xs text-smoke/70">{hint}</p> : null}
+      <div className="roi-no-print mt-3 flex flex-wrap gap-2">
+        {tiers.map((tier) => (
+          <button
+            className={cn(
+              "rounded-full border px-3.5 py-2 text-xs font-semibold transition",
+              value === tier.value
+                ? "border-blue/50 bg-blue/20 text-white"
+                : "border-white/12 bg-white/[0.04] text-smoke hover:border-blue/40 hover:text-frost"
+            )}
+            key={tier.label}
+            onClick={() => onChange(tier.value)}
+            type="button"
+          >
+            {tier.label}
+          </button>
+        ))}
       </div>
     </div>
   );
@@ -254,23 +448,36 @@ function FineTune({ children }: { children: ReactNode }) {
 
 export function RoiCalculator() {
   const [inputs, setInputs] = useState<Inputs>(DEFAULT_INPUTS);
+  const [industry, setIndustry] = useState<IndustryId | null>(null);
   const [pains, setPains] = useState<Set<PainId>>(
     () => new Set<PainId>(["downtime", "travel", "training"])
   );
   const [confidence, setConfidence] = useState<Confidence>("conservative");
+  const [redeploy, setRedeploy] = useState<RedeployId>("unsure");
+  const [includeUpside, setIncludeUpside] = useState(false);
 
   const [gateOpen, setGateOpen] = useState(false);
   const [leadCaptured, setLeadCaptured] = useState(false);
   const [pendingAction, setPendingAction] = useState<"pdf" | "share" | null>(null);
   const [shareCopied, setShareCopied] = useState(false);
 
+  const redeployOption =
+    REDEPLOY_OPTIONS.find((option) => option.id === redeploy) ?? REDEPLOY_OPTIONS[3];
+
   const results = useMemo(
-    () => calculate(inputs, pains, confidence),
-    [inputs, pains, confidence]
+    () => calculate(inputs, pains, confidence, redeployOption.mult),
+    [inputs, pains, confidence, redeployOption]
   );
+
+  const industryAverages = INDUSTRY_PRESETS[industry ?? "other"];
 
   const setInput = (key: keyof Inputs) => (value: number) =>
     setInputs((previous) => ({ ...previous, [key]: value }));
+
+  const selectIndustry = (id: IndustryId) => {
+    setIndustry(id);
+    setInputs(INDUSTRY_PRESETS[id]);
+  };
 
   const togglePain = (id: PainId) =>
     setPains((previous) => {
@@ -334,8 +541,15 @@ export function RoiCalculator() {
   const trRate = Math.round(BENCH.rampReduction[CONF_INDEX[confidence]] * 100);
   const prRate = Math.round(BENCH.infoRecovery[CONF_INDEX[confidence]] * 100);
 
+  const crewLabel = INDUSTRY_OPTIONS.find((option) => option.id === industry)?.crewLabel;
+  const headlineTotal = includeUpside ? results.total + results.upside : results.total;
+  const freedHoursLabel = Math.round(results.freedHours).toLocaleString("en-AU");
+
   const resultsSummary = [
     `Total: ${fmtFull(results.total)}`,
+    `Upside: ${fmtFull(results.upside)} (${redeployOption.id})`,
+    `Hours freed: ${freedHoursLabel}`,
+    `Industry: ${industry ?? "not set"}`,
     `Confidence: ${confLabel}`,
     `Payback months: ${results.paybackMonths.toFixed(1)}`,
     `Devices: ${results.numDevices}`,
@@ -475,36 +689,64 @@ export function RoiCalculator() {
         }
       `}</style>
 
-      {/* Step 1 — problems */}
+      {/* Step 1 — industry */}
       <StepPanel
-        lead="Pick as many as you like. You can change these anytime."
+        lead="One tap fills everything in with typical numbers for your world — then adjust whatever looks off."
         step={1}
-        title="What's slowing your team down?"
+        title="What's your industry?"
       >
         <div className="roi-no-print flex flex-wrap gap-2.5">
-          {PAIN_OPTIONS.map((pain) => (
+          {INDUSTRY_OPTIONS.map((option) => (
             <button
               className={cn(
                 "rounded-full border px-4 py-2.5 text-[13px] font-semibold transition",
-                pains.has(pain.id)
+                industry === option.id
                   ? "border-blue/50 bg-blue/20 text-white"
                   : "border-white/12 bg-white/[0.04] text-smoke hover:border-blue/40 hover:text-frost"
               )}
-              key={pain.id}
-              onClick={() => togglePain(pain.id)}
+              key={option.id}
+              onClick={() => selectIndustry(option.id)}
               type="button"
             >
-              {pains.has(pain.id) ? "✓ " : ""}
-              {pain.label}
+              {industry === option.id ? "✓ " : ""}
+              {option.label}
             </button>
           ))}
         </div>
       </StepPanel>
 
+      {/* Step 2 — problems */}
+      <div className="mt-5">
+        <StepPanel
+          lead="Pick as many as you like. You can change these anytime."
+          step={2}
+          title="What's slowing your team down?"
+        >
+          <div className="roi-no-print flex flex-wrap gap-2.5">
+            {PAIN_OPTIONS.map((pain) => (
+              <button
+                className={cn(
+                  "rounded-full border px-4 py-2.5 text-[13px] font-semibold transition",
+                  pains.has(pain.id)
+                    ? "border-blue/50 bg-blue/20 text-white"
+                    : "border-white/12 bg-white/[0.04] text-smoke hover:border-blue/40 hover:text-frost"
+                )}
+                key={pain.id}
+                onClick={() => togglePain(pain.id)}
+                type="button"
+              >
+                {pains.has(pain.id) ? "✓ " : ""}
+                {pain.label}
+              </button>
+            ))}
+          </div>
+        </StepPanel>
+      </div>
+
       {/* Split: input steps left, live results right */}
       <div className="roi-split mt-5 grid items-start gap-5 lg:grid-cols-[1fr_400px]">
         <div className="grid gap-5">
-          <StepPanel lead="Rough numbers are fine." step={2} title="Your team">
+          <StepPanel lead="Rough numbers are fine." step={3} title="Your team">
             <SliderRow
               display={String(inputs.workers)}
               label="How many people work on your frontline?"
@@ -546,7 +788,7 @@ export function RoiCalculator() {
             included={pains.has("travel")}
             lead="Specialists or technicians travelling to your sites."
             onToggleIncluded={() => togglePain("travel")}
-            step={3}
+            step={4}
             title="Experts coming to site"
           >
             <SliderRow
@@ -559,19 +801,34 @@ export function RoiCalculator() {
               onChange={setInput("visits")}
               value={inputs.visits}
             />
-            <SliderRow
+            <TierPicker
               display={`$${inputs.visitCost.toLocaleString("en-AU")}`}
               hint="Flights, accommodation, and lost time."
               label="What does one visit cost, all up?"
-              max={15000}
-              maxLabel="$15K"
-              min={500}
-              minLabel="$500"
               onChange={setInput("visitCost")}
-              step={250}
+              tiers={[
+                { label: "Local — ~$800", value: 800 },
+                { label: "Interstate — ~$2.5K", value: 2500 },
+                { label: "Fly-in / remote — ~$6K", value: 6000 },
+                {
+                  label: "Not sure — use the typical figure",
+                  value: industryAverages.visitCost
+                }
+              ]}
               value={inputs.visitCost}
             />
             <FineTune>
+              <SliderRow
+                display={`$${inputs.visitCost.toLocaleString("en-AU")}`}
+                label="Exact cost per visit"
+                max={15000}
+                maxLabel="$15K"
+                min={500}
+                minLabel="$500"
+                onChange={setInput("visitCost")}
+                step={250}
+                value={inputs.visitCost}
+              />
               <SliderRow
                 display={`${inputs.visitPct}%`}
                 hint="Exclude planned commissioning or hands-on installs."
@@ -591,7 +848,7 @@ export function RoiCalculator() {
             included={pains.has("downtime")}
             lead="Breakdowns and unplanned stoppages."
             onToggleIncluded={() => togglePain("downtime")}
-            step={4}
+            step={5}
             title="Downtime"
           >
             <SliderRow
@@ -615,19 +872,34 @@ export function RoiCalculator() {
               step={0.5}
               value={inputs.dtHours}
             />
-            <SliderRow
+            <TierPicker
               display={`$${inputs.dtCost.toLocaleString("en-AU")}/hr`}
               hint="Lost production, idle labour, penalties."
               label="What does an hour of downtime cost you?"
-              max={100000}
-              maxLabel="$100K"
-              min={500}
-              minLabel="$500"
               onChange={setInput("dtCost")}
-              step={500}
+              tiers={[
+                { label: "Minor — ~$1K/hr", value: 1000 },
+                { label: "Painful — ~$5K/hr", value: 5000 },
+                { label: "Severe — ~$25K/hr", value: 25000 },
+                {
+                  label: "Not sure — use the typical figure",
+                  value: industryAverages.dtCost
+                }
+              ]}
               value={inputs.dtCost}
             />
             <FineTune>
+              <SliderRow
+                display={`$${inputs.dtCost.toLocaleString("en-AU")}/hr`}
+                label="Exact cost per downtime hour"
+                max={100000}
+                maxLabel="$100K"
+                min={500}
+                minLabel="$500"
+                onChange={setInput("dtCost")}
+                step={500}
+                value={inputs.dtCost}
+              />
               <SliderRow
                 display={`${inputs.dtPct}%`}
                 hint="Mechanical-only faults excluded."
@@ -647,8 +919,8 @@ export function RoiCalculator() {
             included={pains.has("training") || pains.has("knowledge")}
             lead="New starters, and time lost chasing information."
             onToggleIncluded={() => togglePain("training")}
-            step={5}
-            title="Training &amp; everyday time"
+            step={6}
+            title="Training & everyday time"
           >
             <SliderRow
               display={String(inputs.hires)}
@@ -685,6 +957,45 @@ export function RoiCalculator() {
               />
             </FineTune>
           </StepPanel>
+
+          <StepPanel
+            lead={`Your crew gets back about ${freedHoursLabel} hours a year. What happens with them is the upside most ROI numbers miss.`}
+            step={7}
+            title="What would your team do with the time back?"
+          >
+            <div className="roi-no-print grid gap-2.5 sm:grid-cols-2">
+              {REDEPLOY_OPTIONS.map((option) => (
+                <button
+                  className={cn(
+                    "rounded-xl border p-4 text-left transition",
+                    redeploy === option.id
+                      ? "border-blue/50 bg-blue/20"
+                      : "border-white/12 bg-white/[0.04] hover:border-blue/40"
+                  )}
+                  key={option.id}
+                  onClick={() => setRedeploy(option.id)}
+                  type="button"
+                >
+                  <span
+                    className={cn(
+                      "block text-[13px] font-semibold leading-snug",
+                      redeploy === option.id ? "text-white" : "text-frost/80"
+                    )}
+                  >
+                    {redeploy === option.id ? "✓ " : ""}
+                    {option.label}
+                  </span>
+                  <span className="mt-1 block text-xs leading-snug text-smoke/70">
+                    {option.note}
+                  </span>
+                </button>
+              ))}
+            </div>
+            <p className="text-xs text-smoke/60">
+              This is your call, not a case-study benchmark — so we show it separately
+              from your savings.
+            </p>
+          </StepPanel>
         </div>
 
         {/* Results — visually distinct, sticky on desktop */}
@@ -700,17 +1011,45 @@ export function RoiCalculator() {
             </div>
             <div className="px-6 py-5">
               <p className="roi-num font-display text-5xl leading-none text-white [font-variant-numeric:tabular-nums]">
-                {fmtFull(results.total)}
+                {fmtFull(headlineTotal)}
               </p>
               <p className="mt-2 text-sm text-frost/60">
-                estimated savings in your first year
+                estimated first-year savings for your {inputs.workers}-person
+                {crewLabel ? ` ${crewLabel}` : ""} crew
+                {includeUpside && results.upside > 0 ? ", upside included" : ""}
               </p>
+
+              {results.freedHours > 0 ? (
+                <div className="mt-4 rounded-lg border border-emerald-400/25 bg-emerald-400/[0.07] px-4 py-3">
+                  <p className="font-display text-[15px] text-white">
+                    ⏱ {freedHoursLabel} hours back per year
+                  </p>
+                  <p className="mt-0.5 text-xs text-smoke">
+                    Like adding {results.fteEquivalent.toFixed(1)} workers without
+                    hiring.
+                    {results.upside > 0
+                      ? ` Redeployed: +${fmtFull(results.upside)} upside.`
+                      : ""}
+                  </p>
+                  {results.upside > 0 ? (
+                    <label className="roi-no-print mt-2 flex cursor-pointer items-center gap-2 text-xs text-smoke">
+                      <input
+                        checked={includeUpside}
+                        className="accent-amber"
+                        onChange={(event) => setIncludeUpside(event.target.checked)}
+                        type="checkbox"
+                      />
+                      Include upside in the headline number
+                    </label>
+                  ) : null}
+                </div>
+              ) : null}
 
               <div className="mt-4 rounded-lg border border-blue/25 bg-blue/[0.08] px-4 py-3">
                 <p className="font-display text-[15px] text-white">{paybackHeading}</p>
                 <p className="mt-0.5 text-xs text-smoke">
                   Based on {results.numDevices} devices (~{fmtShort(results.deviceCost)}),
-                  1 per 10 workers.
+                  1 per 10 workers — savings only, upside not counted.
                 </p>
               </div>
 
@@ -878,12 +1217,29 @@ export function RoiCalculator() {
             ))}
             <div className="flex justify-between border-t border-amber/20 bg-amber/[0.06] px-5 py-3.5">
               <span className="text-xs font-semibold uppercase tracking-[0.1em] text-frost">
-                Total estimated annual return
+                Total estimated annual savings
               </span>
               <span className="roi-num font-display text-base text-amber">
                 {fmtFull(results.total)}
               </span>
             </div>
+            {results.upside > 0 ? (
+              <div className="flex items-start justify-between gap-3 border-t border-emerald-400/20 bg-emerald-400/[0.05] px-5 py-3.5">
+                <div>
+                  <span className="text-xs font-semibold uppercase tracking-[0.1em] text-frost">
+                    + Capacity upside
+                  </span>
+                  <p className="mt-0.5 text-[10px] italic text-smoke/50">
+                    {freedHoursLabel} freed hours redeployed at ~
+                    {redeployOption.mult}× wage value — your estimate, not a
+                    case-study benchmark
+                  </p>
+                </div>
+                <span className="roi-num whitespace-nowrap font-display text-base text-emerald-300">
+                  {fmtFull(results.upside)}
+                </span>
+              </div>
+            ) : null}
           </div>
         </div>
       </section>
@@ -927,7 +1283,7 @@ export function RoiCalculator() {
               Year 1 savings
             </p>
             <p className="roi-num font-display text-xl leading-tight text-amber [font-variant-numeric:tabular-nums]">
-              {fmtFull(results.total)}
+              {fmtFull(headlineTotal)}
             </p>
           </div>
           <a

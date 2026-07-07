@@ -25,15 +25,55 @@ export function Header() {
         </Link>
 
         <nav aria-label="Primary navigation" className="hidden items-center gap-7 lg:flex">
-          {navItems.map((item) => (
-            <Link
-              className="text-sm text-smoke transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue"
-              href={item.href}
-              key={item.href}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) =>
+            item.children ? (
+              <div className="group relative" key={item.href}>
+                <Link
+                  className="flex items-center gap-1.5 text-sm text-smoke transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue"
+                  href={item.href}
+                >
+                  {item.label}
+                  <svg
+                    aria-hidden="true"
+                    className="mt-px transition-transform group-hover:rotate-180"
+                    fill="none"
+                    height="6"
+                    viewBox="0 0 10 6"
+                    width="10"
+                  >
+                    <path
+                      d="M1 1l4 4 4-4"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
+                </Link>
+                <div className="invisible absolute left-1/2 top-full -translate-x-1/2 pt-4 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+                  <div className="w-56 rounded-lg border border-white/10 bg-[#080d16] p-2 shadow-glow">
+                    {item.children.map((child) => (
+                      <Link
+                        className="block rounded-md px-4 py-2.5 text-sm text-smoke transition hover:bg-white/[0.08] hover:text-white"
+                        href={child.href}
+                        key={child.href}
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <Link
+                className="text-sm text-smoke transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue"
+                href={item.href}
+                key={item.href}
+              >
+                {item.label}
+              </Link>
+            )
+          )}
         </nav>
 
         <div className="hidden items-center gap-4 lg:flex">
@@ -53,13 +93,23 @@ export function Header() {
           <div className="absolute right-0 mt-4 w-[min(88vw,22rem)] rounded-lg border border-white/10 bg-[#080d16] p-3 shadow-glow">
             <nav aria-label="Mobile navigation" className="grid gap-1">
               {navItems.map((item) => (
-                <Link
-                  className="rounded-md px-4 py-3 text-sm text-smoke transition hover:bg-white/[0.08] hover:text-white"
-                  href={item.href}
-                  key={item.href}
-                >
-                  {item.label}
-                </Link>
+                <div className="grid gap-1" key={item.href}>
+                  <Link
+                    className="rounded-md px-4 py-3 text-sm text-smoke transition hover:bg-white/[0.08] hover:text-white"
+                    href={item.href}
+                  >
+                    {item.label}
+                  </Link>
+                  {item.children?.map((child) => (
+                    <Link
+                      className="rounded-md py-2.5 pl-8 pr-4 text-sm text-smoke/80 transition hover:bg-white/[0.08] hover:text-white"
+                      href={child.href}
+                      key={child.href}
+                    >
+                      {child.label}
+                    </Link>
+                  ))}
+                </div>
               ))}
               <Link
                 className="mt-2 rounded-md bg-blue px-4 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white"

@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { RoiCallout } from "@/components/RoiCallout";
 import { site } from "@/content/site";
 
 import "./globals.css";
@@ -79,6 +80,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <RoiCallout />
       </body>
     </html>
   );

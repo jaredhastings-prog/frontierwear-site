@@ -26,15 +26,17 @@ export function Footer() {
             Explore
           </h2>
           <nav aria-label="Footer navigation" className="mt-5 grid gap-3">
-            {navItems.map((item) => (
-              <Link
-                className="text-sm text-smoke transition hover:text-white"
-                href={item.href}
-                key={item.href}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems
+              .flatMap((item) => [item, ...(item.children ?? [])])
+              .map((item) => (
+                <Link
+                  className="text-sm text-smoke transition hover:text-white"
+                  href={item.href}
+                  key={item.href}
+                >
+                  {item.label}
+                </Link>
+              ))}
             <Link
               className="text-sm text-smoke transition hover:text-white"
               href="/request-quote"

@@ -6,7 +6,12 @@ export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const updated = new Date("2026-05-01");
-  const staticRoutes = ["", "/collaborate-teams-2", "/request-quote"].map(
+  const staticRoutes = [
+    "",
+    "/collaborate-teams-2",
+    "/request-quote",
+    "/roi-calculator"
+  ].map(
     (route) => ({
       url: `${site.url}${route}`,
       lastModified: updated,

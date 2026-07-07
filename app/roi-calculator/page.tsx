@@ -27,8 +27,8 @@ export default function RoiCalculatorPage() {
             costing you?
           </h1>
           <p className="mx-auto mt-3 max-w-md text-[15px] text-frost/60">
-            Adjust the inputs and watch your return update live. Numbers are based on
-            published RealWear case studies.
+            Answer a few quick questions — rough numbers are fine. Your savings update
+            live as you go. Takes about a minute.
           </p>
         </div>
 

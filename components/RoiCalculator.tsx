@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
-import type { FormEvent } from "react";
+import { useMemo, useState } from "react";
+import type { FormEvent, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -31,18 +31,18 @@ const CONF_INDEX: Record<Confidence, 0 | 1 | 2> = {
 };
 
 const CONF_LABELS: Record<Confidence, string> = {
-  conservative: "Conservative",
-  moderate: "Moderate",
-  optimistic: "Optimistic"
+  conservative: "Cautious",
+  moderate: "Balanced",
+  optimistic: "Best case"
 };
 
 const PAIN_OPTIONS: Array<{ id: PainId; label: string }> = [
-  { id: "downtime", label: "⚡ Equipment Downtime" },
-  { id: "travel", label: "✈️ Expert Travel" },
-  { id: "training", label: "📋 Slow Onboarding" },
-  { id: "errors", label: "❌ Errors & Rework" },
-  { id: "safety", label: "🦺 Safety Incidents" },
-  { id: "knowledge", label: "🧠 Knowledge Loss" }
+  { id: "downtime", label: "⚡ Equipment downtime" },
+  { id: "travel", label: "✈️ Experts flying to site" },
+  { id: "training", label: "📋 Slow onboarding" },
+  { id: "errors", label: "❌ Errors & rework" },
+  { id: "safety", label: "🦺 Safety incidents" },
+  { id: "knowledge", label: "🧠 Skills walking out the door" }
 ];
 
 const DEFAULT_INPUTS = {
@@ -131,7 +131,8 @@ type SliderRowProps = {
   min: number;
   max: number;
   step?: number;
-  ticks: string[];
+  minLabel: string;
+  maxLabel: string;
   hint?: string;
   onChange: (value: number) => void;
 };
@@ -143,21 +144,23 @@ function SliderRow({
   min,
   max,
   step = 1,
-  ticks,
+  minLabel,
+  maxLabel,
   hint,
   onChange
 }: SliderRowProps) {
   return (
     <div>
-      <div className="flex items-baseline justify-between gap-3">
-        <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-smoke">
-          {label}
+      <div className="flex items-center justify-between gap-3">
+        <span className="text-sm leading-snug text-frost">{label}</span>
+        <span className="whitespace-nowrap rounded-md bg-white/[0.06] px-2.5 py-1 font-display text-lg text-amber">
+          {display}
         </span>
-        <span className="font-display text-xl text-amber">{display}</span>
       </div>
+      {hint ? <p className="mt-1 text-xs text-smoke/70">{hint}</p> : null}
       <input
         aria-label={label}
-        className="roi-range mt-2"
+        className="roi-range mt-3"
         max={max}
         min={min}
         onChange={(event) => onChange(parseFloat(event.target.value))}
@@ -165,26 +168,87 @@ function SliderRow({
         type="range"
         value={value}
       />
-      <div className="mt-1 flex justify-between font-mono text-[10px] text-smoke/40">
-        {ticks.map((tick) => (
-          <span key={tick}>{tick}</span>
-        ))}
+      <div className="mt-1 flex justify-between font-mono text-[10px] text-smoke/50">
+        <span>{minLabel}</span>
+        <span>{maxLabel}</span>
       </div>
-      {hint ? (
-        <p className="mt-1 text-[11px] leading-snug text-smoke/50">{hint}</p>
-      ) : null}
     </div>
   );
 }
 
-function Panel({ title, children }: { title: string; children: React.ReactNode }) {
+type StepPanelProps = {
+  step: number;
+  title: string;
+  lead?: string;
+  included?: boolean;
+  onToggleIncluded?: () => void;
+  children: ReactNode;
+};
+
+function StepPanel({
+  step,
+  title,
+  lead,
+  included = true,
+  onToggleIncluded,
+  children
+}: StepPanelProps) {
   return (
-    <div className="roi-card rounded-2xl border border-white/10 bg-white/[0.055] p-5">
-      <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.28em] text-smoke">
-        {title}
-      </p>
-      <div className="grid gap-4">{children}</div>
-    </div>
+    <section className="roi-card rounded-2xl border border-white/10 bg-steel/60 p-6">
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue font-display text-sm text-white">
+            {step}
+          </span>
+          <div>
+            <h2 className="font-display text-lg leading-tight text-white">{title}</h2>
+            {lead ? <p className="mt-0.5 text-xs text-smoke">{lead}</p> : null}
+          </div>
+        </div>
+        {onToggleIncluded ? (
+          <button
+            className={cn(
+              "roi-no-print flex-shrink-0 rounded-full border px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] transition",
+              included
+                ? "border-blue/45 bg-blue/15 text-frost"
+                : "border-white/15 text-smoke hover:border-blue/40 hover:text-frost"
+            )}
+            onClick={onToggleIncluded}
+            type="button"
+          >
+            {included ? "✓ Counted" : "Not counted"}
+          </button>
+        ) : null}
+      </div>
+      <div
+        className={cn(
+          "mt-6 grid gap-6 transition-opacity",
+          !included && "pointer-events-none opacity-35"
+        )}
+      >
+        {children}
+      </div>
+      {!included ? (
+        <p className="roi-no-print mt-4 text-xs text-smoke/70">
+          This isn&apos;t counted in your total. Tap &ldquo;Not counted&rdquo; above to
+          include it.
+        </p>
+      ) : null}
+    </section>
+  );
+}
+
+function FineTune({ children }: { children: ReactNode }) {
+  return (
+    <details className="roi-no-print group rounded-lg border border-white/[0.07] bg-white/[0.02] px-4 py-3">
+      <summary className="cursor-pointer list-none text-xs font-semibold uppercase tracking-[0.14em] text-smoke transition hover:text-frost">
+        <span className="mr-1.5 inline-block transition-transform group-open:rotate-90">
+          ▸
+        </span>
+        Fine-tune (optional)
+      </summary>
+      <div className="mt-5 grid gap-6">{children}</div>
+    </details>
   );
 }
 
@@ -196,28 +260,14 @@ export function RoiCalculator() {
   const [confidence, setConfidence] = useState<Confidence>("conservative");
 
   const [gateOpen, setGateOpen] = useState(false);
-  const [gateShown, setGateShown] = useState(false);
   const [leadCaptured, setLeadCaptured] = useState(false);
   const [pendingAction, setPendingAction] = useState<"pdf" | "share" | null>(null);
   const [shareCopied, setShareCopied] = useState(false);
-  const [timerSec, setTimerSec] = useState(0);
 
   const results = useMemo(
     () => calculate(inputs, pains, confidence),
     [inputs, pains, confidence]
   );
-
-  useEffect(() => {
-    const timer = setInterval(() => setTimerSec((s) => s + 1), 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    if (timerSec === 60 && !gateShown && !leadCaptured) {
-      setGateShown(true);
-      setGateOpen(true);
-    }
-  }, [timerSec, gateShown, leadCaptured]);
 
   const setInput = (key: keyof Inputs) => (value: number) =>
     setInputs((previous) => ({ ...previous, [key]: value }));
@@ -253,7 +303,6 @@ export function RoiCalculator() {
       return;
     }
     setPendingAction(action);
-    setGateShown(true);
     setGateOpen(true);
   };
 
@@ -297,29 +346,29 @@ export function RoiCalculator() {
     `Productivity saving: ${fmtFull(results.prodSaving)}`
   ].join(" | ");
 
-  const statCards = [
+  const categoryRows = [
     {
-      tag: "⚡ Downtime",
-      value: results.dtSaving,
-      label: "Saved on expert-escalation events"
+      icon: "⚡",
+      name: "Less downtime",
+      value: results.dtSaving
     },
     {
-      tag: "✈️ Travel",
-      value: results.travelSaving,
-      label: "Expert visit costs eliminated"
+      icon: "✈️",
+      name: "Fewer expert trips",
+      value: results.travelSaving
     },
     {
-      tag: "📋 Training",
-      value: results.trainSaving,
-      label: "Faster ramp-to-productivity"
+      icon: "📋",
+      name: "Faster onboarding",
+      value: results.trainSaving
     },
     {
-      tag: "🔧 Productivity",
-      value: results.prodSaving,
-      label: "Information delay hours recovered"
+      icon: "🔧",
+      name: "Time back every week",
+      value: results.prodSaving
     }
   ];
-  const maxStat = Math.max(...statCards.map((card) => card.value), 1);
+  const maxCategory = Math.max(...categoryRows.map((row) => row.value), 1);
 
   const breakdownRows = [
     {
@@ -350,30 +399,30 @@ export function RoiCalculator() {
 
   const paybackHeading =
     results.paybackMonths <= 0
-      ? "Set your inputs to calculate payback"
+      ? "Adjust the sliders to see your payback"
       : results.paybackMonths < 3
-        ? "Payback in under 3 months"
+        ? "Pays for itself in under 3 months"
         : results.paybackMonths < 12
-          ? `Payback in approximately ${Math.round(results.paybackMonths)} months`
-          : `Payback in ${(results.paybackMonths / 12).toFixed(1)} years`;
+          ? `Pays for itself in about ${Math.round(results.paybackMonths)} months`
+          : `Pays for itself in ${(results.paybackMonths / 12).toFixed(1)} years`;
 
   return (
-    <div>
+    <div className="pb-24 lg:pb-0">
       <style>{`
         .roi-range {
           -webkit-appearance: none;
           appearance: none;
           width: 100%;
-          height: 3px;
-          background: rgba(255, 255, 255, 0.12);
-          border-radius: 3px;
+          height: 4px;
+          background: rgba(255, 255, 255, 0.14);
+          border-radius: 4px;
           outline: none;
           cursor: pointer;
         }
         .roi-range::-webkit-slider-thumb {
           -webkit-appearance: none;
-          width: 20px;
-          height: 20px;
+          width: 24px;
+          height: 24px;
           border-radius: 50%;
           background: #ff6c2f;
           border: 3px solid #1a2030;
@@ -382,11 +431,11 @@ export function RoiCalculator() {
           transition: transform 0.1s;
         }
         .roi-range::-webkit-slider-thumb:hover {
-          transform: scale(1.15);
+          transform: scale(1.12);
         }
         .roi-range::-moz-range-thumb {
-          width: 20px;
-          height: 20px;
+          width: 24px;
+          height: 24px;
           border-radius: 50%;
           background: #ff6c2f;
           border: 3px solid #1a2030;
@@ -409,7 +458,7 @@ export function RoiCalculator() {
           .roi-split {
             grid-template-columns: 1fr !important;
           }
-          .roi-input-panel {
+          .roi-results {
             position: static !important;
           }
           .roi-card,
@@ -426,318 +475,393 @@ export function RoiCalculator() {
         }
       `}</style>
 
-      {/* Pain point chips */}
-      <div className="roi-no-print flex flex-wrap items-center gap-2">
-        <span className="mr-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-smoke">
-          I need to fix:
-        </span>
-        {PAIN_OPTIONS.map((pain) => (
-          <button
-            className={cn(
-              "rounded-full border px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.06em] transition",
-              pains.has(pain.id)
-                ? "border-blue/45 bg-blue/15 text-frost"
-                : "border-white/10 bg-white/[0.04] text-smoke hover:border-blue/40 hover:text-frost"
-            )}
-            key={pain.id}
-            onClick={() => togglePain(pain.id)}
-            type="button"
-          >
-            {pain.label}
-          </button>
-        ))}
-      </div>
+      {/* Step 1 — problems */}
+      <StepPanel
+        lead="Pick as many as you like. You can change these anytime."
+        step={1}
+        title="What's slowing your team down?"
+      >
+        <div className="roi-no-print flex flex-wrap gap-2.5">
+          {PAIN_OPTIONS.map((pain) => (
+            <button
+              className={cn(
+                "rounded-full border px-4 py-2.5 text-[13px] font-semibold transition",
+                pains.has(pain.id)
+                  ? "border-blue/50 bg-blue/20 text-white"
+                  : "border-white/12 bg-white/[0.04] text-smoke hover:border-blue/40 hover:text-frost"
+              )}
+              key={pain.id}
+              onClick={() => togglePain(pain.id)}
+              type="button"
+            >
+              {pains.has(pain.id) ? "✓ " : ""}
+              {pain.label}
+            </button>
+          ))}
+        </div>
+      </StepPanel>
 
-      {/* Confidence toggle */}
-      <div className="roi-no-print mt-4 flex flex-wrap items-center gap-2.5">
-        <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-smoke">
-          Confidence:
-        </span>
-        {(Object.keys(CONF_LABELS) as Confidence[]).map((level) => (
-          <button
-            className={cn(
-              "rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] transition",
-              confidence === level
-                ? "border-white/25 bg-white/[0.07] text-white"
-                : "border-white/10 text-smoke hover:border-white/25 hover:text-frost"
-            )}
-            key={level}
-            onClick={() => setConfidence(level)}
-            type="button"
-          >
-            {level === "conservative" ? "🛡 " : level === "moderate" ? "⚖ " : "🚀 "}
-            {CONF_LABELS[level]}
-          </button>
-        ))}
-        <span className="text-[11px] text-smoke/40">
-          Conservative figures are easiest to defend to a CFO
-        </span>
-      </div>
-
-      {/* Split layout */}
-      <div className="roi-split mt-6 grid items-start gap-5 lg:grid-cols-[380px_1fr]">
-        {/* Left: inputs */}
-        <div className="roi-input-panel grid gap-3.5 lg:sticky lg:top-28">
-          <Panel title="Your Team">
+      {/* Split: input steps left, live results right */}
+      <div className="roi-split mt-5 grid items-start gap-5 lg:grid-cols-[1fr_400px]">
+        <div className="grid gap-5">
+          <StepPanel lead="Rough numbers are fine." step={2} title="Your team">
             <SliderRow
               display={String(inputs.workers)}
-              label="Frontline workers"
+              label="How many people work on your frontline?"
               max={500}
+              maxLabel="500"
               min={5}
+              minLabel="5"
               onChange={setInput("workers")}
               step={5}
-              ticks={["5", "100", "200", "300", "500"]}
               value={inputs.workers}
             />
             <SliderRow
-              display={`$${inputs.rate}`}
-              hint="Include super and allowances"
-              label="Average hourly wage (AUD)"
+              display={`$${inputs.rate}/hr`}
+              hint="Include super and allowances."
+              label="What do they earn per hour, on average?"
               max={150}
+              maxLabel="$150"
               min={25}
+              minLabel="$25"
               onChange={setInput("rate")}
               step={5}
-              ticks={["$25", "$60", "$100", "$150"]}
               value={inputs.rate}
             />
-            <SliderRow
-              display={`${inputs.weeks} wks`}
-              label="Working weeks per year"
-              max={52}
-              min={30}
-              onChange={setInput("weeks")}
-              ticks={["30", "36", "42", "48", "52"]}
-              value={inputs.weeks}
-            />
-          </Panel>
+            <FineTune>
+              <SliderRow
+                display={`${inputs.weeks} wks`}
+                label="Working weeks per year"
+                max={52}
+                maxLabel="52"
+                min={30}
+                minLabel="30"
+                onChange={setInput("weeks")}
+                value={inputs.weeks}
+              />
+            </FineTune>
+          </StepPanel>
 
-          <Panel title="Expert Visits">
+          <StepPanel
+            included={pains.has("travel")}
+            lead="Specialists or technicians travelling to your sites."
+            onToggleIncluded={() => togglePain("travel")}
+            step={3}
+            title="Experts coming to site"
+          >
             <SliderRow
               display={`${inputs.visits} /mo`}
-              label="Expert visits to site / month"
+              label="How many expert visits happen each month?"
               max={40}
+              maxLabel="40"
               min={1}
+              minLabel="1"
               onChange={setInput("visits")}
-              ticks={["1", "10", "20", "30", "40"]}
               value={inputs.visits}
             />
             <SliderRow
               display={`$${inputs.visitCost.toLocaleString("en-AU")}`}
-              hint="Flights, accommodation, lost time"
-              label="Avg cost per visit (AUD)"
+              hint="Flights, accommodation, and lost time."
+              label="What does one visit cost, all up?"
               max={15000}
+              maxLabel="$15K"
               min={500}
+              minLabel="$500"
               onChange={setInput("visitCost")}
               step={250}
-              ticks={["$500", "$5K", "$10K", "$15K"]}
               value={inputs.visitCost}
             />
-            <SliderRow
-              display={`${inputs.visitPct}%`}
-              hint="Exclude planned commissioning or hands-on installs"
-              label="% replaceable remotely"
-              max={90}
-              min={10}
-              onChange={setInput("visitPct")}
-              step={5}
-              ticks={["10%", "30%", "55%", "75%", "90%"]}
-              value={inputs.visitPct}
-            />
-          </Panel>
+            <FineTune>
+              <SliderRow
+                display={`${inputs.visitPct}%`}
+                hint="Exclude planned commissioning or hands-on installs."
+                label="How many visits could be handled remotely?"
+                max={90}
+                maxLabel="90%"
+                min={10}
+                minLabel="10%"
+                onChange={setInput("visitPct")}
+                step={5}
+                value={inputs.visitPct}
+              />
+            </FineTune>
+          </StepPanel>
 
-          <Panel title="Downtime">
+          <StepPanel
+            included={pains.has("downtime")}
+            lead="Breakdowns and unplanned stoppages."
+            onToggleIncluded={() => togglePain("downtime")}
+            step={4}
+            title="Downtime"
+          >
             <SliderRow
-              display={`${inputs.dtEvents} events`}
-              label="Unplanned events / month"
+              display={`${inputs.dtEvents} /mo`}
+              label="How many breakdowns or stoppages each month?"
               max={60}
+              maxLabel="60"
               min={0}
+              minLabel="0"
               onChange={setInput("dtEvents")}
-              ticks={["0", "15", "30", "45", "60"]}
               value={inputs.dtEvents}
             />
             <SliderRow
               display={`${inputs.dtHours} hrs`}
-              label="Avg hours to resolve"
+              label="How long does a typical one take to fix?"
               max={24}
+              maxLabel="24h"
               min={0.5}
+              minLabel="30min"
               onChange={setInput("dtHours")}
               step={0.5}
-              ticks={["0.5h", "6h", "12h", "18h", "24h"]}
               value={inputs.dtHours}
             />
             <SliderRow
-              display={`$${inputs.dtCost.toLocaleString("en-AU")}`}
-              hint="Lost production, idle labour, penalties"
-              label="Cost per downtime hour (AUD)"
+              display={`$${inputs.dtCost.toLocaleString("en-AU")}/hr`}
+              hint="Lost production, idle labour, penalties."
+              label="What does an hour of downtime cost you?"
               max={100000}
+              maxLabel="$100K"
               min={500}
+              minLabel="$500"
               onChange={setInput("dtCost")}
               step={500}
-              ticks={["$500", "$25K", "$50K", "$100K"]}
               value={inputs.dtCost}
             />
-            <SliderRow
-              display={`${inputs.dtPct}%`}
-              hint="Mechanical-only faults excluded"
-              label="% of events needing remote expert"
-              max={90}
-              min={10}
-              onChange={setInput("dtPct")}
-              step={5}
-              ticks={["10%", "30%", "50%", "70%", "90%"]}
-              value={inputs.dtPct}
-            />
-          </Panel>
+            <FineTune>
+              <SliderRow
+                display={`${inputs.dtPct}%`}
+                hint="Mechanical-only faults excluded."
+                label="How often do you need an expert's help to fix it?"
+                max={90}
+                maxLabel="90%"
+                min={10}
+                minLabel="10%"
+                onChange={setInput("dtPct")}
+                step={5}
+                value={inputs.dtPct}
+              />
+            </FineTune>
+          </StepPanel>
 
-          <Panel title="Training & Productivity">
+          <StepPanel
+            included={pains.has("training") || pains.has("knowledge")}
+            lead="New starters, and time lost chasing information."
+            onToggleIncluded={() => togglePain("training")}
+            step={5}
+            title="Training &amp; everyday time"
+          >
             <SliderRow
               display={String(inputs.hires)}
-              label="New workers onboarded / year"
+              label="How many new starters each year?"
               max={100}
+              maxLabel="100"
               min={0}
+              minLabel="0"
               onChange={setInput("hires")}
-              ticks={["0", "25", "50", "75", "100"]}
               value={inputs.hires}
             />
             <SliderRow
-              display={`${inputs.onboard} wks`}
-              label="Weeks to full productivity"
-              max={26}
-              min={1}
-              onChange={setInput("onboard")}
-              ticks={["1", "6", "12", "18", "26"]}
-              value={inputs.onboard}
-            />
-            <SliderRow
               display={`${inputs.infoHrs} hrs`}
-              hint="Searching manuals, waiting for approvals, walking to check equipment"
-              label="Info-delay hrs / worker / week"
+              hint="Searching manuals, waiting for approvals, walking to check equipment."
+              label="Hours each worker loses per week chasing information"
               max={15}
+              maxLabel="15"
               min={0}
+              minLabel="0"
               onChange={setInput("infoHrs")}
               step={0.5}
-              ticks={["0", "4", "8", "12", "15"]}
               value={inputs.infoHrs}
             />
-          </Panel>
+            <FineTune>
+              <SliderRow
+                display={`${inputs.onboard} wks`}
+                label="Weeks until a new starter is fully productive"
+                max={26}
+                maxLabel="26"
+                min={1}
+                minLabel="1"
+                onChange={setInput("onboard")}
+                value={inputs.onboard}
+              />
+            </FineTune>
+          </StepPanel>
         </div>
 
-        {/* Right: results */}
-        <div className="grid gap-3.5">
-          <div className="roi-card relative overflow-hidden rounded-2xl border border-amber/20 bg-gradient-to-br from-amber/10 via-graphite/85 to-navy/25 p-7 shadow-amber">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-amber">
-              Estimated Year 1 Return · {confLabel}
-            </p>
-            <p className="roi-num mt-2 font-display text-5xl leading-none text-white [font-variant-numeric:tabular-nums] md:text-7xl">
-              {fmtFull(results.total)}
-            </p>
-            <p className="mt-1 text-[13px] text-frost/45">Based on your inputs</p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <span className="rounded-full border border-white/10 bg-white/[0.07] px-3 py-1 text-[11px] text-frost/60">
-                <strong className="text-white">{results.numDevices}</strong> devices
-                recommended
-              </span>
-              <span className="rounded-full border border-white/10 bg-white/[0.07] px-3 py-1 text-[11px] text-frost/60">
-                Investment: {fmtShort(results.deviceCost)}
-              </span>
-              {pains.has("safety") ? (
-                <span className="rounded-full border border-white/10 bg-white/[0.07] px-3 py-1 text-[11px] text-frost/60">
-                  + Safety uplift (unquantified)
-                </span>
-              ) : null}
-            </div>
-          </div>
-
-          <div className="roi-card flex items-center gap-3.5 rounded-xl border border-blue/25 bg-blue/[0.07] px-5 py-4 shadow-glow">
-            <span className="text-xl">✅</span>
-            <div>
-              <p className="font-display text-[15px] text-white">{paybackHeading}</p>
-              <p className="text-[11px] text-smoke">
-                Estimated device investment: {fmtFull(results.deviceCost)} for{" "}
-                {results.numDevices} units (1 per 10 workers, min. 2)
+        {/* Results — visually distinct, sticky on desktop */}
+        <aside
+          className="roi-results grid gap-4 lg:sticky lg:top-24"
+          id="roi-results"
+        >
+          <div className="roi-card overflow-hidden rounded-2xl border border-amber/30 bg-gradient-to-br from-amber/[0.12] via-graphite/90 to-navy/30 shadow-amber">
+            <div className="border-b border-white/10 px-6 py-3.5">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-amber">
+                Your results · updates live
               </p>
             </div>
-          </div>
+            <div className="px-6 py-5">
+              <p className="roi-num font-display text-5xl leading-none text-white [font-variant-numeric:tabular-nums]">
+                {fmtFull(results.total)}
+              </p>
+              <p className="mt-2 text-sm text-frost/60">
+                estimated savings in your first year
+              </p>
 
-          <div className="grid gap-3 sm:grid-cols-2">
-            {statCards.map((card) => (
-              <div
-                className="roi-card rounded-xl border border-white/10 bg-white/[0.055] p-4 transition hover:border-blue/30"
-                key={card.tag}
-              >
-                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-smoke">
-                  {card.tag}
+              <div className="mt-4 rounded-lg border border-blue/25 bg-blue/[0.08] px-4 py-3">
+                <p className="font-display text-[15px] text-white">{paybackHeading}</p>
+                <p className="mt-0.5 text-xs text-smoke">
+                  Based on {results.numDevices} devices (~{fmtShort(results.deviceCost)}),
+                  1 per 10 workers.
                 </p>
-                <p className="roi-num mt-2 font-display text-2xl leading-none text-amber [font-variant-numeric:tabular-nums]">
-                  {fmtFull(card.value)}
-                </p>
-                <p className="mt-1 text-[11px] leading-snug text-smoke">{card.label}</p>
-                <div className="mt-3 h-[3px] overflow-hidden rounded-full bg-white/[0.07]">
-                  <div
-                    className="h-full rounded-full bg-gradient-to-r from-blue to-amber transition-[width] duration-500"
-                    style={{ width: `${(card.value / maxStat) * 100}%` }}
-                  />
-                </div>
               </div>
-            ))}
-          </div>
 
-          <div className="roi-card rounded-2xl border border-white/10 bg-white/[0.055] p-5">
-            <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.28em] text-smoke">
-              Before vs. After RealWear
-            </p>
-            {[
-              {
-                metric: "Annual Downtime Cost",
-                before: results.dtBefore,
-                after: results.dtAfter
-              },
-              {
-                metric: "Annual Expert Travel Cost",
-                before: results.tvBefore,
-                after: results.tvAfter
-              }
-            ].map((group) => (
-              <div className="mb-4 last:mb-0" key={group.metric}>
-                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-smoke">
-                  {group.metric}
-                </p>
-                {[
-                  { label: "Before", value: group.before, tone: "bg-red-500/65" },
-                  { label: "After", value: group.after, tone: "bg-blue/70" }
-                ].map((bar) => (
-                  <div className="mb-1 flex items-center gap-2.5" key={bar.label}>
-                    <span className="w-11 text-[10px] font-semibold uppercase tracking-[0.1em] text-smoke">
-                      {bar.label}
-                    </span>
-                    <div className="h-5 flex-1 overflow-hidden rounded bg-white/[0.05]">
-                      <div
-                        className={cn(
-                          "flex h-full items-center justify-end rounded pr-2 transition-[width] duration-700",
-                          bar.tone
-                        )}
-                        style={{
-                          width: `${(bar.value / Math.max(group.before, 1)) * 100}%`
-                        }}
-                      >
-                        <span className="whitespace-nowrap font-mono text-[10px] font-bold text-white">
-                          {fmtShort(bar.value)}
+              <div className="mt-5 grid gap-3.5">
+                {categoryRows.map((row) => (
+                  <div className="flex items-center gap-3" key={row.name}>
+                    <span className="w-6 text-center text-[15px]">{row.icon}</span>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-baseline justify-between gap-2">
+                        <span className="text-xs text-smoke">{row.name}</span>
+                        <span className="roi-num font-mono text-[13px] font-bold text-frost">
+                          {row.value > 0 ? fmtShort(row.value) : "—"}
                         </span>
+                      </div>
+                      <div className="mt-1 h-[3px] overflow-hidden rounded-full bg-white/[0.08]">
+                        <div
+                          className="h-full rounded-full bg-gradient-to-r from-blue to-amber transition-[width] duration-500"
+                          style={{ width: `${(row.value / maxCategory) * 100}%` }}
+                        />
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
+
+              <div className="roi-no-print mt-5 border-t border-white/10 pt-4">
+                <p className="text-xs text-smoke">How careful should the estimate be?</p>
+                <div className="mt-2 grid grid-cols-3 gap-1.5">
+                  {(Object.keys(CONF_LABELS) as Confidence[]).map((level) => (
+                    <button
+                      className={cn(
+                        "rounded-md border px-2 py-2 text-[11px] font-semibold transition",
+                        confidence === level
+                          ? "border-white/30 bg-white/[0.1] text-white"
+                          : "border-white/10 text-smoke hover:border-white/25 hover:text-frost"
+                      )}
+                      key={level}
+                      onClick={() => setConfidence(level)}
+                      type="button"
+                    >
+                      {CONF_LABELS[level]}
+                    </button>
+                  ))}
+                </div>
+                <p className="mt-1.5 text-[11px] text-smoke/50">
+                  Cautious numbers are the easiest to defend.
+                </p>
+              </div>
+
+              <div className="roi-no-print mt-5 grid gap-2">
+                <Link
+                  className="rounded-md bg-amber px-5 py-3.5 text-center text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-amber transition hover:bg-[#ff7f4a]"
+                  href="/request-quote"
+                >
+                  Request a Quote
+                </Link>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    className="rounded-md border border-white/12 bg-white/[0.04] px-3 py-2.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-smoke transition hover:border-amber/35 hover:text-frost"
+                    onClick={() => triggerGate("pdf")}
+                    type="button"
+                  >
+                    ⤓ Save as PDF
+                  </button>
+                  <button
+                    className="rounded-md border border-white/12 bg-white/[0.04] px-3 py-2.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-smoke transition hover:border-amber/35 hover:text-frost"
+                    onClick={() => triggerGate("share")}
+                    type="button"
+                  >
+                    {shareCopied ? "✓ Link copied" : "⇪ Share"}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      {/* How we worked it out */}
+      <section className="mt-12">
+        <h2 className="text-center font-display text-2xl text-white md:text-3xl">
+          How we worked it out
+        </h2>
+        <p className="mx-auto mt-2 max-w-lg text-center text-sm text-smoke">
+          Every figure comes from your inputs and published RealWear case studies —
+          nothing is invented.
+        </p>
+
+        <div className="mt-7 grid gap-4 lg:grid-cols-2">
+          <div className="roi-card rounded-2xl border border-white/10 bg-white/[0.04] p-6">
+            <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.28em] text-smoke">
+              Before vs. after RealWear
+            </p>
+            {[
+              {
+                metric: "Annual downtime cost",
+                before: results.dtBefore,
+                after: results.dtAfter
+              },
+              {
+                metric: "Annual expert travel cost",
+                before: results.tvBefore,
+                after: results.tvAfter
+              }
+            ].map((group) => (
+              <div className="mb-5 last:mb-0" key={group.metric}>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-smoke">
+                  {group.metric}
+                </p>
+                {group.before > 0 ? (
+                  [
+                    { label: "Now", value: group.before, tone: "bg-red-500/65" },
+                    { label: "After", value: group.after, tone: "bg-blue/70" }
+                  ].map((bar) => (
+                    <div className="mb-1.5 flex items-center gap-2.5" key={bar.label}>
+                      <span className="w-11 text-[10px] font-semibold uppercase tracking-[0.1em] text-smoke">
+                        {bar.label}
+                      </span>
+                      <div className="h-5 flex-1 overflow-hidden rounded bg-white/[0.05]">
+                        <div
+                          className={cn(
+                            "flex h-full items-center justify-end rounded pr-2 transition-[width] duration-700",
+                            bar.tone
+                          )}
+                          style={{
+                            width: `${(bar.value / Math.max(group.before, 1)) * 100}%`
+                          }}
+                        >
+                          <span className="whitespace-nowrap font-mono text-[10px] font-bold text-white">
+                            {fmtShort(bar.value)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-xs text-smoke/60">
+                    Not counted — switch it on in the steps above.
+                  </p>
+                )}
+              </div>
             ))}
           </div>
 
           <div className="roi-card overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]">
-            <p className="border-b border-white/[0.07] px-4 py-3 text-[10px] font-semibold uppercase tracking-[0.28em] text-smoke">
+            <p className="border-b border-white/[0.07] px-5 py-4 text-[10px] font-semibold uppercase tracking-[0.28em] text-smoke">
               Savings breakdown &amp; sources
             </p>
             {breakdownRows.map((row) => (
               <div
-                className="flex items-start gap-2.5 border-b border-white/[0.04] px-4 py-3 transition last:border-b-0 hover:bg-white/[0.03]"
+                className="flex items-start gap-2.5 border-b border-white/[0.04] px-5 py-3 transition last:border-b-0 hover:bg-white/[0.03]"
                 key={row.name}
               >
                 <span className="w-6 flex-shrink-0 pt-0.5 text-center text-[15px]">
@@ -752,7 +876,7 @@ export function RoiCalculator() {
                 </span>
               </div>
             ))}
-            <div className="flex justify-between border-t border-amber/20 bg-amber/[0.06] px-4 py-3.5">
+            <div className="flex justify-between border-t border-amber/20 bg-amber/[0.06] px-5 py-3.5">
               <span className="text-xs font-semibold uppercase tracking-[0.1em] text-frost">
                 Total estimated annual return
               </span>
@@ -761,43 +885,57 @@ export function RoiCalculator() {
               </span>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="roi-no-print flex flex-wrap gap-2.5">
-            <button
-              className="rounded-md border border-white/10 bg-white/[0.04] px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-smoke transition hover:border-amber/35 hover:text-frost"
-              onClick={() => triggerGate("pdf")}
-              type="button"
-            >
-              ⤓ Download PDF
-            </button>
-            <button
-              className="rounded-md border border-white/10 bg-white/[0.04] px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-smoke transition hover:border-amber/35 hover:text-frost"
-              onClick={() => triggerGate("share")}
-              type="button"
-            >
-              {shareCopied ? "✓ Link copied" : "⇪ Share results"}
-            </button>
-          </div>
+      {/* Final CTA */}
+      <div className="roi-no-print mt-10 flex flex-wrap items-center gap-6 rounded-2xl border border-blue/30 bg-gradient-to-r from-blue/20 via-amber/10 to-white/[0.03] p-7">
+        <div className="min-w-[200px] flex-1">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-amber">
+            Next step
+          </p>
+          <p className="mt-2 font-display text-xl text-white md:text-2xl">
+            Ready to take this to your leadership team?
+          </p>
+          <p className="mt-1.5 text-[13px] text-frost/60">
+            Save your results as a PDF, then request a quote to finalise your business
+            case.
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            className="rounded-md border border-white/15 bg-white/[0.05] px-5 py-3.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-frost transition hover:border-amber/40"
+            onClick={() => triggerGate("pdf")}
+            type="button"
+          >
+            ⤓ Save as PDF
+          </button>
+          <Link
+            className="whitespace-nowrap rounded-md bg-amber px-5 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white shadow-amber transition hover:-translate-y-px hover:bg-[#ff7f4a]"
+            href="/request-quote"
+          >
+            Request a Quote
+          </Link>
+        </div>
+      </div>
 
-          <div className="roi-no-print flex flex-wrap items-center gap-6 rounded-2xl border border-blue/30 bg-gradient-to-r from-blue/20 via-amber/10 to-white/[0.03] p-7">
-            <div className="min-w-[200px] flex-1">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-amber">
-                Deployment next steps
-              </p>
-              <p className="mt-2 font-display text-xl text-white md:text-2xl">
-                Ready to take this to your leadership team?
-              </p>
-              <p className="mt-1.5 text-[13px] text-frost/60">
-                Request a quote from our team to finalise your business case.
-              </p>
-            </div>
-            <Link
-              className="whitespace-nowrap rounded-md bg-amber px-5 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white shadow-amber transition hover:-translate-y-px hover:bg-[#ff7f4a]"
-              href="/request-quote"
-            >
-              Request a Quote
-            </Link>
+      {/* Mobile sticky total bar */}
+      <div className="roi-no-print fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-graphite/90 px-4 py-3 backdrop-blur-xl lg:hidden">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-smoke">
+              Year 1 savings
+            </p>
+            <p className="roi-num font-display text-xl leading-tight text-amber [font-variant-numeric:tabular-nums]">
+              {fmtFull(results.total)}
+            </p>
           </div>
+          <a
+            className="rounded-md bg-amber px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white shadow-amber"
+            href="#roi-results"
+          >
+            See results
+          </a>
         </div>
       </div>
 

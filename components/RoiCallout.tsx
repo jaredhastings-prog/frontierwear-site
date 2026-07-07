@@ -45,13 +45,13 @@ export function RoiCallout() {
       aria-hidden={!open}
       aria-label="ROI calculator teaser"
       className={cn(
-        "fixed bottom-5 right-5 z-40 w-[19rem] max-w-[calc(100vw-2.5rem)] transition-all duration-500 print:hidden",
+        "fixed bottom-4 right-4 z-40 w-[16rem] max-w-[calc(100vw-2rem)] transition-all duration-500 print:hidden sm:bottom-5 sm:right-5 sm:w-[19rem]",
         open
           ? "translate-x-0 opacity-100"
           : "pointer-events-none translate-x-[120%] opacity-0"
       )}
     >
-      <div className="relative rounded-2xl border border-amber/30 bg-[#0a0f1a]/95 p-5 shadow-amber backdrop-blur-xl">
+      <div className="relative rounded-2xl border border-amber/30 bg-[#0a0f1a]/95 p-4 shadow-amber backdrop-blur-xl sm:p-5">
         <button
           aria-label="Dismiss ROI calculator teaser"
           className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full text-smoke transition hover:bg-white/[0.08] hover:text-white"
@@ -63,10 +63,10 @@ export function RoiCallout() {
         <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-amber">
           ROI calculator
         </p>
-        <p className="mt-2 pr-4 font-display text-lg leading-snug text-white">
+        <p className="mt-2 pr-4 font-display text-base leading-snug text-white sm:text-lg">
           What&apos;s frontline inefficiency costing you?
         </p>
-        <p className="mt-1.5 text-xs leading-relaxed text-smoke">
+        <p className="mt-1.5 hidden text-xs leading-relaxed text-smoke sm:block">
           A typical 25-person crew saves around $240K a year. Get your number in about
           a minute.
         </p>

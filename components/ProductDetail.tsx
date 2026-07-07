@@ -93,12 +93,14 @@ export function ProductDetail({ product }: ProductDetailProps) {
       />
       <main id="main">
         <section className="relative isolate overflow-hidden border-b border-white/10 pt-32">
+          <div className="absolute inset-0 z-[-3] bg-[linear-gradient(110deg,#05070c_0%,#08101f_46%,rgba(14,27,77,0.78)_100%)]" />
+          <div className="absolute inset-0 z-[-1] bg-[linear-gradient(90deg,rgba(5,7,12,0.96)_0%,rgba(5,7,12,0.78)_48%,rgba(5,7,12,0.30)_100%)]" />
           <Image
             alt=""
             aria-hidden="true"
             className={
               usesEnhancedImageLayout
-                ? "pointer-events-none absolute right-0 top-1/2 z-0 h-[58vh] w-full -translate-y-1/2 object-contain object-center md:right-[2%] md:h-[72vh] md:w-[52vw]"
+                ? "pointer-events-none relative mx-auto -mb-8 mt-2 h-72 w-full max-w-md object-contain object-center md:absolute md:right-[2%] md:top-1/2 md:z-0 md:mx-0 md:my-0 md:h-[72vh] md:w-[52vw] md:max-w-none md:-translate-y-1/2"
                 : "pointer-events-none absolute bottom-0 right-[-18%] z-[-1] h-[56vh] w-[86vw] object-contain opacity-80 blur-[0.2px] md:right-[-8%] md:h-[72vh] md:w-[55vw]"
             }
             height={heroImageSize.height}
@@ -106,9 +108,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
             src={product.image}
             width={heroImageSize.width}
           />
-          <div className="absolute inset-0 z-[-3] bg-[linear-gradient(110deg,#05070c_0%,#08101f_46%,rgba(14,27,77,0.78)_100%)]" />
-          <div className="absolute inset-0 z-[-1] bg-[linear-gradient(90deg,rgba(5,7,12,0.96)_0%,rgba(5,7,12,0.78)_48%,rgba(5,7,12,0.30)_100%)]" />
-          <div className="relative z-10 mx-auto max-w-7xl px-4 pb-20 pt-14 sm:px-6 md:pb-28 lg:px-8">
+          <div className="relative z-10 mx-auto max-w-7xl px-4 pb-20 pt-2 sm:px-6 md:pb-28 md:pt-14 lg:px-8">
             <Link
               className="text-sm text-smoke transition hover:text-white"
               href="/#products"

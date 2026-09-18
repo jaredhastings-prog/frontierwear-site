@@ -7,7 +7,7 @@ import { site } from "@/content/site";
 export const metadata: Metadata = {
   title: "Request a Quote",
   description:
-    "Request a quote for RealWear Navigator 520, Navigator Z1, connected worker deployment support, and Frontier Wear training across Australia and New Zealand.",
+    "Request a quote for RealWear Navigator 520, Navigator Z1, Arc 3, connected worker deployment support, and Frontier Wear training across Australia and New Zealand.",
   alternates: {
     canonical: "/request-quote"
   }

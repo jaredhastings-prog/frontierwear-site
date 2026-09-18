@@ -26,6 +26,7 @@ export const navItems: NavItem[] = [
     children: [
       { label: "Navigator 520", href: "/navigator-520" },
       { label: "Navigator Z1", href: "/navigator-z1" },
+      { label: "Arc 3", href: "/arc-3" },
       { label: "Collaborate Teams 2", href: "/collaborate-teams-2" }
     ]
   },
@@ -117,6 +118,48 @@ export const products = [
       "Protective case",
       "i-Safe charging box",
       "T8 screwdriver"
+    ]
+  },
+  {
+    slug: "arc-3",
+    name: "RealWear Arc 3",
+    shortName: "Arc 3",
+    eyebrow: "Indoor industrial assisted reality",
+    summary:
+      "A lightweight, all-day headset for indoor teams in manufacturing, healthcare, and logistics who need hands-free access to experts and workflows without rugged outdoor hardware.",
+    longSummary:
+      "The RealWear Arc 3 brings assisted reality to indoor industrial and clinical environments, pairing a featherweight 179g headband with a Micro-OLED display, dual cameras, and the voice-first Ari OS for comfortable, all-day wear on the factory or hospital floor.",
+    image: "/assets/arc-3-main.png",
+    imageAlt: "RealWear Arc 3 lightweight assisted reality headset",
+    href: "/arc-3",
+    productPageTitle: "RealWear Arc 3 for indoor industrial and clinical teams",
+    metaDescription:
+      "Explore the RealWear Arc 3 with Frontier Wear. A lightweight assisted reality headset for manufacturing, healthcare, and logistics teams working indoors.",
+    bestFor: [
+      "Manufacturing and robotics floors",
+      "Healthcare and clinical settings",
+      "Warehousing and logistics",
+      "Guided workflows for new starters",
+      "Indoor remote expert support"
+    ],
+    benefits: [
+      "Just 179g for comfortable all-day wear",
+      "Micro-OLED see-through display with double retina resolution",
+      "Ari voice assistant for fully hands-free control",
+      "Compatible with prescription glasses and modular padding"
+    ],
+    specs: [
+      "1920 x 1080 Micro-OLED monocular display, 22° field of view",
+      "Qualcomm Snapdragon 662 with 4 GB RAM and 64 GB storage",
+      "48MP main camera plus 8MP wide-angle lens with LED flashlight",
+      "IP54 rated with 1-metre drop resistance"
+    ],
+    kit: [
+      "RealWear Arc 3 headset",
+      "Modular headband and padding",
+      "USB-C cable",
+      "Protective EVA case",
+      "Quick start guide"
     ]
   }
 ] as const;

@@ -22,19 +22,36 @@ const teamsTeaserFeatures = [
 export default function Home() {
   return (
     <main id="main">
-      <section className="relative isolate min-h-[82svh] overflow-hidden border-b border-white/10">
+      <section className="relative isolate overflow-hidden border-b border-white/10 md:min-h-[82svh]">
+        {/* Mobile: the image needs its own band, shown at its native 16:9
+            aspect ratio so all three people stay in frame with zero crop —
+            a full-bleed cover background on a tall narrow viewport would
+            zoom into a single face and run text across it. */}
+        <div className="relative aspect-video w-full md:hidden">
+          <Image
+            alt="Three frontline workers wearing RealWear Navigator assisted reality headsets"
+            className="object-cover"
+            fill
+            priority
+            sizes="100vw"
+            src="/assets/realwear-device-lineup.jpg"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,7,12,0)_65%,rgba(5,7,12,0.95)_100%)]" />
+        </div>
+
+        {/* Desktop/tablet: full-bleed cover background behind the text. */}
         <Image
-          alt="Industrial worker using assisted reality technology in the field"
-          className="absolute inset-0 z-[-3] h-full w-full object-cover opacity-45 saturate-[0.75]"
+          alt="Three frontline workers wearing RealWear Navigator assisted reality headsets"
+          className="absolute inset-0 z-[-3] hidden h-full w-full object-cover md:block"
           fill
           priority
           sizes="100vw"
-          src="/assets/field-worker.jpg"
+          src="/assets/realwear-device-lineup.jpg"
         />
-        <div className="absolute inset-0 z-[-2] bg-[linear-gradient(90deg,rgba(5,7,12,0.98)_0%,rgba(5,7,12,0.86)_46%,rgba(14,27,77,0.38)_100%)]" />
-        <div className="absolute inset-0 z-[-1] bg-[linear-gradient(180deg,rgba(5,7,12,0.25)_0%,rgba(5,7,12,0.90)_100%)]" />
+        <div className="absolute inset-0 z-[-2] hidden bg-[linear-gradient(180deg,rgba(5,7,12,0.05)_0%,rgba(5,7,12,0.30)_48%,rgba(5,7,12,0.90)_82%,rgba(5,7,12,0.97)_100%)] md:block" />
+        <div className="absolute inset-0 z-[-1] hidden bg-[linear-gradient(90deg,rgba(5,7,12,0.55)_0%,rgba(5,7,12,0.15)_38%,transparent_66%)] md:block" />
 
-        <div className="mx-auto flex min-h-[82svh] max-w-7xl flex-col justify-end px-4 pb-14 pt-32 sm:px-6 md:pb-20 lg:px-8">
+        <div className="relative z-10 mx-auto flex max-w-7xl flex-col justify-end px-4 pb-14 pt-10 sm:px-6 md:min-h-[82svh] md:pt-32 md:pb-20 lg:px-8">
           <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber">
             ANZ RealWear Gold Partner
           </p>

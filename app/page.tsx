@@ -22,19 +22,43 @@ const teamsTeaserFeatures = [
 export default function Home() {
   return (
     <main id="main">
-      <section className="relative isolate min-h-[82svh] overflow-hidden border-b border-white/10">
-        <Image
-          alt="Industrial worker using assisted reality technology in the field"
-          className="absolute inset-0 z-[-3] h-full w-full object-cover opacity-45 saturate-[0.75]"
-          fill
-          priority
-          sizes="100vw"
-          src="/assets/field-worker.jpg"
-        />
-        <div className="absolute inset-0 z-[-2] bg-[linear-gradient(90deg,rgba(5,7,12,0.98)_0%,rgba(5,7,12,0.86)_46%,rgba(14,27,77,0.38)_100%)]" />
-        <div className="absolute inset-0 z-[-1] bg-[linear-gradient(180deg,rgba(5,7,12,0.25)_0%,rgba(5,7,12,0.90)_100%)]" />
+      <section className="relative isolate overflow-hidden border-b border-white/10 pt-[84px]">
+        {/* pt-[84px] clears the fixed header (h-20 + 1px border) so it
+            floats over the plain background instead of sitting on top of
+            the photo — on the short mobile image band especially, the
+            header was covering a large share of it and cutting the heads
+            off. */}
+        {/* Mobile: the full photo at native aspect ratio, zero crop, no
+            overlap. A fixed-height crop here would zoom into just the middle
+            person on a narrow screen, and there isn't room for a tasteful
+            bottom-quarter overlap at this size anyway. */}
+        <div className="relative aspect-video w-full md:hidden">
+          <Image
+            alt="Three frontline workers wearing RealWear Navigator assisted reality headsets"
+            className="object-cover"
+            fill
+            priority
+            sizes="100vw"
+            src="/assets/realwear-device-lineup.jpg"
+          />
+        </div>
 
-        <div className="mx-auto flex min-h-[82svh] max-w-7xl flex-col justify-end px-4 pb-14 pt-32 sm:px-6 md:pb-20 lg:px-8">
+        {/* Tablet/desktop: fixed-height band, cropped from the bottom only
+            (object-top keeps every head in frame) with a blend concentrated
+            in roughly its bottom quarter for the overlapping text below. */}
+        <div className="relative hidden w-full md:block md:h-[62svh] lg:h-[68svh]">
+          <Image
+            alt="Three frontline workers wearing RealWear Navigator assisted reality headsets"
+            className="object-cover object-top"
+            fill
+            priority
+            sizes="100vw"
+            src="/assets/realwear-device-lineup.jpg"
+          />
+          <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-b from-transparent via-graphite/70 to-graphite" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 pb-14 pt-10 sm:px-6 md:-mt-24 md:pb-20 md:pt-0 lg:-mt-32 lg:px-8">
           <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber">
             ANZ RealWear Gold Partner
           </p>

@@ -17,6 +17,13 @@ const thermalSpecs = [
   "Built for hazardous/restricted environments"
 ];
 
+const ariFeatures = [
+  "Fully hands-free voice control",
+  "Instant access to experts and files",
+  "Double retina Micro-OLED display",
+  "48MP camera with 4K video capture"
+];
+
 const z1CertificationLogos = [
   {
     alt: "i.safe MOBILE certification",
@@ -37,7 +44,8 @@ const z1CertificationLogos = [
 export function ProductDetail({ product }: ProductDetailProps) {
   const isNavigator520 = product.slug === "navigator-520";
   const isNavigatorZ1 = product.slug === "navigator-z1";
-  const usesEnhancedImageLayout = isNavigator520 || isNavigatorZ1;
+  const isArc3 = product.slug === "arc-3";
+  const usesEnhancedImageLayout = isNavigator520 || isNavigatorZ1 || isArc3;
   const backImage = isNavigator520
     ? {
         alt: "Back view of the RealWear Navigator 520 headset",
@@ -54,7 +62,15 @@ export function ProductDetail({ product }: ProductDetailProps) {
           src: "/assets/navigator-z1-industrial-bg.png",
           width: 1672
         }
-      : null;
+      : isArc3
+        ? {
+            alt: "RealWear Arc 3 used on an indoor manufacturing floor",
+            className: "block h-auto w-full object-cover object-center",
+            height: 1012,
+            src: "/assets/arc-3-in-situ-bg.jpg",
+            width: 1800
+          }
+        : null;
   const quoteImage = isNavigator520
     ? {
         height: 2000,
@@ -67,7 +83,13 @@ export function ProductDetail({ product }: ProductDetailProps) {
           src: "/assets/navigator-z1-hardhat.png",
           width: 1280
         }
-      : null;
+      : isArc3
+        ? {
+            height: 933,
+            src: "/assets/arc-3-angle.png",
+            width: 1400
+          }
+        : null;
   const heroImageSize = usesEnhancedImageLayout
     ? { height: 2000, width: 2000 }
     : { height: 894, width: 1445 };
@@ -287,6 +309,48 @@ export function ProductDetail({ product }: ProductDetailProps) {
                 </p>
                 <div className="mt-7 grid gap-3 sm:grid-cols-2">
                   {thermalSpecs.map((item) => (
+                    <div
+                      className="rounded-lg border border-white/10 bg-white/[0.055] p-4 text-sm leading-6 text-frost/90"
+                      key={item}
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        {isArc3 ? (
+          <section className="border-y border-white/10 bg-[#05070c] px-4 py-14 sm:px-6 lg:px-8">
+            <div className="relative isolate mx-auto grid max-w-7xl items-center overflow-hidden rounded-lg border border-white/10 bg-[linear-gradient(135deg,rgba(71,112,219,0.16),rgba(8,13,22,0.98)_42%,rgba(255,108,47,0.10))] shadow-glow lg:grid-cols-[0.95fr_1.05fr]">
+              <div className="relative flex min-h-[16rem] items-center justify-center overflow-hidden border-b border-white/10 bg-black p-6 sm:min-h-[18rem] lg:min-h-[24rem] lg:border-b-0 lg:border-r lg:p-10">
+                <div className="absolute inset-10 rounded-full bg-[radial-gradient(circle,rgba(71,112,219,0.24),transparent_70%)] blur-2xl" />
+                <Image
+                  alt="RealWear Arc 3 home screen showing the Ari voice assistant"
+                  className="relative z-0 h-auto w-full max-w-md rounded-lg border border-white/10 object-contain shadow-glow"
+                  height={438}
+                  sizes="(min-width: 1024px) 34rem, 92vw"
+                  src="/assets/arc-3-home-screen-ui.png"
+                  width={776}
+                />
+              </div>
+              <div className="relative z-20 p-6 sm:p-8 lg:p-10 xl:p-12">
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber">
+                  Meet Ari
+                </p>
+                <h2 className="mt-4 max-w-2xl font-display text-3xl leading-tight text-white md:text-5xl">
+                  A voice-first assistant built for the indoor frontline
+                </h2>
+                <p className="mt-5 max-w-2xl text-sm leading-7 text-frost/82 md:text-base">
+                  Ari OS keeps Arc 3 fully hands-free — call up documents, jump
+                  into a collaboration session, or ask for help using natural,
+                  conversational voice commands, all without breaking focus on
+                  the task.
+                </p>
+                <div className="mt-7 grid gap-3 sm:grid-cols-2">
+                  {ariFeatures.map((item) => (
                     <div
                       className="rounded-lg border border-white/10 bg-white/[0.055] p-4 text-sm leading-6 text-frost/90"
                       key={item}

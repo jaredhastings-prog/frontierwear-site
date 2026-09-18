@@ -191,12 +191,13 @@ export default function Home() {
             title="RealWear devices for industrial connected worker programs"
           >
             <p>
-              Two focused product paths. One practical goal: equip frontline
-              teams with rugged hands-free technology and the support to deploy
-              it well.
+              Three focused product paths. One practical goal: equip
+              frontline teams with the right hands-free technology for their
+              environment, indoors or out, plus the support to deploy it
+              well.
             </p>
           </SectionHeading>
-          <div className="mt-12 grid gap-6 lg:grid-cols-2">
+          <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {products.map((product) => (
               <ProductCard key={product.slug} product={product} />
             ))}

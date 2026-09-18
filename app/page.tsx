@@ -22,7 +22,12 @@ const teamsTeaserFeatures = [
 export default function Home() {
   return (
     <main id="main">
-      <section className="relative isolate overflow-hidden border-b border-white/10">
+      <section className="relative isolate overflow-hidden border-b border-white/10 pt-[84px]">
+        {/* pt-[84px] clears the fixed header (h-20 + 1px border) so it
+            floats over the plain background instead of sitting on top of
+            the photo — on the short mobile image band especially, the
+            header was covering a large share of it and cutting the heads
+            off. */}
         {/* Mobile: the full photo at native aspect ratio, zero crop, no
             overlap. A fixed-height crop here would zoom into just the middle
             person on a narrow screen, and there isn't room for a tasteful

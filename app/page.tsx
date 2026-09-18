@@ -23,41 +23,52 @@ export default function Home() {
   return (
     <main id="main">
       <section className="relative isolate overflow-hidden border-b border-white/10">
-        <div className="mx-auto max-w-7xl px-4 pb-14 pt-32 sm:px-6 md:pb-20 lg:px-8">
-          <div className="grid items-center gap-8 md:grid-cols-[0.95fr_1.05fr] md:gap-10 lg:gap-16">
-            {/* Framed at the photo's exact 16:9 ratio, so sitting beside the
-                text doesn't crop it — all three people stay fully in frame,
-                just shown smaller than a full-bleed treatment would. */}
-            <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-white/10 shadow-glow">
-              <Image
-                alt="Three frontline workers wearing RealWear Navigator assisted reality headsets"
-                className="object-cover"
-                fill
-                priority
-                sizes="(min-width: 768px) 45vw, 100vw"
-                src="/assets/realwear-device-lineup.jpg"
-              />
-            </div>
+        {/* Mobile: the full photo at native aspect ratio, zero crop, no
+            overlap. A fixed-height crop here would zoom into just the middle
+            person on a narrow screen, and there isn't room for a tasteful
+            bottom-quarter overlap at this size anyway. */}
+        <div className="relative aspect-video w-full md:hidden">
+          <Image
+            alt="Three frontline workers wearing RealWear Navigator assisted reality headsets"
+            className="object-cover"
+            fill
+            priority
+            sizes="100vw"
+            src="/assets/realwear-device-lineup.jpg"
+          />
+        </div>
 
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber">
-                ANZ RealWear Gold Partner
-              </p>
-              <h1 className="mt-6 text-balance font-display text-5xl leading-[0.94] text-white md:text-6xl lg:text-7xl">
-                Hands-Free Technology for the Frontline
-              </h1>
-              <p className="mt-7 max-w-xl text-lg leading-8 text-frost/88 md:text-xl">
-                RealWear assisted reality devices for field teams, industrial
-                sites, and connected worker programs across Australia and New
-                Zealand.
-              </p>
-              <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-                <ButtonLink href="/request-quote">Request a Quote</ButtonLink>
-                <ButtonLink href="#products" variant="secondary">
-                  View Products
-                </ButtonLink>
-              </div>
-            </div>
+        {/* Tablet/desktop: fixed-height band, cropped from the bottom only
+            (object-top keeps every head in frame) with a blend concentrated
+            in roughly its bottom quarter for the overlapping text below. */}
+        <div className="relative hidden w-full md:block md:h-[62svh] lg:h-[68svh]">
+          <Image
+            alt="Three frontline workers wearing RealWear Navigator assisted reality headsets"
+            className="object-cover object-top"
+            fill
+            priority
+            sizes="100vw"
+            src="/assets/realwear-device-lineup.jpg"
+          />
+          <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-b from-transparent via-graphite/70 to-graphite" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 pb-14 pt-10 sm:px-6 md:-mt-24 md:pb-20 md:pt-0 lg:-mt-32 lg:px-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber">
+            ANZ RealWear Gold Partner
+          </p>
+          <h1 className="mt-6 max-w-5xl text-balance font-display text-5xl leading-[0.94] text-white md:text-7xl lg:text-8xl">
+            Hands-Free Technology for the Frontline
+          </h1>
+          <p className="mt-7 max-w-3xl text-lg leading-8 text-frost/88 md:text-xl">
+            RealWear assisted reality devices for field teams, industrial sites,
+            and connected worker programs across Australia and New Zealand.
+          </p>
+          <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+            <ButtonLink href="/request-quote">Request a Quote</ButtonLink>
+            <ButtonLink href="#products" variant="secondary">
+              View Products
+            </ButtonLink>
           </div>
 
           <div className="mt-14 grid max-w-6xl gap-px overflow-hidden border-y border-white/15 bg-white/10 sm:grid-cols-2 lg:grid-cols-5">

@@ -449,11 +449,9 @@ function FineTune({ children }: { children: ReactNode }) {
 export function RoiCalculator() {
   const [inputs, setInputs] = useState<Inputs>(DEFAULT_INPUTS);
   const [industry, setIndustry] = useState<IndustryId | null>(null);
-  const [pains, setPains] = useState<Set<PainId>>(
-    () => new Set<PainId>(["downtime", "travel", "training"])
-  );
-  const [confidence, setConfidence] = useState<Confidence>("conservative");
-  const [redeploy, setRedeploy] = useState<RedeployId>("unsure");
+  const [pains, setPains] = useState<Set<PainId>>(() => new Set<PainId>());
+  const [confidence, setConfidence] = useState<Confidence | null>(null);
+  const [redeploy, setRedeploy] = useState<RedeployId | null>(null);
   const [includeUpside, setIncludeUpside] = useState(false);
 
   const [gateOpen, setGateOpen] = useState(false);
@@ -461,12 +459,14 @@ export function RoiCalculator() {
   const [pendingAction, setPendingAction] = useState<"pdf" | "share" | null>(null);
   const [shareCopied, setShareCopied] = useState(false);
 
+  const effectiveConfidence = confidence ?? "conservative";
   const redeployOption =
-    REDEPLOY_OPTIONS.find((option) => option.id === redeploy) ?? REDEPLOY_OPTIONS[3];
+    REDEPLOY_OPTIONS.find((option) => option.id === redeploy) ??
+    REDEPLOY_OPTIONS.find((option) => option.id === "unsure")!;
 
   const results = useMemo(
-    () => calculate(inputs, pains, confidence, redeployOption.mult),
-    [inputs, pains, confidence, redeployOption]
+    () => calculate(inputs, pains, effectiveConfidence, redeployOption.mult),
+    [inputs, pains, effectiveConfidence, redeployOption]
   );
 
   const industryAverages = INDUSTRY_PRESETS[industry ?? "other"];
@@ -535,11 +535,11 @@ export function RoiCalculator() {
     }
   };
 
-  const confLabel = CONF_LABELS[confidence];
-  const dtRate = Math.round(BENCH.dtResolution[CONF_INDEX[confidence]] * 100);
-  const tvRate = Math.round(BENCH.travelCapture[CONF_INDEX[confidence]] * 100);
-  const trRate = Math.round(BENCH.rampReduction[CONF_INDEX[confidence]] * 100);
-  const prRate = Math.round(BENCH.infoRecovery[CONF_INDEX[confidence]] * 100);
+  const confLabel = CONF_LABELS[effectiveConfidence];
+  const dtRate = Math.round(BENCH.dtResolution[CONF_INDEX[effectiveConfidence]] * 100);
+  const tvRate = Math.round(BENCH.travelCapture[CONF_INDEX[effectiveConfidence]] * 100);
+  const trRate = Math.round(BENCH.rampReduction[CONF_INDEX[effectiveConfidence]] * 100);
+  const prRate = Math.round(BENCH.infoRecovery[CONF_INDEX[effectiveConfidence]] * 100);
 
   const crewLabel = INDUSTRY_OPTIONS.find((option) => option.id === industry)?.crewLabel;
   const headlineTotal = includeUpside ? results.total + results.upside : results.total;

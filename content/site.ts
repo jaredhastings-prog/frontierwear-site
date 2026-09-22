@@ -27,6 +27,7 @@ export const navItems: NavItem[] = [
       { label: "Navigator 520", href: "/navigator-520" },
       { label: "Navigator Z1", href: "/navigator-z1" },
       { label: "Arc 3", href: "/arc-3" },
+      { label: "Compare Devices", href: "/compare" },
       { label: "Collaborate Teams 2", href: "/collaborate-teams-2" }
     ]
   },
@@ -151,7 +152,7 @@ export const products = [
     specs: [
       "1920 x 1080 Micro-OLED monocular display, 22° field of view",
       "Qualcomm Snapdragon 662 with 4 GB RAM and 64 GB storage",
-      "48MP main camera plus 8MP wide-angle lens with LED flashlight",
+      "50MP main camera plus 8MP wide-angle lens with LED flashlight",
       "IP54 rated with 1-metre drop resistance"
     ],
     kit: [
@@ -165,6 +166,95 @@ export const products = [
 ] as const;
 
 export type Product = (typeof products)[number];
+
+// Sourced from RealWear's own "Technical Comparison: Arc 3 vs Navigator 520"
+// sheet (520/Arc 3 columns) plus the specs already published on the
+// Navigator Z1 product page (Z1 column).
+export type ComparisonRow = {
+  label: string;
+  values: {
+    "navigator-520": string;
+    "navigator-z1": string;
+    "arc-3": string;
+  };
+};
+
+export const comparisonRows: ComparisonRow[] = [
+  {
+    label: "Ideal environment",
+    values: {
+      "navigator-520": "Rugged, general industrial & outdoor sites",
+      "navigator-z1": "Hazardous areas requiring intrinsic safety certification",
+      "arc-3": "Indoor industrial & clinical environments"
+    }
+  },
+  {
+    label: "Display",
+    values: {
+      "navigator-520":
+        "LCOS HD, 1280×720, 24° field of view — adjustable, usable on either eye",
+      "navigator-z1": "Hyper HD display with a larger viewing area",
+      "arc-3": "Micro-OLED, 1920×1080, 22° field of view — see-through, right eye"
+    }
+  },
+  {
+    label: "Weight",
+    values: {
+      "navigator-520": "274g",
+      "navigator-z1": "383g",
+      "arc-3": "179g"
+    }
+  },
+  {
+    label: "Ruggedisation",
+    values: {
+      "navigator-520": "IP66, MIL-STD-810H, 2-metre drop rating",
+      "navigator-z1": "IP66, ATEX Zone 1 & IECEx certified for hazardous areas",
+      "arc-3": "IP54, 1-metre drop rating"
+    }
+  },
+  {
+    label: "Camera",
+    values: {
+      "navigator-520":
+        "Adjustable 48MP camera with LED, up to 1080p@60fps; optional thermal accessory",
+      "navigator-z1": "Thermal camera included in the Essential Kit",
+      "arc-3": "Fixed 50MP main + 8MP wide-angle dual-camera with LED flashlight"
+    }
+  },
+  {
+    label: "Battery",
+    values: {
+      "navigator-520": "2600mAh, hot-swappable for continuous shift use",
+      "navigator-z1": "Hot-swappable battery for shift use",
+      "arc-3": "2000mAh, built-in (non-hot-swappable)"
+    }
+  },
+  {
+    label: "Worn with",
+    values: {
+      "navigator-520": "Helmets, safety glasses, masks, hearing protection",
+      "navigator-z1": "Tri-Band strap designed for PPE and hazardous-area gear",
+      "arc-3": "Prescription/safety glasses, hearing protection — not helmet-mounted"
+    }
+  },
+  {
+    label: "Connectivity",
+    values: {
+      "navigator-520": "Wi-Fi, Bluetooth 5.1, GPS/GNSS, optional cellular",
+      "navigator-z1": "Wi-Fi 6 and 5G-ready",
+      "arc-3": "Wi-Fi, Bluetooth 5.1"
+    }
+  },
+  {
+    label: "Best for",
+    values: {
+      "navigator-520": "Remote expert support, inspections, field maintenance",
+      "navigator-z1": "Oil & gas, hazardous areas, thermal inspection",
+      "arc-3": "Manufacturing, healthcare, warehousing & logistics"
+    }
+  }
+];
 
 export const useCases = [
   {

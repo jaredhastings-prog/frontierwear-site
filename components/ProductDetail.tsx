@@ -22,7 +22,7 @@ const ariFeatures = [
   "Fully hands-free voice control",
   "Instant access to experts and files",
   "Double retina Micro-OLED display",
-  "48MP camera with 4K video capture"
+  "50MP camera with 4K video capture"
 ];
 
 const z1CertificationLogos = [
@@ -160,6 +160,12 @@ export function ProductDetail({ product }: ProductDetailProps) {
                   View Use Cases
                 </ButtonLink>
               </div>
+              <Link
+                className="text-sm text-smoke transition hover:text-white"
+                href="/compare"
+              >
+                Not the right fit? Compare all three devices
+              </Link>
               {isNavigatorZ1 ? (
                 <div
                   aria-label="Navigator Z1 certifications"

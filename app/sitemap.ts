@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/collaborate-teams-2",
+    "/compare",
     "/request-quote",
     "/roi-calculator"
   ].map(
@@ -17,7 +18,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: updated,
       changeFrequency: "monthly" as const,
       priority:
-        route === "" ? 1 : route === "/collaborate-teams-2" ? 0.9 : 0.8
+        route === ""
+          ? 1
+          : route === "/collaborate-teams-2" || route === "/compare"
+            ? 0.9
+            : 0.8
     })
   );
 

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { ButtonLink } from "@/components/ButtonLink";
 import { LogoMarquee } from "@/components/LogoMarquee";
@@ -202,6 +203,12 @@ export default function Home() {
               <ProductCard key={product.slug} product={product} />
             ))}
           </div>
+          <p className="mt-10 text-center text-sm text-[#334155]">
+            Not sure which device fits your site?{" "}
+            <Link className="font-semibold text-blue hover:underline" href="/compare">
+              Compare all three devices
+            </Link>
+          </p>
         </div>
       </section>
 

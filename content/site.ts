@@ -27,8 +27,8 @@ export const navItems: NavItem[] = [
       { label: "Navigator 520", href: "/navigator-520" },
       { label: "Navigator Z1", href: "/navigator-z1" },
       { label: "Arc 3", href: "/arc-3" },
-      { label: "Compare Devices", href: "/compare" },
-      { label: "Collaborate Teams 2", href: "/collaborate-teams-2" }
+      { label: "Collaborate Teams 2", href: "/collaborate-teams-2" },
+      { label: "Compare Devices", href: "/compare" }
     ]
   },
   { label: "Use Cases", href: "/#use-cases" },

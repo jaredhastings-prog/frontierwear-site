@@ -217,6 +217,15 @@ export function ProductDetail({ product }: ProductDetailProps) {
                   {item}
                 </div>
               ))}
+              {isArc3 ? (
+                <Link
+                  className="flex flex-col justify-center rounded-lg border border-blue/30 bg-blue/10 p-5 text-sm text-frost/85 transition hover:border-blue/60 hover:text-white sm:col-span-2"
+                  href="/insights/peak-season-warehouse-onboarding"
+                >
+                  Read how DHL cut warehouse onboarding time by up to 70% with
+                  RealWear headsets →
+                </Link>
+              ) : null}
             </div>
           </div>
         </section>

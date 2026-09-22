@@ -45,6 +45,13 @@ export type InsightArticle = {
 
 export const insights: InsightArticle[] = [
   {
+    slug: "assisted-reality-oil-and-gas",
+    title: "Why Oil & Gas Is Going Hands-Free",
+    excerpt:
+      "Independent market research puts assisted reality HMD shipments in oil & gas on a 51% CAGR through 2027. Here's what's driving it, and where an intrinsically safe device like Navigator Z1 fits.",
+    readTime: "6 min read"
+  },
+  {
     slug: "closing-the-skills-gap",
     title: "How Wearable Computers Help Close the Industrial Skills Gap",
     excerpt:

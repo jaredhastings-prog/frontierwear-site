@@ -45,6 +45,13 @@ export type InsightArticle = {
 
 export const insights: InsightArticle[] = [
   {
+    slug: "peak-season-warehouse-onboarding",
+    title: "How Warehouses Cut New-Hire Ramp-Up Time by Up to 70%",
+    excerpt:
+      "Peak season forces a paradox: onboard a wave of temporary workers fast without wrecking accuracy or safety. Here's how guided, hands-free workflows solve it — with real results from DHL.",
+    readTime: "6 min read"
+  },
+  {
     slug: "intrinsically-safe-explained",
     title: "What Does \"Intrinsically Safe\" Actually Mean?",
     excerpt:

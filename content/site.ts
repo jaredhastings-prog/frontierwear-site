@@ -45,6 +45,13 @@ export type InsightArticle = {
 
 export const insights: InsightArticle[] = [
   {
+    slug: "closing-the-skills-gap",
+    title: "How Wearable Computers Help Close the Industrial Skills Gap",
+    excerpt:
+      "Experienced workers are retiring faster than replacements can be trained. Here's how hands-free video and voice-guided training help transfer knowledge before it walks out the door.",
+    readTime: "8 min read"
+  },
+  {
     slug: "intrinsically-safe-explained",
     title: "What Does \"Intrinsically Safe\" Actually Mean?",
     excerpt:

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { products, site } from "@/content/site";
+import { insights, products, site } from "@/content/site";
 
 export const dynamic = "force-static";
 
@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/collaborate-teams-2",
     "/compare",
+    "/insights",
     "/request-quote",
     "/roi-calculator"
   ].map(
@@ -33,5 +34,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9
   }));
 
-  return [...staticRoutes, ...productRoutes];
+  const insightRoutes = insights.map((article) => ({
+    url: `${site.url}/insights/${article.slug}`,
+    lastModified: updated,
+    changeFrequency: "monthly" as const,
+    priority: 0.7
+  }));
+
+  return [...staticRoutes, ...productRoutes, ...insightRoutes];
 }

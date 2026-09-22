@@ -27,7 +27,8 @@ export const navItems: NavItem[] = [
       { label: "Navigator 520", href: "/navigator-520" },
       { label: "Navigator Z1", href: "/navigator-z1" },
       { label: "Arc 3", href: "/arc-3" },
-      { label: "Collaborate Teams 2", href: "/collaborate-teams-2" }
+      { label: "Collaborate Teams 2", href: "/collaborate-teams-2" },
+      { label: "Compare Devices", href: "/compare" }
     ]
   },
   { label: "Use Cases", href: "/#use-cases" },
@@ -43,7 +44,7 @@ export const products = [
     summary:
       "A practical assisted reality headset for field teams that need hands-free access to experts, documents, inspections, and visual workflows.",
     longSummary:
-      "The RealWear Navigator 520 is built for mainstream connected worker programs, giving frontline teams a sharp HyperDisplay, voice control, rugged construction, and a modular 48MP camera in a PPE-friendly wearable.",
+      "The RealWear Navigator 520 is built for mainstream connected worker programs, giving frontline teams a sharp HyperDisplay, voice control, rugged construction, and a modular 50MP camera in a PPE-friendly wearable.",
     image: "/assets/navigator520-main.png",
     imageAlt: "RealWear Navigator 520 assisted reality headset",
     href: "/navigator-520",
@@ -64,16 +65,16 @@ export const products = [
       "PPE-friendly fit for industrial environments"
     ],
     specs: [
-      "48MP modular camera sensor",
-      "Hot-swappable battery for shift use",
-      "Dust-tight and water-resistant rugged design",
+      "50MP camera, 82° field of view (Sony LYT-600)",
+      "Hot-swappable battery for shift use, 270g",
+      "IP66 rated, MIL-STD-810H certified, dust-tight and water-resistant",
       "Voice recognition tested for noisy environments up to 100 dBA"
     ],
     kit: [
       "RealWear Navigator 520 device",
       "Workband 2",
       "Battery pack",
-      "USB-C cable",
+      "USB Type-A cable",
       "Quick start guide"
     ]
   },
@@ -101,22 +102,21 @@ export const products = [
     ],
     benefits: [
       "Certified for ATEX Zone 1 and IECEx environments",
-      "Included thermal camera in the Essential Kit",
-      "Hyper HD display with larger viewing area",
+      "50MP camera plus integrated FLIR thermal sensor",
+      "4K video capture for detailed inspection records",
       "Designed for all-day frontline use"
     ],
     specs: [
       "8 GB RAM and 128 GB internal storage",
-      "Qualcomm QCS6490 chipset",
-      "Wi-Fi 6 and 5G ready",
-      "IP66 rated at 383g"
+      "Qualcomm Dragonwing QCS6490 chipset",
+      "Wi-Fi 6 (802.11ax) and Bluetooth 5.1",
+      "IP66 rated, MIL-STD-810H certified, 383g"
     ],
     kit: [
       "Navigator Z1 with 12-month service and support pack",
       "Tri-Band strap",
-      "Thermal camera",
       "Protective case",
-      "i-Safe charging box",
+      "USB Type-A cable",
       "T8 screwdriver"
     ]
   },
@@ -151,7 +151,7 @@ export const products = [
     specs: [
       "1920 x 1080 Micro-OLED monocular display, 22° field of view",
       "Qualcomm Snapdragon 662 with 4 GB RAM and 64 GB storage",
-      "48MP main camera plus 8MP wide-angle lens with LED flashlight",
+      "50MP main camera plus 8MP wide-angle lens with LED flashlight",
       "IP54 rated with 1-metre drop resistance"
     ],
     kit: [
@@ -165,6 +165,96 @@ export const products = [
 ] as const;
 
 export type Product = (typeof products)[number];
+
+// Sourced from RealWear's own "Technical Comparison: Arc 3 vs Navigator 520"
+// sheet (520/Arc 3 columns) plus the specs already published on the
+// Navigator Z1 product page (Z1 column).
+export type ComparisonRow = {
+  label: string;
+  values: {
+    "navigator-520": string;
+    "navigator-z1": string;
+    "arc-3": string;
+  };
+};
+
+export const comparisonRows: ComparisonRow[] = [
+  {
+    label: "Ideal environment",
+    values: {
+      "navigator-520": "Rugged, general industrial & outdoor sites",
+      "navigator-z1": "Hazardous areas requiring intrinsic safety certification",
+      "arc-3": "Indoor industrial & clinical environments"
+    }
+  },
+  {
+    label: "Display",
+    values: {
+      "navigator-520":
+        "LCOS HD, 1280×720, 24° field of view — adjustable, usable on either eye",
+      "navigator-z1":
+        "LCOS HD, 1280×720, 24° field of view — same optics as Navigator 520",
+      "arc-3": "Micro-OLED, 1920×1080, 22° field of view — see-through, right eye"
+    }
+  },
+  {
+    label: "Weight",
+    values: {
+      "navigator-520": "270g",
+      "navigator-z1": "383g",
+      "arc-3": "179g"
+    }
+  },
+  {
+    label: "Ruggedisation",
+    values: {
+      "navigator-520": "IP66, MIL-STD-810H, 2-metre drop rating",
+      "navigator-z1": "IP66, ATEX Zone 1 & IECEx certified for hazardous areas",
+      "arc-3": "IP54, 1-metre drop rating"
+    }
+  },
+  {
+    label: "Camera",
+    values: {
+      "navigator-520":
+        "Adjustable 50MP camera, 82° FOV, up to 1080p@60fps; optional thermal accessory",
+      "navigator-z1": "50MP main camera plus integrated FLIR thermal sensor, 4K video",
+      "arc-3": "Fixed 50MP main + 8MP wide-angle dual-camera with LED flashlight"
+    }
+  },
+  {
+    label: "Battery",
+    values: {
+      "navigator-520": "2600mAh, hot-swappable for continuous shift use",
+      "navigator-z1": "2560mAh, removable",
+      "arc-3": "2000mAh, built-in (non-hot-swappable)"
+    }
+  },
+  {
+    label: "Worn with",
+    values: {
+      "navigator-520": "Helmets, safety glasses, masks, hearing protection",
+      "navigator-z1": "Tri-Band strap designed for PPE and hazardous-area gear",
+      "arc-3": "Prescription/safety glasses, hearing protection — not helmet-mounted"
+    }
+  },
+  {
+    label: "Connectivity",
+    values: {
+      "navigator-520": "Wi-Fi, Bluetooth 5.1, GPS/GNSS, optional cellular",
+      "navigator-z1": "Wi-Fi 6 (802.11ax), Bluetooth 5.1",
+      "arc-3": "Wi-Fi, Bluetooth 5.1"
+    }
+  },
+  {
+    label: "Best for",
+    values: {
+      "navigator-520": "Remote expert support, inspections, field maintenance",
+      "navigator-z1": "Oil & gas, hazardous areas, thermal inspection",
+      "arc-3": "Manufacturing, healthcare, warehousing & logistics"
+    }
+  }
+];
 
 export const useCases = [
   {

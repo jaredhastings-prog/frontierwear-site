@@ -40,7 +40,6 @@ export type InsightArticle = {
   slug: string;
   title: string;
   excerpt: string;
-  publishedDate: string;
   readTime: string;
 };
 
@@ -50,7 +49,6 @@ export const insights: InsightArticle[] = [
     title: "What Does \"Intrinsically Safe\" Actually Mean?",
     excerpt:
       "A plain-English guide to ATEX, IECEx, CSA, and NEC500 hazardous-area certifications — and why matching the right one to your site is a safety decision, not a spec-sheet checkbox.",
-    publishedDate: "September 2026",
     readTime: "7 min read"
   }
 ];

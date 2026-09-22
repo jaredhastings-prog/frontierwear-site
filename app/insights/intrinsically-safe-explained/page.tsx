@@ -121,7 +121,7 @@ export default function IntrinsicallySafeExplainedPage() {
           </Link>
 
           <p className="mt-8 text-xs font-semibold uppercase tracking-[0.3em] text-amber">
-            Hazardous-area technology · {publishedDate.slice(0, 7)} · 7 min read
+            Hazardous-area technology · 7 min read
           </p>
           <h1 className="mt-5 font-display text-4xl leading-[1.05] text-white md:text-6xl">
             {title}

@@ -36,7 +36,7 @@ export default function InsightsPage() {
               key={article.slug}
             >
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-smoke">
-                {article.publishedDate} · {article.readTime}
+                {article.readTime}
               </p>
               <h2 className="mt-3 font-display text-2xl leading-tight text-white transition group-hover:text-blue sm:text-3xl">
                 {article.title}

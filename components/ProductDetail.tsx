@@ -219,11 +219,19 @@ export function ProductDetail({ product }: ProductDetailProps) {
               ))}
               {isArc3 ? (
                 <Link
-                  className="flex flex-col justify-center rounded-lg border border-blue/30 bg-blue/10 p-5 text-sm text-frost/85 transition hover:border-blue/60 hover:text-white sm:col-span-2"
+                  className="group flex flex-col justify-center gap-2 rounded-lg border border-amber/40 bg-amber/10 p-5 text-frost/85 shadow-amber transition hover:border-amber/70 hover:bg-amber/15 hover:text-white sm:col-span-2"
                   href="/insights/peak-season-warehouse-onboarding"
                 >
-                  Read how DHL cut warehouse onboarding time by up to 70% with
-                  RealWear headsets →
+                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-amber">
+                    Case study
+                  </span>
+                  <span className="flex items-center justify-between gap-3 text-sm font-semibold text-white">
+                    Read how DHL cut warehouse onboarding time by up to 70%
+                    with RealWear headsets
+                    <span className="transition group-hover:translate-x-1">
+                      →
+                    </span>
+                  </span>
                 </Link>
               ) : null}
             </div>

@@ -204,6 +204,24 @@ export default function CollaborateTeams2Page() {
       </section>
 
       <section className="border-t border-white/10 px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue">
+            From a customer
+          </p>
+          <blockquote className="mt-8 font-display text-2xl leading-snug text-white md:text-4xl">
+            &ldquo;We have started using RealWear Collaborate. It is great
+            &hellip; Seamless for users to connect and easy to manage from a
+            user security point of view with no headset login. I agree it is
+            a game changer when just sharing video without needing to share
+            secured content.&rdquo;
+          </blockquote>
+          <p className="mt-6 text-sm font-semibold uppercase tracking-[0.2em] text-smoke">
+            &mdash; IT Manager
+          </p>
+        </div>
+      </section>
+
+      <section className="border-t border-white/10 px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
         <div className="mx-auto max-w-7xl overflow-hidden rounded-lg border border-blue/30 bg-[linear-gradient(120deg,rgba(71,112,219,0.24),rgba(255,108,47,0.08),rgba(255,255,255,0.045))] p-10 text-center shadow-[0_28px_90px_rgba(0,0,0,0.28)] md:p-16">
           <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue">
             RealWear + Microsoft Teams

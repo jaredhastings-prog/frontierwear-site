@@ -189,11 +189,8 @@ export default function CollaborateTeams2Page() {
             <ImageMedia />
           </article>
 
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue">
-              From a customer
-            </p>
-            <blockquote className="mt-8 font-display text-2xl leading-snug text-white md:text-4xl">
+          <div className="mx-auto max-w-4xl overflow-hidden rounded-lg border border-blue/30 bg-[linear-gradient(120deg,rgba(71,112,219,0.24),rgba(255,108,47,0.08),rgba(255,255,255,0.045))] p-10 text-center shadow-[0_28px_90px_rgba(0,0,0,0.28)] md:p-16">
+            <blockquote className="font-display text-2xl leading-snug text-white md:text-4xl">
               &ldquo;We have started using RealWear Collaborate. It is great
               &hellip; Seamless for users to connect and easy to manage from a
               user security point of view with no headset login. I agree it

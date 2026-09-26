@@ -174,50 +174,54 @@ export default function CollaborateTeams2Page() {
         </div>
 
         <div className="mt-20 grid gap-14">
-          {valueRows.map((row, index) => (
-            <article
-              className="grid items-center gap-10 lg:grid-cols-2"
-              key={row.title}
-            >
-              <div className={index % 2 === 1 ? "lg:order-2" : undefined}>
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-blue">
-                  {row.eyebrow}
-                </p>
-                <h3 className="mt-4 font-display text-3xl leading-tight text-white md:text-5xl">
-                  {row.title}
-                </h3>
-                <p className="mt-5 text-base leading-8 text-smoke md:text-lg">
-                  {row.copy}
-                </p>
-              </div>
-              {row.eyebrow === "Field connectivity" ? (
-                <ImageMedia />
-              ) : (
-                <YouTubeMedia
-                  title="Collaborate Teams 2 operational impact video"
-                  videoId="Pqf3BYO0ELg"
-                />
-              )}
-            </article>
-          ))}
-        </div>
-      </section>
+          <article className="grid items-center gap-10 lg:grid-cols-2">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-blue">
+                {valueRows[0].eyebrow}
+              </p>
+              <h3 className="mt-4 font-display text-3xl leading-tight text-white md:text-5xl">
+                {valueRows[0].title}
+              </h3>
+              <p className="mt-5 text-base leading-8 text-smoke md:text-lg">
+                {valueRows[0].copy}
+              </p>
+            </div>
+            <ImageMedia />
+          </article>
 
-      <section className="border-t border-white/10 px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
-        <div className="mx-auto max-w-4xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue">
-            From a customer
-          </p>
-          <blockquote className="mt-8 font-display text-2xl leading-snug text-white md:text-4xl">
-            &ldquo;We have started using RealWear Collaborate. It is great
-            &hellip; Seamless for users to connect and easy to manage from a
-            user security point of view with no headset login. I agree it is
-            a game changer when just sharing video without needing to share
-            secured content.&rdquo;
-          </blockquote>
-          <p className="mt-6 text-sm font-semibold uppercase tracking-[0.2em] text-smoke">
-            &mdash; IT Manager
-          </p>
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue">
+              From a customer
+            </p>
+            <blockquote className="mt-8 font-display text-2xl leading-snug text-white md:text-4xl">
+              &ldquo;We have started using RealWear Collaborate. It is great
+              &hellip; Seamless for users to connect and easy to manage from a
+              user security point of view with no headset login. I agree it
+              is a game changer when just sharing video without needing to
+              share secured content.&rdquo;
+            </blockquote>
+            <p className="mt-6 text-sm font-semibold uppercase tracking-[0.2em] text-smoke">
+              &mdash; IT Manager
+            </p>
+          </div>
+
+          <article className="grid items-center gap-10 lg:grid-cols-2">
+            <div className="lg:order-2">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-blue">
+                {valueRows[1].eyebrow}
+              </p>
+              <h3 className="mt-4 font-display text-3xl leading-tight text-white md:text-5xl">
+                {valueRows[1].title}
+              </h3>
+              <p className="mt-5 text-base leading-8 text-smoke md:text-lg">
+                {valueRows[1].copy}
+              </p>
+            </div>
+            <YouTubeMedia
+              title="Collaborate Teams 2 operational impact video"
+              videoId="Pqf3BYO0ELg"
+            />
+          </article>
         </div>
       </section>
 

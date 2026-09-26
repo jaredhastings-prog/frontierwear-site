@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import { ButtonLink } from "@/components/ButtonLink";
@@ -112,6 +113,35 @@ export default function WearableThermalCameraWildfireHotspotsPage() {
             Frontier Wear supplied the Navigator 520 used in the trial.
           </p>
 
+          <div className="mt-10 grid gap-4 sm:grid-cols-2">
+            <figure className="overflow-hidden rounded-lg border border-white/10">
+              <Image
+                alt="Naked-eye view of vegetation after a fire, showing no visible sign of remaining heat"
+                className="w-full"
+                height={558}
+                sizes="(min-width: 640px) 50vw, 100vw"
+                src="/assets/insights/wildfire-naked-eye.jpg"
+                width={478}
+              />
+              <figcaption className="border-t border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-smoke/70">
+                Naked eye — nothing visible
+              </figcaption>
+            </figure>
+            <figure className="overflow-hidden rounded-lg border border-white/10">
+              <Image
+                alt="Thermal camera view of the same vegetation, showing a hidden hot spot glowing at over 400 degrees Celsius"
+                className="w-full"
+                height={556}
+                sizes="(min-width: 640px) 50vw, 100vw"
+                src="/assets/insights/wildfire-thermal-hotspot.jpg"
+                width={478}
+              />
+              <figcaption className="border-t border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-smoke/70">
+                Same ground, Navigator 520 thermal camera — hot spot at 400&deg;C+
+              </figcaption>
+            </figure>
+          </div>
+
           <div className="mt-12 space-y-4">
             <h2 className="font-display text-2xl text-white md:text-3xl">
               How crews find hot spots today
@@ -135,6 +165,19 @@ export default function WearableThermalCameraWildfireHotspotsPage() {
                 </div>
               ))}
             </div>
+            <figure className="mx-auto max-w-sm overflow-hidden rounded-lg border border-white/10">
+              <Image
+                alt="A firefighter in full PPE feeling for heat in burnt ground with a bare hand"
+                className="w-full"
+                height={441}
+                sizes="384px"
+                src="/assets/insights/wildfire-feeling-for-heat.jpg"
+                width={458}
+              />
+              <figcaption className="border-t border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-smoke/70">
+                Touch is still the fallback — a glove off, feeling for heat by hand
+              </figcaption>
+            </figure>
             <p className="text-base leading-8 text-frost/85">
               Handheld thermal cameras help, and are commonly used on
               vegetation fires — but one hand is permanently occupied holding
@@ -168,6 +211,19 @@ export default function WearableThermalCameraWildfireHotspotsPage() {
               setup adds negligible weight to a firefighter&apos;s existing
               kit.
             </p>
+            <figure className="mx-auto max-w-sm overflow-hidden rounded-lg border border-white/10">
+              <Image
+                alt="RealWear Navigator 520 mounted on a New Zealand wildfire helmet using custom-fabricated clips"
+                className="w-full"
+                height={595}
+                sizes="384px"
+                src="/assets/insights/wildfire-helmet-mounted.jpg"
+                width={456}
+              />
+              <figcaption className="border-t border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-smoke/70">
+                Navigator 520 on a Pacific Helmets BR9, via Frontier Wear&apos;s custom clips
+              </figcaption>
+            </figure>
           </div>
 
           <div className="mt-12 space-y-4">
@@ -204,6 +260,19 @@ export default function WearableThermalCameraWildfireHotspotsPage() {
               material through vegetation that would otherwise have gone
               unnoticed.
             </p>
+            <figure className="overflow-hidden rounded-lg border border-white/10">
+              <Image
+                alt="Thermal camera view of firefighters at a real wildfire in Canterbury, showing multiple hot spots glowing in the surrounding ground"
+                className="w-full"
+                height={421}
+                sizes="(min-width: 768px) 672px, 100vw"
+                src="/assets/insights/wildfire-hotspot-canterbury.jpg"
+                width={964}
+              />
+              <figcaption className="border-t border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-smoke/70">
+                Real fireground, Canterbury, December 2024 — hot spots visible at 326&deg;C+ through smoke and vegetation
+              </figcaption>
+            </figure>
           </div>
 
           <div className="mt-12 space-y-4">
@@ -253,7 +322,8 @@ export default function WearableThermalCameraWildfireHotspotsPage() {
             Institute, August 2025. Funded through the Scion Endeavour
             research programme &ldquo;Extreme Wildfire&rdquo; (Ministry of
             Business, Innovation and Employment), with thanks to the
-            Canterbury High Country Fire Team.
+            Canterbury High Country Fire Team. Photos in this article are
+            reproduced from the same publicly available report.
           </p>
         </article>
       </main>

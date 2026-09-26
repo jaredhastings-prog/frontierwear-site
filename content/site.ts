@@ -50,6 +50,17 @@ export type InsightArticle = {
 
 export const insights: InsightArticle[] = [
   {
+    slug: "pulse-data-centre-visual-smart-hands",
+    title: "How Pulse Data Centre Revolutionised Service Delivery with Visual Smart Hands",
+    excerpt:
+      "Pulse Data Centre built a 24/7 \"Visual Smart Hands\" service on RealWear, giving customers live, hands-free eyes-on access to their own infrastructure without a site visit.",
+    readTime: "4 min read",
+    image: {
+      src: "/assets/insights/pulse-data-centre-visual-smart-hands.jpg",
+      alt: "A Pulse Data Centre technician wearing a RealWear device, viewed through server rack framing"
+    }
+  },
+  {
     slug: "wearable-thermal-camera-wildfire-hotspots",
     title: "A Hands-Free Thermal Camera for Wildfire Hot-Spot Detection",
     excerpt:

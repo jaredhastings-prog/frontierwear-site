@@ -5,6 +5,7 @@ import { ButtonLink } from "@/components/ButtonLink";
 import { LogoMarquee } from "@/components/LogoMarquee";
 import { ProductCard } from "@/components/ProductCard";
 import { SectionHeading } from "@/components/SectionHeading";
+import { YouTubeEmbed } from "@/components/YouTubeEmbed";
 import {
   benefitStrip,
   customerLogos,
@@ -209,6 +210,33 @@ export default function Home() {
               Compare all three devices
             </Link>
           </p>
+        </div>
+      </section>
+
+      <section className="border-b border-white/10 px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[0.92fr_1.08fr]">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue">
+              Customer story
+            </p>
+            <h2 className="mt-5 max-w-3xl font-display text-4xl leading-tight text-white md:text-6xl">
+              Pulse Data Centre&apos;s 24/7 Visual Smart Hands.
+            </h2>
+            <p className="mt-6 max-w-2xl text-base leading-8 text-frost/82 md:text-lg">
+              Pulse Data Centre built a live, hands-free service on RealWear
+              so customers get eyes-on access to their own infrastructure
+              any time &mdash; no site visit required.
+            </p>
+            <div className="mt-8">
+              <Link
+                className="text-sm font-semibold text-blue transition hover:text-white"
+                href="/insights/pulse-data-centre-visual-smart-hands"
+              >
+                Read the full story →
+              </Link>
+            </div>
+          </div>
+          <YouTubeEmbed title="Pulse Data Centre — Visual Smart Hands" videoId="s9quqhPqhGI" />
         </div>
       </section>
 

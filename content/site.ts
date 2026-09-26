@@ -44,6 +44,7 @@ export type InsightArticle = {
   image: {
     src: string;
     alt: string;
+    position?: string;
   };
 };
 
@@ -89,7 +90,8 @@ export const insights: InsightArticle[] = [
     readTime: "8 min read",
     image: {
       src: "/assets/training-knowledge.png",
-      alt: "An experienced worker wearing a RealWear device while training on machinery"
+      alt: "An experienced worker wearing a RealWear device while training on machinery",
+      position: "78% 68%"
     }
   },
   {

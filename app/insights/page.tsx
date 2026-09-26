@@ -43,6 +43,11 @@ export default function InsightsPage() {
                   fill
                   sizes="(min-width: 640px) 256px, 100vw"
                   src={article.image.src}
+                  style={
+                    article.image.position
+                      ? { objectPosition: article.image.position }
+                      : undefined
+                  }
                 />
               </div>
               <div className="p-6 sm:p-8">

@@ -41,36 +41,67 @@ export type InsightArticle = {
   title: string;
   excerpt: string;
   readTime: string;
+  image: {
+    src: string;
+    alt: string;
+  };
 };
 
 export const insights: InsightArticle[] = [
+  {
+    slug: "wearable-thermal-camera-wildfire-hotspots",
+    title: "A Hands-Free Thermal Camera for Wildfire Hot-Spot Detection",
+    excerpt:
+      "Scion's wildfire researchers trialled the Navigator 520's thermal camera on the fireground in New Zealand — freeing both hands for a hose or hand tool while still seeing exactly where the heat is.",
+    readTime: "6 min read",
+    image: {
+      src: "/assets/insights/wildfire-hotspot-canterbury.jpg",
+      alt: "Thermal camera view of a real wildfire hot spot in Canterbury, New Zealand"
+    }
+  },
   {
     slug: "peak-season-warehouse-onboarding",
     title: "How Warehouses Cut New-Hire Ramp-Up Time by Up to 70%",
     excerpt:
       "Peak season forces a paradox: onboard a wave of temporary workers fast without wrecking accuracy or safety. Here's how guided, hands-free workflows solve it — with real results from DHL.",
-    readTime: "6 min read"
+    readTime: "6 min read",
+    image: {
+      src: "/assets/arc-3-in-situ-bg.jpg",
+      alt: "Worker wearing the RealWear Arc 3 in an industrial facility"
+    }
   },
   {
     slug: "assisted-reality-oil-and-gas",
     title: "Why Oil & Gas Is Going Hands-Free",
     excerpt:
       "Independent market research puts assisted reality HMD shipments in oil & gas on a 51% CAGR through 2027. Here's what's driving it, and where an intrinsically safe device like Navigator Z1 fits.",
-    readTime: "6 min read"
+    readTime: "6 min read",
+    image: {
+      src: "/assets/navigator-z1-industrial-bg.png",
+      alt: "RealWear Navigator Z1 against an oil and gas refinery background"
+    }
   },
   {
     slug: "closing-the-skills-gap",
     title: "How Wearable Computers Help Close the Industrial Skills Gap",
     excerpt:
       "Experienced workers are retiring faster than replacements can be trained. Here's how hands-free video and voice-guided training help transfer knowledge before it walks out the door.",
-    readTime: "8 min read"
+    readTime: "8 min read",
+    image: {
+      src: "/assets/training-knowledge.png",
+      alt: "An experienced worker wearing a RealWear device while training on machinery"
+    }
   },
   {
     slug: "intrinsically-safe-explained",
     title: "What Does \"Intrinsically Safe\" Actually Mean?",
     excerpt:
       "A plain-English guide to ATEX, IECEx, CSA, and NEC500 hazardous-area certifications — and why matching the right one to your site is a safety decision, not a spec-sheet checkbox.",
-    readTime: "7 min read"
+    readTime: "7 min read",
+    image: {
+      src: "/assets/navigator-z1-hardhat.png",
+      alt: "RealWear Navigator Z1 mounted on a hard hat"
+    }
   }
 ];
 

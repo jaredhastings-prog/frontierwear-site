@@ -45,6 +45,13 @@ export type InsightArticle = {
 
 export const insights: InsightArticle[] = [
   {
+    slug: "wearable-thermal-camera-wildfire-hotspots",
+    title: "A Hands-Free Thermal Camera for Wildfire Hot-Spot Detection",
+    excerpt:
+      "Scion's wildfire researchers trialled the Navigator 520's thermal camera on the fireground in New Zealand — freeing both hands for a hose or hand tool while still seeing exactly where the heat is.",
+    readTime: "6 min read"
+  },
+  {
     slug: "peak-season-warehouse-onboarding",
     title: "How Warehouses Cut New-Hire Ramp-Up Time by Up to 70%",
     excerpt:

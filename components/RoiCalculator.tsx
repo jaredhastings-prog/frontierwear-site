@@ -239,7 +239,7 @@ function calculate(
 
   // 4. Productivity — scoped to info-delay hours only
   const infoHoursRecovered =
-    inputs.infoHrs > 0
+    (pains.has("training") || pains.has("knowledge")) && inputs.infoHrs > 0
       ? inputs.workers * inputs.infoHrs * inputs.weeks * bench("infoRecovery")
       : 0;
   const prodSaving = infoHoursRecovered * inputs.rate;
@@ -508,6 +508,18 @@ export function RoiCalculator() {
         next.delete(id);
       } else {
         next.add(id);
+      }
+      return next;
+    });
+
+  const toggleTrainingIncluded = () =>
+    setPains((previous) => {
+      const next = new Set(previous);
+      if (next.has("training") || next.has("knowledge")) {
+        next.delete("training");
+        next.delete("knowledge");
+      } else {
+        next.add("training");
       }
       return next;
     });
@@ -942,7 +954,7 @@ export function RoiCalculator() {
           <StepPanel
             included={pains.has("training") || pains.has("knowledge")}
             lead="New starters, and time lost chasing information."
-            onToggleIncluded={() => togglePain("training")}
+            onToggleIncluded={toggleTrainingIncluded}
             step={6}
             title="Training & everyday time"
           >

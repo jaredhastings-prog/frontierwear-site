@@ -239,7 +239,7 @@ function calculate(
 
   // 4. Productivity — scoped to info-delay hours only
   const infoHoursRecovered =
-    inputs.infoHrs > 0
+    (pains.has("training") || pains.has("knowledge")) && inputs.infoHrs > 0
       ? inputs.workers * inputs.infoHrs * inputs.weeks * bench("infoRecovery")
       : 0;
   const prodSaving = infoHoursRecovered * inputs.rate;
@@ -334,12 +334,12 @@ type TierPickerProps = {
   label: string;
   display: string;
   hint?: string;
-  tiers: Array<{ label: string; value: number }>;
-  value: number;
-  onChange: (value: number) => void;
+  tiers: Array<{ id: string; label: string; value: number }>;
+  selectedId: string | null;
+  onSelect: (id: string, value: number) => void;
 };
 
-function TierPicker({ label, display, hint, tiers, value, onChange }: TierPickerProps) {
+function TierPicker({ label, display, hint, tiers, selectedId, onSelect }: TierPickerProps) {
   return (
     <div>
       <div className="flex items-center justify-between gap-3">
@@ -354,12 +354,12 @@ function TierPicker({ label, display, hint, tiers, value, onChange }: TierPicker
           <button
             className={cn(
               "rounded-full border px-3.5 py-2 text-xs font-semibold transition",
-              value === tier.value
+              selectedId === tier.id
                 ? "border-blue/50 bg-blue/20 text-white"
                 : "border-white/12 bg-white/[0.04] text-smoke hover:border-blue/40 hover:text-frost"
             )}
-            key={tier.label}
-            onClick={() => onChange(tier.value)}
+            key={tier.id}
+            onClick={() => onSelect(tier.id, tier.value)}
             type="button"
           >
             {tier.label}
@@ -453,6 +453,8 @@ export function RoiCalculator() {
   const [confidence, setConfidence] = useState<Confidence | null>(null);
   const [redeploy, setRedeploy] = useState<RedeployId | null>(null);
   const [includeUpside, setIncludeUpside] = useState(false);
+  const [visitCostTierId, setVisitCostTierId] = useState<string | null>(null);
+  const [dtCostTierId, setDtCostTierId] = useState<string | null>(null);
 
   const [gateOpen, setGateOpen] = useState(false);
   const [leadCaptured, setLeadCaptured] = useState(false);
@@ -474,9 +476,29 @@ export function RoiCalculator() {
   const setInput = (key: keyof Inputs) => (value: number) =>
     setInputs((previous) => ({ ...previous, [key]: value }));
 
+  const setVisitCost = (value: number) => {
+    setVisitCostTierId(null);
+    setInput("visitCost")(value);
+  };
+  const selectVisitCostTier = (id: string, value: number) => {
+    setVisitCostTierId(id);
+    setInput("visitCost")(value);
+  };
+
+  const setDtCost = (value: number) => {
+    setDtCostTierId(null);
+    setInput("dtCost")(value);
+  };
+  const selectDtCostTier = (id: string, value: number) => {
+    setDtCostTierId(id);
+    setInput("dtCost")(value);
+  };
+
   const selectIndustry = (id: IndustryId) => {
     setIndustry(id);
     setInputs(INDUSTRY_PRESETS[id]);
+    setVisitCostTierId(null);
+    setDtCostTierId(null);
   };
 
   const togglePain = (id: PainId) =>
@@ -486,6 +508,18 @@ export function RoiCalculator() {
         next.delete(id);
       } else {
         next.add(id);
+      }
+      return next;
+    });
+
+  const toggleTrainingIncluded = () =>
+    setPains((previous) => {
+      const next = new Set(previous);
+      if (next.has("training") || next.has("knowledge")) {
+        next.delete("training");
+        next.delete("knowledge");
+      } else {
+        next.add("training");
       }
       return next;
     });
@@ -805,17 +839,18 @@ export function RoiCalculator() {
               display={`$${inputs.visitCost.toLocaleString("en-AU")}`}
               hint="Flights, accommodation, and lost time."
               label="What does one visit cost, all up?"
-              onChange={setInput("visitCost")}
+              onSelect={selectVisitCostTier}
+              selectedId={visitCostTierId}
               tiers={[
-                { label: "Local — ~$800", value: 800 },
-                { label: "Interstate — ~$2.5K", value: 2500 },
-                { label: "Fly-in / remote — ~$6K", value: 6000 },
+                { id: "local", label: "Local — ~$800", value: 800 },
+                { id: "interstate", label: "Interstate — ~$2.5K", value: 2500 },
+                { id: "flyin", label: "Fly-in / remote — ~$6K", value: 6000 },
                 {
+                  id: "notsure",
                   label: "Not sure — use the typical figure",
                   value: industryAverages.visitCost
                 }
               ]}
-              value={inputs.visitCost}
             />
             <FineTune>
               <SliderRow
@@ -825,7 +860,7 @@ export function RoiCalculator() {
                 maxLabel="$15K"
                 min={500}
                 minLabel="$500"
-                onChange={setInput("visitCost")}
+                onChange={setVisitCost}
                 step={250}
                 value={inputs.visitCost}
               />
@@ -876,17 +911,18 @@ export function RoiCalculator() {
               display={`$${inputs.dtCost.toLocaleString("en-AU")}/hr`}
               hint="Lost production, idle labour, penalties."
               label="What does an hour of downtime cost you?"
-              onChange={setInput("dtCost")}
+              onSelect={selectDtCostTier}
+              selectedId={dtCostTierId}
               tiers={[
-                { label: "Minor — ~$1K/hr", value: 1000 },
-                { label: "Painful — ~$5K/hr", value: 5000 },
-                { label: "Severe — ~$25K/hr", value: 25000 },
+                { id: "minor", label: "Minor — ~$1K/hr", value: 1000 },
+                { id: "painful", label: "Painful — ~$5K/hr", value: 5000 },
+                { id: "severe", label: "Severe — ~$25K/hr", value: 25000 },
                 {
+                  id: "notsure",
                   label: "Not sure — use the typical figure",
                   value: industryAverages.dtCost
                 }
               ]}
-              value={inputs.dtCost}
             />
             <FineTune>
               <SliderRow
@@ -896,7 +932,7 @@ export function RoiCalculator() {
                 maxLabel="$100K"
                 min={500}
                 minLabel="$500"
-                onChange={setInput("dtCost")}
+                onChange={setDtCost}
                 step={500}
                 value={inputs.dtCost}
               />
@@ -918,7 +954,7 @@ export function RoiCalculator() {
           <StepPanel
             included={pains.has("training") || pains.has("knowledge")}
             lead="New starters, and time lost chasing information."
-            onToggleIncluded={() => togglePain("training")}
+            onToggleIncluded={toggleTrainingIncluded}
             step={6}
             title="Training & everyday time"
           >
